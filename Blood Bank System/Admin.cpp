@@ -1,7 +1,11 @@
+#include "User.h"
 #include"Admin.h"
 #include<iostream>
 #include<string>
 #include"Donor.h"
+#include"Recipient.h"
+
+
 using namespace std;
 
 Admin::Admin()
@@ -10,12 +14,9 @@ Admin::Admin()
 }
 Admin::Admin(string name, int age, char gender, string email, string password)
 {
-	Name = name;
-	Age = age;
-	Gender = gender;
-	Email = email;
-	Password = password;
+	
 	ID = Admin_count;
+	//User(ID, name, age, gender, email, password);
 	Admin_count++;
 }
 
