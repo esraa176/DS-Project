@@ -1,5 +1,3 @@
-
-
 #include "Recipient.h"
 #include <string>
 #include <iostream>
@@ -30,7 +28,7 @@ void Recipient::Recipient_page(int userIndex)
 
 
 }
-void Recipient::Update_Data(int user_indx)
+void Recipient::Update_Data(int user_indx) //mai
 {
 	char answer;
 	int choice;
@@ -63,7 +61,7 @@ void Recipient::Update_Data(int user_indx)
 
 	}
 }
-void Recipient::Recipient_Registeration_Page() {
+void Recipient::Recipient_Registeration_Page() { //mai
 	int Age;
 	string Name, Email, Password, Hospital, DoctorofTheCase;
 	char Gender;
@@ -86,3 +84,4 @@ void Recipient::Recipient_Registeration_Page() {
 	cin >> DoctorofTheCase;
 	recipientsList.push_back(Recipient(Name, Age, Gender, Email, Password, Blood_type, Hospital, DoctorofTheCase));
 }
+
