@@ -1,14 +1,15 @@
 #pragma once
 #include "Donor.h"
+#include<vector>
 #include <string>
+#include"User.h"
 using namespace std;
 
-class Admin
+vector <Admin> adminsList;
+class Admin :public User
 {
 public:
-	int ID, Age;
-	string Name, Email, Password;
-	char Gender;
+	
 	int Admin_count = 0;
 
 public:
