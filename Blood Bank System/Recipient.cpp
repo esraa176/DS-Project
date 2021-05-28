@@ -1,7 +1,10 @@
-#include "Recipient.h"
-#include <string>
-#include <iostream>
-#include <vector>
+#include "User.h"
+#include"Admin.h"
+#include<iostream>
+#include<string>
+#include"Donor.h"
+#include"Recipient.h"
+
 using namespace std;
 
 Recipient::Recipient()
@@ -11,11 +14,7 @@ Recipient::Recipient()
 Recipient::Recipient(string name, int age, char gender, string mail, string pass, string blood_type, string hospital, string doctor) {
 	ID = Reciepient_count;
 	Reciepient_count++;
-	Name = name;
-	Email = mail;
-	Password = pass;
-	Age = age;
-	Gender = gender;
+	//User(ID, name, age, gender, mail, pass);
 	Blood_type = blood_type;
 	Hospital = hospital;
 	DoctorofTheCase = doctor;
@@ -24,7 +23,7 @@ Recipient::Recipient(string name, int age, char gender, string mail, string pass
 
 void Recipient::Recipient_page(int userIndex)
 {
-	
+
 
 
 
