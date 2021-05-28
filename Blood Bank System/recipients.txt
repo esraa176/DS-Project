@@ -1,0 +1,5 @@
+0 Joey 15 M joey@gmail.com pizza A Downtown Dr.Janice
+1 Monica 35 F monica@gmail.com monica AB Stanford Dr.Richard
+2 Rachel 29 F rachel@gmail.com rachel O UCSF Dr.Mike
+3 Chandler 40 M chandler@gmail.com chanchan B UCLA Dr.Heckles
+4 Phoebe 71 F phoebe@gmail.com pheebs A Cedars_Sinai Dr.Ross

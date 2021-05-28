@@ -1,0 +1,5 @@
+0 John 31 M john@gmail.com john A Diabetes 1 1 2020
+1 Sara 15 F sara@gmail.com sara B None 0 0 0
+2 Emmy 29 F emmy@gmail.com emmy 16706 Cancer 5 3 2017
+3 Tom 40 M tom@gmail.com tom O Hepatitis 17 9 2019
+4 Sam 71 M sam@gmail.com sam O ADHD_Disorder 10 12 2010
