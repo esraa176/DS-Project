@@ -1,33 +1,33 @@
-
-#include"Admin.h"
+#include "Donor.h"
 
 
 using namespace std;
 
-Admin::Admin()
+
+Donor::Donor()
 {
 
 }
-Admin::Admin(string name, int age, char gender, string email, string password)
+Donor::Donor(string name, int age, char gender, string mail, string pass,string blood_type, string disease, Date latest_donation_date)
+{
+	ID = Donor_count;
+	//User( ID,  name,  age,  gender,  mail,  pass);
+	Donor_count++;
+	Blood_type = blood_type;
+	Disease = disease;
+	Latest_Donation_Date = latest_donation_date;
+}
+void Donor::Donor_page(int userIndex)
+{
+
+
+}
+void Donor::Donation_Request(int indx)
 {
 	
-	ID = Admin_count;
-	//User(ID, name, age, gender, email, password);
-	Admin_count++;
-}
-
-void Admin::Admin_page(int userIndex)
-{
-	
 
 }
-void Admin::validateRequests()
+void Donor::Update_Data(int New_Age)
 {
 
 }
-
-void Admin::addDonors()
-{
-
-}
-
