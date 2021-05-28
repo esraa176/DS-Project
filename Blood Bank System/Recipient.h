@@ -1,13 +1,17 @@
-#pragma once
+
 #include <string>
+#include<vector>
+#include"User.h"
 using namespace std;
 
-class Recipient
+vector <Recipient> recipientsList;
+
+class Recipient : public  User
 {
 public:
-	int ID, Age;
-	string Name, Email, Password, Hospital, DoctorofTheCase;
-	char Gender;
+	
+	string Hospital, DoctorofTheCase;
+	
 	string Blood_type;  //A, B, O, AB
 	int Reciepient_count = 0;
 
