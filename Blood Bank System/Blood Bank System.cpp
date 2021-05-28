@@ -1,25 +1,24 @@
-﻿#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
+#include<iostream>
 //#include "ArrList.cpp"
 //#include "QueueArr.cpp"
 #include "Admin.h"
 #include "Donor.h"
 #include "Recipient.h"
+#include"User.h"
 
 using namespace std;
 
-vector <Admin> adminsList;
-vector <Recipient> recipientsList;
-vector <Donor> donorsList;
 
-struct Blood
+
+struct BloodType
 {
 	int quantity;
 	Date received;
 	Date expiry;
-};
+}A, B, O, AB;
 
 void Login_Page();
 void Registeration_Page();
@@ -72,7 +71,7 @@ void Intialize_Vectors()
 
 	fstream recipientsFile("recipients.txt", ios::in | ios::out | ios::app);
 	Recipient r;
-	while (recipientsFile >> r.ID >> r.Name >> r.Age >> r.Gender >> r.Email >> r.Password>> r.Blood_type>> r.Hospital >> r.DoctorofTheCase)
+	while (recipientsFile >> r.ID >> r.Name >> r.Age >> r.Gender >> r.Email >> r.Password >> r.Blood_type >> r.Hospital >> r.DoctorofTheCase)
 	{
 
 		recipientsList.push_back(r);
