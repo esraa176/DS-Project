@@ -1,9 +1,5 @@
-#include "User.h"
+
 #include"Admin.h"
-#include<iostream>
-#include<string>
-#include"Donor.h"
-#include"Recipient.h"
 
 
 using namespace std;
