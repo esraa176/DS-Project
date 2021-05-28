@@ -1,9 +1,7 @@
-#include "User.h"
-#include"Admin.h"
-#include<iostream>
-#include<string>
-#include"Donor.h"
+
+
 #include"Recipient.h"
+
 
 using namespace std;
 
@@ -25,10 +23,10 @@ void Recipient::Recipient_page(int userIndex)
 {
 
 
-
+	
 
 }
-void Recipient::Update_Data(int ID)
+void Recipient::Update_Data(int userIndex)
 {
 	char answer;
 	int choice;
@@ -56,4 +54,17 @@ void Recipient::Update_Data(int ID)
 		}
 
 	}
+}
+
+void Recipient::Delete_Account()
+{
+
+}
+void Recipient:: Search_for_Blood()
+{
+
+}
+void Recipient::Request_Blood()
+{
+
 }
