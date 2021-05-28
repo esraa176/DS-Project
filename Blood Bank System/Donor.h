@@ -1,4 +1,3 @@
-#pragma once
 #include <string>
 #include"User.h"
 #include<vector>
