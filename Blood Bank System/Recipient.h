@@ -1,17 +1,16 @@
-
+#pragma once
 #include <string>
-#include<vector>
-#include"User.h"
-using namespace std;
 
+using namespace std;
 vector <Recipient> recipientsList;
 
-class Recipient : public  User
+class Recipient
 {
 public:
-	
-	string Hospital, DoctorofTheCase;
-	
+
+	int ID, Age;
+	string Name, Email, Password, Hospital, DoctorofTheCase;
+	char Gender;
 	string Blood_type;  //A, B, O, AB
 	int Reciepient_count = 0;
 
@@ -23,4 +22,6 @@ public:
 	void Delete_Account();
 	void Search_for_Blood();
 	void Request_Blood();
+	void display_all_blood_data();
+	void Recipient_Registeration_Page();
 };
