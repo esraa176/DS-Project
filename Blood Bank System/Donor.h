@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <ctime>
 using namespace std;
 
 struct Date
@@ -12,7 +13,7 @@ class Donor
 {
 public:
 	string Name, Email, Password, Blood_type;
-	bool Disease; //leh bool????
+	bool isDisease,Other_Disease; //leh bool????
 	int ID, Age;
 	int Donor_count = 0;
 	char Gender;
@@ -20,7 +21,7 @@ public:
 
 public:
 	Donor();
-	Donor(string, int, char, string, string, string, bool, Date);
+	Donor(string, int, char, string, string, string, bool,bool, Date);
 	void Donation_Request(int, vector<Donor>&);
 	void Update_Data(int, vector<Donor>&);
 	void Delete_Account(int, vector<Donor>&);
