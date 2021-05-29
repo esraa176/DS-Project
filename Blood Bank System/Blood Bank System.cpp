@@ -25,8 +25,9 @@ struct Blood
 	int quantity;
 	Date received;
 	Date expiry;
-};
+}A,B,AB,O;
 
+void welcome_page();
 void Login_Page();
 void Registeration_Page();
 void Intialize_Vectors();
@@ -36,7 +37,17 @@ int main()
 {
 	//First thing in the program is to read all previous data from the files into Array Lists.
 	Intialize_Vectors();
+	 
+	welcome_page();
 	
+
+	//Last thing in the program is to update all the files with the new data from the Array Lists.
+	Update_Files();
+
+	return 0;
+}
+
+void welcome_page() {
 	while (true)
 	{
 		cout << "\t\t\t\tWelcome to Blood Bank Management System\t\t\t\t\n";
@@ -60,11 +71,6 @@ int main()
 			cout << "Invalid choice, Please try again." << endl;
 		}
 	}
-
-	//Last thing in the program is to update all the files with the new data from the Array Lists.
-	Update_Files();
-
-	return 0;
 }
 
 void Intialize_Vectors()
@@ -115,7 +121,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'A';
-				adminsList[i].Admin_page(i, adminsList);
+				adminsList[i].Admin_page(i, adminsList, donorsList, recipientsList);
 				isFound = true;
 				break;
 			}
@@ -127,6 +133,7 @@ void Login_Page()
 				IndexofUser = i;
 				user_type = 'R';
 				recipientsList[i].Recipient_page(i, recipientsList);
+				welcome_page();
 				isFound = true;
 				break;
 			}
@@ -162,22 +169,24 @@ void Registeration_Page()
 	cin >> User_choice;
 	while (true) {
 		if (User_choice == 1)
-		{  
+		{
 			Donor reg;
-			reg.Donor_Registeration(donorsList,Donor_Requests);
+			reg.Donor_Registeration(donorsList, Donor_Requests);
 			break;
 		}
 		else if (User_choice == 2)
 		{
 			//recipient account creation
-			//Recipient reg;
-			//reg.Recipient_Registeration_Page(recipientsList);
+			Recipient reg;
+			reg.Recipient_Registeration_Page(recipientsList);
+			welcome_page();
+
 			break;
 		}
 		else if (User_choice == 3)
 		{
 			Admin reg;
-			reg.Admin_Register(adminsList);
+			reg.Admin_Register(adminsList, donorsList, recipientsList);
 			break;
 		}
 		else
