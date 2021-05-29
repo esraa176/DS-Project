@@ -5,6 +5,7 @@
 #include <iostream>
 using namespace std;
 
+
 Donor::Donor()
 {
 
@@ -22,23 +23,24 @@ Donor::Donor(string name, int age, char gender, string mail, string password, st
 	Disease = disease;
 	Latest_Donation_Date = latest_donation_date;
 }
-void Donor::Donor_page(int userIndex)
+void Donor::Donor_page(int userIndex, vector <Donor>& donorsList)
 {
 
 
 }
-void Donor::Donation_Request(int indx)
+void Donor::Donation_Request(int indx, vector <Donor>& donorsList)
 {
-	//queue<int> q;
-	
+	queue<int> q;
+	//q.enqueue(v[indx].Donor_ID);
 
 }
-void Donor::Update_Data(int New_Age)
+void Donor::Update_Data(int New_Age, vector <Donor>& donorsList)
 {
 
 }
-void Donor_Registeration() {
-	string name, email, password,blood_type;
+void Donor::Donor_Registeration(vector <Donor>& donorsList)
+{
+	string name, email, password, blood_type;
 	int age;
 	bool isDisease = false, Other_Disease = false;
 	char gender, disease;
@@ -58,10 +60,16 @@ void Donor_Registeration() {
 	cin >> disease;
 	if (disease == 'y' || disease == 'Y') {
 		isDisease = true;
-		}
+	}
 	else {
 		cout << "Do you suffer from any other dieases? (y/n)" << endl;
 		Other_Disease = true;
 	}
-	donorsList.push_back(Donor(name, age, gender, email, password, blood_type, disease, latest_donation_date));
+	//ms2ltosh 3la last donation date wala 3mltolo initialize????
+	Date latest_donation_date;
+	Donor reg(name, age, gender, email, password, blood_type, disease, latest_donation_date);
+	donorsList.push_back(reg);
+
+	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
+	Donor_page(donorsList.size() - 1, donorsList);
 }
