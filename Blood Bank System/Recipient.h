@@ -1,13 +1,11 @@
 #pragma once
 #include <string>
-
+#include <vector>
 using namespace std;
-vector <Recipient> recipientsList;
 
 class Recipient
 {
 public:
-
 	int ID, Age;
 	string Name, Email, Password, Hospital, DoctorofTheCase;
 	char Gender;
@@ -17,11 +15,11 @@ public:
 public:
 	Recipient(string, int, char, string, string, string, string, string);
 	Recipient();
-	void Recipient_page(int);
-	void Update_Data(int);
-	void Delete_Account();
+	void Recipient_page(int, vector <Recipient>&);
+	void Update_Data(int, vector <Recipient>&);
+	void Delete_Account(int, vector <Recipient>&);
 	void Search_for_Blood();
-	void Request_Blood();
 	void display_all_blood_data();
-	void Recipient_Registeration_Page();
+	void Request_Blood();
+	void Recipient_Registeration_Page(vector <Recipient>&);
 };
