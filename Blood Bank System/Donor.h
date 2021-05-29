@@ -1,17 +1,18 @@
 #pragma once
 #include <string>
+#include <vector>
 using namespace std;
-vector <Donor> donorsList;
+
 struct Date
 {
-	int day, month, year;
+	int day = 0, month = 0, year = 0;
 };
 
 class Donor
 {
 public:
 	string Name, Email, Password, Blood_type;
-	bool Disease = false;
+	bool Disease; //leh bool????
 	int ID, Age;
 	int Donor_count = 0;
 	char Gender;
@@ -19,10 +20,10 @@ public:
 
 public:
 	Donor();
-	Donor(string, int, char, string, string, string,bool, Date);
-	void Donation_Request(int);
-	void Update_Data(int);
-	void Delete_Account();
-	void Donor_page(int);
-	void Donor_Registeration();
+	Donor(string, int, char, string, string, string, bool, Date);
+	void Donation_Request(int, vector<Donor>&);
+	void Update_Data(int, vector<Donor>&);
+	void Delete_Account(int, vector<Donor>&);
+	void Donor_page(int, vector<Donor>&);
+	void Donor_Registeration(vector<Donor>&);
 };
