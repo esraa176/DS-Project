@@ -1,24 +1,29 @@
+#include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
-#include<iostream>
 //#include "ArrList.cpp"
 //#include "QueueArr.cpp"
 #include "Admin.h"
 #include "Donor.h"
 #include "Recipient.h"
-#include"User.h"
 
 using namespace std;
 
+fstream adminsFile("admins.txt", ios::in | ios::out | ios::app);
+fstream recipientsFile("recipients.txt", ios::in | ios::out | ios::app);
+fstream donorsFile("donors.txt", ios::in | ios::out | ios::app);
 
+vector <Admin> adminsList;
+vector <Recipient> recipientsList;
+vector <Donor> donorsList;
 
-struct BloodType
+struct Blood
 {
 	int quantity;
 	Date received;
 	Date expiry;
-}A, B, O, AB;
+};
 
 void Login_Page();
 void Registeration_Page();
@@ -35,16 +40,18 @@ int main()
 		cout << "\t\t\t\tWelcome to Blood Bank Management System\t\t\t\t\n";
 		cout << "Please Enter the number of the option you want: \n";
 		cout << "\t\t 1. If you already have an account." << endl;
-		cout << "\t\t 2. If you're new to sign up." << endl;
+		cout << "\t\t 2. If you're new and want to sign up." << endl;
 		int choice;
 		cin >> choice;
 		if (choice == 1)
 		{
 			Login_Page();
+			break;
 		}
 		else if (choice == 2)
 		{
 			Registeration_Page();
+			break;
 		}
 		else
 		{
@@ -55,13 +62,12 @@ int main()
 	//Last thing in the program is to update all the files with the new data from the Array Lists.
 	Update_Files();
 
-
 	return 0;
 }
 
 void Intialize_Vectors()
 {
-	fstream adminsFile("admins.txt", ios::in | ios::out | ios::app);
+	
 	Admin admin;
 	while (adminsFile >> admin.ID >> admin.Name >> admin.Age >> admin.Gender >> admin.Email >> admin.Password)
 	{
@@ -69,7 +75,7 @@ void Intialize_Vectors()
 	}
 	adminsFile.close();
 
-	fstream recipientsFile("recipients.txt", ios::in | ios::out | ios::app);
+	
 	Recipient r;
 	while (recipientsFile >> r.ID >> r.Name >> r.Age >> r.Gender >> r.Email >> r.Password >> r.Blood_type >> r.Hospital >> r.DoctorofTheCase)
 	{
@@ -78,7 +84,7 @@ void Intialize_Vectors()
 	}
 	recipientsFile.close();
 
-	fstream donorsFile("donors.txt", ios::in | ios::out | ios::app);
+	
 	Donor d;
 	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.Disease >> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year)
 	{
@@ -99,7 +105,7 @@ void Login_Page()
 		isFound = false;
 		cout << "Please Enter Your Email: ";
 		cin >> mail;
-		cout << "\nPlease Enter Your Password: ";
+		cout << "Please Enter Your Password: ";
 		cin >> password;
 		for (int i = 0; i < adminsList.size(); i++)
 		{
@@ -107,7 +113,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'A';
-				adminsList[i].Admin_page(i);
+				adminsList[i].Admin_page(i, adminsList);
 				isFound = true;
 				break;
 			}
@@ -118,7 +124,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'R';
-				recipientsList[i].Recipient_page(i);
+				recipientsList[i].Recipient_page(i, recipientsList);
 				isFound = true;
 				break;
 			}
@@ -129,39 +135,47 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'D';
-				donorsList[i].Donor_page(i);
+				donorsList[i].Donor_page(i, donorsList);
 				isFound = true;
 				break;
 			}
 		}
 
-		if (!isFound)
+		if (isFound)
 		{
-			cout << "Wrong Email or Password. Please try again.\n";
+			break;
 		}
+		cout << "Wrong Email or Password. Please try again.\n";
 	}
 }
 
 void Registeration_Page()
 {
 	cout << "\t\t\t Registration Page\n";
-	cout << "Please specify what use type you will be: (Enter the number of your choice)";
+	cout << "Please specify what use type you will be: (Enter the number of your choice)\n";
 	cout << "\t 1. Donor: Donates blood to those who need it.\n";
 	cout << "\t 2. Recipient: Recieves blood donations from donors.\n";
 	cout << "\t 3. Admin: Validates donors' blood donation requests and manage the system's data.\n";
 	int User_choice;
 	cin >> User_choice;
 	while (true) {
-		if (User_choice == 1) {
-			//donor account creation
+		if (User_choice == 1) 
+		{
+			Donor reg;
+			reg.Donor_Registeration(donorsList);
 			break;
 		}
-		else if (User_choice == 2) {
+		else if (User_choice == 2) 
+		{
 			//recipient account creation
+			//Recipient reg;
+			//reg.Recipient_Registeration_Page(recipientsList);
 			break;
 		}
-		else if (User_choice == 3) {
-			//admin account creation
+		else if (User_choice == 3) 
+		{
+			Admin reg;
+			reg.Admin_Register(adminsList);
 			break;
 		}
 		else
@@ -172,13 +186,11 @@ void Registeration_Page()
 	}
 
 
-
-	cout << "\t\t REGISTERATION SUCCESSFUL!\n Welcome to our Blood Bank Management System!\n"; //display this in constructors not here!
 }
 
 void Update_Files()
 {
-	fstream adminsFile("admins.txt", ios::in | ios::out | ios::app | ios::trunc);
+	adminsFile.open("admins.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < adminsList.size(); i++)
 	{
 		adminsFile << adminsList[i].ID << " " << adminsList[i].Name << " " << adminsList[i].Age << " ";
@@ -186,7 +198,7 @@ void Update_Files()
 	}
 	adminsFile.close();
 
-	fstream recipientsFile("recipients.txt", ios::in | ios::out | ios::app | ios::trunc);
+	recipientsFile.open("recipients.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < recipientsList.size(); i++)
 	{
 		recipientsFile << recipientsList[i].ID << " " << recipientsList[i].Name << " " << recipientsList[i].Age << " ";
@@ -195,7 +207,7 @@ void Update_Files()
 	}
 	recipientsFile.close();
 
-	fstream donorsFile("donors.txt", ios::in | ios::out | ios::app | ios::trunc);
+	donorsFile.open("donors.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < donorsList.size(); i++)
 	{
 		donorsFile << donorsList[i].ID << " " << donorsList[i].Name << " " << donorsList[i].Age << " " << donorsList[i].Gender << " ";
