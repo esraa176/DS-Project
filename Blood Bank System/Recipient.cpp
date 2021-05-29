@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+
 Recipient::Recipient()
 {
 
@@ -21,21 +22,21 @@ Recipient::Recipient(string name, int age, char gender, string mail, string pass
 
 }
 
-void Recipient::Recipient_page(int userIndex)
+void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList)
 {
 
 
 
 
 }
-void Recipient::Update_Data(int user_indx) //mai
+void Recipient::Update_Data(int user_indx, vector <Recipient>& recipientsList)
 {
 	char answer;
 	int choice;
 	int up_age;
 	string up_hosp;
 	string up_doc;
-	
+
 	cin >> answer;
 	while (answer != 'N')
 	{
@@ -46,7 +47,7 @@ void Recipient::Update_Data(int user_indx) //mai
 		if (choice == 1)
 		{
 			cin >> up_age;
-			 recipientsList[user_indx].Age = up_age;
+			recipientsList[user_indx].Age = up_age;
 		}
 		else if (choice == 2)
 		{
@@ -61,12 +62,12 @@ void Recipient::Update_Data(int user_indx) //mai
 
 	}
 }
-void Recipient::Recipient_Registeration_Page() { //mai
+void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList) {
 	int Age;
 	string Name, Email, Password, Hospital, DoctorofTheCase;
 	char Gender;
 	string Blood_type;
-	cout<< "Enter your gender: ";
+	cout << "Enter your gender: ";
 	cin >> Gender;
 	cout << "Enter your name: ";
 	cin >> Name;
@@ -82,6 +83,9 @@ void Recipient::Recipient_Registeration_Page() { //mai
 	cin >> Hospital;
 	cout << "Enter the name of your doctorcase: ";
 	cin >> DoctorofTheCase;
-	recipientsList.push_back(Recipient(Name, Age, Gender, Email, Password, Blood_type, Hospital, DoctorofTheCase));
-}
+	Recipient reg(Name, Age, Gender, Email, Password, Blood_type, Hospital, DoctorofTheCase);
+	recipientsList.push_back(reg);
 
+	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
+	Recipient_page(recipientsList.size() - 1, recipientsList);
+}
