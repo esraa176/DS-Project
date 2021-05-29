@@ -24,8 +24,40 @@ Recipient::Recipient(string name, int age, char gender, string mail, string pass
 
 void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList)
 {
+	int choice;
+	while (true) {
+		cout << "                                                             Welcome to Recipient Page: " << endl;
+		cout << "Please choose one of these choices: " << endl;
+		cout << "press 1 if you want to update your data: " << endl;
+		cout << "press 2 if you want to search for the avalibality of blood: " << endl;
+		cout << "press 3 if you want to display blood data: " << endl;
+		cout << "press 4 if you want to make a request for a blood:  " << endl;
+		cout << "press 5 if you want to delete your account: " << endl;
+		cout << "press 6 if you want to log out: " << endl;
+		cin >> choice;
+		if (choice == 1)
+			Update_Data(userIndex, recipientsList);
 
 
+		else if (choice == 2)
+			Search_for_Blood();
+
+
+		else if (choice == 3)
+			display_all_blood_data();
+
+		else if (choice == 4)
+			Request_Blood();
+
+		else if (choice == 5)
+			Delete_Account(userIndex, recipientsList);
+
+		else {
+			cout << "thaaannk you: ";
+			break;
+		}
+	}
+	
 
 
 }
@@ -37,8 +69,8 @@ void Recipient::Update_Data(int user_indx, vector <Recipient>& recipientsList)
 	string up_hosp;
 	string up_doc;
 
-	cin >> answer;
-	while (answer != 'N')
+	
+	while (true)
 	{
 		cout << "if you want to update your age press 1: " << endl;
 		cout << "if you want to change the hospital press 2: " << endl;
@@ -46,20 +78,26 @@ void Recipient::Update_Data(int user_indx, vector <Recipient>& recipientsList)
 		cin >> choice;
 		if (choice == 1)
 		{
+			cout << "please enter your updated age: ";
 			cin >> up_age;
 			recipientsList[user_indx].Age = up_age;
 		}
 		else if (choice == 2)
 		{
+			cout << "please enter your new hosp: ";
 			cin >> up_hosp;
 			recipientsList[user_indx].Hospital = up_hosp;
 		}
-		else
+		else if(choice==2)
 		{
+			cout << "please enter the name of your new doc: ";
 			cin >> up_doc;
 			recipientsList[user_indx].DoctorofTheCase = up_doc;
 		}
-
+		cout << "Do you want to continue changing your info Y/N: ";
+		cin >> answer;
+		if (answer == 'n' || answer == 'N')
+			break;
 	}
 }
 void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList) {
@@ -87,5 +125,29 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList)
 	recipientsList.push_back(reg);
 
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
-	Recipient_page(recipientsList.size() - 1, recipientsList);
+	char recp_2nd_choice;
+	cout << "Do you want to make any progress? ";
+	while (true) {
+		cin >> recp_2nd_choice;
+		if (recp_2nd_choice == 'Y' || recp_2nd_choice == 'y') {
+			Recipient_page(recipientsList.size() - 1, recipientsList);
+			break;
+		}
+		else {
+			cout << "Thank you for using our system";
+			break;
+		}
+	}
+}
+void Recipient:: Delete_Account(int user_indx, vector <Recipient>& recipientsList) {
+
+}
+void Recipient::Search_for_Blood() {
+
+}
+void Recipient::display_all_blood_data() {
+
+}
+void Recipient::Request_Blood() {
+
 }
