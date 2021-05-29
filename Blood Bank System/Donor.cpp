@@ -10,7 +10,7 @@ Donor::Donor()
 {
 
 }
-Donor::Donor(string name, int age, char gender, string mail, string password, string blood_type, bool disease, Date latest_donation_date)
+Donor::Donor(string name, int age, char gender, string mail, string password, string blood_type, bool isdisease,bool other_disease, Date latest_donation_date)
 {
 	ID = Donor_count;
 	Donor_count++;
@@ -20,7 +20,8 @@ Donor::Donor(string name, int age, char gender, string mail, string password, st
 	Email = mail;
 	Password = password;
 	Blood_type = blood_type;
-	Disease = disease;
+	isDisease = isdisease;
+	Other_Disease = other_disease;
 	Latest_Donation_Date = latest_donation_date;
 }
 void Donor::Donor_page(int userIndex, vector <Donor>& donorsList)
@@ -40,34 +41,40 @@ void Donor::Update_Data(int New_Age, vector <Donor>& donorsList)
 }
 void Donor::Donor_Registeration(vector <Donor>& donorsList)
 {
-	string name, email, password, blood_type;
-	int age;
-	bool isDisease = false, Other_Disease = false;
-	char gender, disease;
+	char is_Disease, other_disease;
 	cout << "Please enter your Name:" << endl;
-	cin >> name;
+	cin >> Name;
 	cout << "Please enter your email:" << endl;
-	cin >> email;
+	cin >> Email;
 	cout << "Please enter your password:" << endl;
-	cin >> password;
+	cin >> Password;
 	cout << "Please enter your Blood Type:" << endl;
-	cin >> blood_type;
+	cin >> Blood_type;
 	cout << "Please enter your Age:" << endl;
-	cin >> age;
+	cin >> Age;
 	cout << "Please enter your Gender:" << endl;
-	cin >> gender;
-	cout << "Do you suffer from any of these diseases? :blood pressure disorders, thyroid disease, diabetes, cancer, heart disorders, hepatitis (y/n)" << endl;
-	cin >> disease;
-	if (disease == 'y' || disease == 'Y') {
+	cin >> Gender;
+	cout << "Do you suffer from any of these diseases :blood pressure disorders, thyroid disease, diabetes, cancer, heart disorders, hepatitis (y/n)?" << endl;
+	cin >> is_Disease;
+	if (is_Disease == 'y' || is_Disease == 'Y') {
 		isDisease = true;
 	}
-	else {
-		cout << "Do you suffer from any other dieases? (y/n)" << endl;
+	else
+	{
+		isDisease = false;
+	}
+
+	cout << "Do you suffer from any other dieases? (y/n)" << endl;
+	cin >> other_disease;
+	if (other_disease == 'y' || other_disease == 'Y') {
 		Other_Disease = true;
+	}
+	else {
+		Other_Disease = false;
 	}
 	//ms2ltosh 3la last donation date wala 3mltolo initialize????
 	Date latest_donation_date;
-	Donor reg(name, age, gender, email, password, blood_type, disease, latest_donation_date);
+	Donor reg(Name, Age, Gender, Email, Password, Blood_type, isDisease,Other_Disease, latest_donation_date);
 	donorsList.push_back(reg);
 
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
