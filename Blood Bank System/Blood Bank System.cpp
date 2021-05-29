@@ -67,7 +67,7 @@ int main()
 
 void Intialize_Vectors()
 {
-	
+
 	Admin admin;
 	while (adminsFile >> admin.ID >> admin.Name >> admin.Age >> admin.Gender >> admin.Email >> admin.Password)
 	{
@@ -75,7 +75,7 @@ void Intialize_Vectors()
 	}
 	adminsFile.close();
 
-	
+
 	Recipient r;
 	while (recipientsFile >> r.ID >> r.Name >> r.Age >> r.Gender >> r.Email >> r.Password >> r.Blood_type >> r.Hospital >> r.DoctorofTheCase)
 	{
@@ -84,9 +84,9 @@ void Intialize_Vectors()
 	}
 	recipientsFile.close();
 
-	
+
 	Donor d;
-	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.Disease >> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year)
+	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease>> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year)
 	{
 		donorsList.push_back(d);
 	}
@@ -159,20 +159,20 @@ void Registeration_Page()
 	int User_choice;
 	cin >> User_choice;
 	while (true) {
-		if (User_choice == 1) 
+		if (User_choice == 1)
 		{
 			Donor reg;
 			reg.Donor_Registeration(donorsList);
 			break;
 		}
-		else if (User_choice == 2) 
+		else if (User_choice == 2)
 		{
 			//recipient account creation
 			//Recipient reg;
 			//reg.Recipient_Registeration_Page(recipientsList);
 			break;
 		}
-		else if (User_choice == 3) 
+		else if (User_choice == 3)
 		{
 			Admin reg;
 			reg.Admin_Register(adminsList);
@@ -211,7 +211,7 @@ void Update_Files()
 	for (int i = 0; i < donorsList.size(); i++)
 	{
 		donorsFile << donorsList[i].ID << " " << donorsList[i].Name << " " << donorsList[i].Age << " " << donorsList[i].Gender << " ";
-		donorsFile << donorsList[i].Email << " " << donorsList[i].Password << " " << donorsList[i].Blood_type << " " << donorsList[i].Disease << " ";
+		donorsFile << donorsList[i].Email << " " << donorsList[i].Password << " " << donorsList[i].Blood_type << " " << donorsList[i].isDisease <<" "<< donorsList[i].Other_Disease << " ";
 		donorsFile << donorsList[i].Latest_Donation_Date.day << " " << donorsList[i].Latest_Donation_Date.month << " " << donorsList[i].Latest_Donation_Date.year << endl;
 	}
 	donorsFile.close();
