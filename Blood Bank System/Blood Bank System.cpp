@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include<queue>
 //#include "ArrList.cpp"
 //#include "QueueArr.cpp"
 #include "Admin.h"
@@ -16,6 +17,7 @@ fstream donorsFile("donors.txt", ios::in | ios::out | ios::app);
 
 vector <Admin> adminsList;
 vector <Recipient> recipientsList;
+queue <int> Donor_Requests;
 vector <Donor> donorsList;
 
 struct Blood
@@ -34,7 +36,7 @@ int main()
 {
 	//First thing in the program is to read all previous data from the files into Array Lists.
 	Intialize_Vectors();
-
+	
 	while (true)
 	{
 		cout << "\t\t\t\tWelcome to Blood Bank Management System\t\t\t\t\n";
@@ -86,7 +88,7 @@ void Intialize_Vectors()
 
 
 	Donor d;
-	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease>> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year)
+	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease >> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year)
 	{
 		donorsList.push_back(d);
 	}
@@ -135,7 +137,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'D';
-				donorsList[i].Donor_page(i, donorsList);
+				donorsList[i].Donor_page(i, donorsList, Donor_Requests);
 				isFound = true;
 				break;
 			}
@@ -160,9 +162,9 @@ void Registeration_Page()
 	cin >> User_choice;
 	while (true) {
 		if (User_choice == 1)
-		{
+		{  
 			Donor reg;
-			reg.Donor_Registeration(donorsList);
+			reg.Donor_Registeration(donorsList,Donor_Requests);
 			break;
 		}
 		else if (User_choice == 2)
@@ -211,7 +213,7 @@ void Update_Files()
 	for (int i = 0; i < donorsList.size(); i++)
 	{
 		donorsFile << donorsList[i].ID << " " << donorsList[i].Name << " " << donorsList[i].Age << " " << donorsList[i].Gender << " ";
-		donorsFile << donorsList[i].Email << " " << donorsList[i].Password << " " << donorsList[i].Blood_type << " " << donorsList[i].isDisease <<" "<< donorsList[i].Other_Disease << " ";
+		donorsFile << donorsList[i].Email << " " << donorsList[i].Password << " " << donorsList[i].Blood_type << " " << donorsList[i].isDisease << " " << donorsList[i].Other_Disease << " ";
 		donorsFile << donorsList[i].Latest_Donation_Date.day << " " << donorsList[i].Latest_Donation_Date.month << " " << donorsList[i].Latest_Donation_Date.year << endl;
 	}
 	donorsFile.close();
