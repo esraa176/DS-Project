@@ -126,6 +126,7 @@ void Admin::Admin_Register(vector <Admin>& adminsList, vector <Donor>& donorsLis
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
 	Admin_page(adminsList.size() - 1, adminsList, donorsList, recipientsList);
 }
+
 void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList)
 {
 	int age;
@@ -147,7 +148,7 @@ void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, v
 	{
 		if (choice == 1)
 		{
-			cout << "Please enter your data.\n";
+			cout << "Please enter his\her data.\n";
 			cout << "Name: "; cin >> name;
 			cout << "Age: "; cin >> age;
 			cout << "Gender (M\F): "; cin >> gender;
@@ -161,17 +162,17 @@ void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, v
 		}
 		else if (choice == 2)
 		{
-			cout << "Please enter your data.\n";
+			cout << "Please enter his\her data.\n";
 			cout << "Name: "; cin >> name;
 			cout << "Age: "; cin >> age;
 			cout << "Gender (M\F): "; cin >> gender;
 			cout << "Email: "; cin >> email;
 			cout << "Password: "; cin >> pass;
 			cout << "Blood Type: "; cin >> blood_type;
-			cout << "Do you suffer from any of these diseases (blood pressure,disorders, thyroid disease,";
-			cout<<"diabetes, cancer, heart, disorders, hepatitis) ? : "; cin >> isdisease; //????????????????????
-			cout << "Do you have any other disease? :  "; cin >> other_disease; //???????????????????????????????
-			cout << "Your last donation date?\n";
+			cout << "Does he\she suffers from any of these diseases (blood pressure,disorders, thyroid disease,";
+			cout<<"diabetes, cancer, heart, disorders, hepatitis) ? : "; cin >> isdisease; //??????????????????????????????????????????
+			cout << "Does he\she have any other disease? :  "; cin >> other_disease; //?????????????????????????????????????????????????????
+			cout << "His\Her last donation date:\n";
 			cout << "Day: "; cin >> latest_donation_date.day;
 			cout << "Month: "; cin >> latest_donation_date.month;
 			cout << "Year: "; cin >> latest_donation_date.year;
@@ -183,7 +184,7 @@ void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, v
 		}
 		else if (choice == 3)
 		{
-			cout << "Please enter your data.\n";
+			cout << "Please enter his\her data.\n";
 			cout << "Name: "; cin >> name;
 			cout << "Age: "; cin >> age;
 			cout << "Gender (M\F): "; cin >> gender;
