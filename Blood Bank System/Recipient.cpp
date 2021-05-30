@@ -140,7 +140,7 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList)
 	}
 }
 void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList){
-	  recipientsList.deleteAt(user_indx);
+	  recipientsList.erase(user_indx);
 		
 }
 void Recipient::Search_for_Blood() {
