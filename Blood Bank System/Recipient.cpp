@@ -139,14 +139,30 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList)
 		}
 	}
 }
-void Recipient:: Delete_Account(int user_indx, vector <Recipient>& recipientsList) {
-
+void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList){
+	  recipientsList.deleteAt(user_indx);
+		
 }
 void Recipient::Search_for_Blood() {
 
 }
 void Recipient::display_all_blood_data() {
-
+		cout << "Blood type is : " <<"A" << endl;
+		cout << "Blood quantity is : " << A.quantity << endl;
+		cout << "Recieved date of blood is: " << A.recieved.day << "/" << A.recieved.month << "/" << A.recieved.year << endl;		
+		cout << "expiry date of blood is: " << A.expiry.day << "/" << A.expiry.month << "/" << A.expiry.year << endl;
+		cout << "Blood type is : " << "B" << endl;
+		cout << "Blood quantity is : " << B.quantity << endl;
+		cout << "Recieved date of blood is: " << B.recieved.day <<"/"<< B.recieved.month<<"/"<< B.recieved.year<< endl;
+		cout << "expiry date of blood is: " << B.expiry.day << "/" << B.expiry.month << "/" << B.expiry.year << endl;
+		cout << "Blood type is : " << "AB" << endl;
+		cout << "Blood quantity is : " << AB.quantity << endl;
+		cout << "Recieved date of blood is: " << AB.recieved.day << "/" << AB.recieved.month << "/" << AB.recieved.year << endl;		
+		cout << "expiry date of blood is: " << AB.expiry.day << "/" << AB.expiry.month << "/" << AB.expiry.year << endl;
+		cout << "Blood type is : " << "O" << endl;
+		cout << "Blood quantity is : " << O.quantity << endl;
+		cout << "Recieved date of blood is: " << O.recieved.day << "/" << O.recieved.month << "/" << O.recieved.year << endl;
+		cout << "expiry date of blood is: " << O.expiry.day<<"/"<< O.expiry.month<<"/"<< O.expiry.year << endl;
 }
 void Recipient::Request_Blood() {
 
