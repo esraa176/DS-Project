@@ -25,7 +25,7 @@ struct Blood
 	int quantity;
 	Date received;
 	Date expiry;
-}A,B,AB,O;
+}A, B, AB, O;
 
 void welcome_page();
 void Login_Page();
@@ -37,9 +37,9 @@ int main()
 {
 	//First thing in the program is to read all previous data from the files into Array Lists.
 	Intialize_Vectors();
-	 
+
 	welcome_page();
-	
+
 
 	//Last thing in the program is to update all the files with the new data from the Array Lists.
 	Update_Files();
@@ -52,8 +52,9 @@ void welcome_page() {
 	{
 		cout << "\t\t\t\tWelcome to Blood Bank Management System\t\t\t\t\n";
 		cout << "Please Enter the number of the option you want: \n";
-		cout << "\t\t 1. If you already have an account." << endl;
+		cout << "\t\t 1. If you want to sign in." << endl;
 		cout << "\t\t 2. If you're new and want to sign up." << endl;
+		cout << "\t\t 3. If you want to exit." << endl;
 		int choice;
 		cin >> choice;
 		if (choice == 1)
@@ -64,6 +65,10 @@ void welcome_page() {
 		else if (choice == 2)
 		{
 			Registeration_Page();
+			break;
+		}
+		else if (choice == 3)
+		{
 			break;
 		}
 		else
