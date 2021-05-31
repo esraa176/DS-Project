@@ -87,7 +87,7 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 				}
 				else if (choice2 == 2)
 				{
-					updateUser(adminsList);
+					updateUser(adminsList,donorsList,recipientsList);
 					break;
 				}
 				else if (choice2 == 3)
@@ -290,9 +290,240 @@ void Admin::deleteUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vec
 	}
 		
 }
-void Admin::updateUser(vector <Admin>& adminsList)
+void Admin::updateUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vector <Recipient>&recipientsList)
 {
+	cout << "Enter the number of your choice:" << endl;
+	cout << "1-Update data of an admin." << endl;
+	cout << "2-Update data of a donor." << endl;
+	cout << "3-Update data of a recipient." << endl;
+	int choice,choice2;
+	char answer;
+	cin >> choice;
+	cout << "Please enter user's ID.\n";
+	int id;
+	cin >> id;
+	int age;
+	string name, pass;
+	bool isFound = false;
+	if (choice == 1)
+	{
+		while (true)
+		{
+			for (int i = 0; i < adminsList.size(); i++)
+			{
+				if (id == adminsList[i].ID)
+				{
+					isFound = true;
+					while (true)
+					{
+						cout << "press 1 to update the name." << endl;
+						cout << "press 2 to update the age." << endl;
+						cout << "press 3 to update the password." << endl;
+						cin >> choice2;
+						if (choice2 == 1)
+						{
+							cout << "enter the new name: "; cin >> name;
+							adminsList[i].Name = name;
+							cout << "Do you want to continue updating data of these admin? (y/n) "; cin >> answer;
+							if (answer == 'Y' || answer == 'y')
+							{
+								continue;
+							}
+							else
+							{
+								break;
+							}
+						}
+						else if (choice2 == 2)
+						{
+							cout << "enter the new age: "; cin >> age;
+							adminsList[i].Age = age;
+							cout << "Do you want to continue updating data of these admin? (y/n) "; cin >> answer;
+							if (answer == 'Y' || answer == 'y')
+							{
+								continue;
+							}
+							else
+							{
+								break;
+							}
+						}
+						else if (choice2 == 3)
+						{
+							cout << "enter the new password: "; cin >> pass;
+							adminsList[i].Password = pass;
+							cout << "Do you want to continue updating data of this admin? (y/n) "; cin >> answer;
+							if (answer == 'Y' || answer == 'y')
+							{
+								continue;
+							}
+							else
+							{
+								break;
+							}
+						}
+						else
+						{
+							cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
+							cin >> choice2;
+						}
+					}
 
+				}
+			}
+			if (!isFound)
+			{
+				cout << "Incorrect ID, Please try again." << endl;
+				cin >> id;
+			}
+		}
+	}
+	if (choice == 2)
+	{
+		while (true)
+		{
+			for (int i = 0; i < donorsList.size(); i++)
+			{
+				if (id == donorsList[i].ID)
+				{
+					isFound = true;
+					while (true)
+					{
+						cout << "press 1 to update the name." << endl;
+						cout << "press 2 to update the age." << endl;
+						cout << "press 3 to update the password." << endl;
+						cin >> choice2;
+						if (choice2 == 1)
+						{
+							cout << "enter the new name: "; cin >> name;
+							donorsList[i].Name = name;
+							cout << "Do you want to continue updating data of this donor? (y/n) "; cin >> answer;
+							if (answer == 'Y' || answer == 'y')
+							{
+								continue;
+							}
+							else
+							{
+								break;
+							}
+						}
+						else if (choice2 == 2)
+						{
+							cout << "enter the new age: "; cin >> age;
+							donorsList[i].Age = age;
+							cout << "Do you want to continue updating data of this donor? (y/n) "; cin >> answer;
+							if (answer == 'Y' || answer == 'y')
+							{
+								continue;
+							}
+							else
+							{
+								break;
+							}
+						}
+						else if (choice2 == 3)
+						{
+							cout << "enter the new password: "; cin >> pass;
+							donorsList[i].Password = pass;
+							cout << "Do you want to continue updating data of this donor? (y/n) "; cin >> answer;
+							if (answer == 'Y' || answer == 'y')
+							{
+								continue;
+							}
+							else
+							{
+								break;
+							}
+						}
+						else
+						{
+							cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
+							cin >> choice2;
+						}
+					}
+
+				}
+			}
+			if (!isFound)
+			{
+				cout << "Incorrect ID, Please try again." << endl;
+				cin >> id;
+			}
+		}
+	}
+	if (choice == 2)
+	{
+		while (true)
+		{
+			for (int i = 0; i < recipientsList.size(); i++)
+			{
+				if (id == recipientsList[i].ID)
+				{
+					isFound = true;
+					while (true)
+					{
+						cout << "press 1 to update the name." << endl;
+						cout << "press 2 to update the age." << endl;
+						cout << "press 3 to update the password." << endl;
+						cin >> choice2;
+						if (choice2 == 1)
+						{
+							cout << "enter the new name: "; cin >> name;
+							recipientsList[i].Name = name;
+							cout << "Do you want to continue updating data of this recipient? (y/n) "; cin >> answer;
+							if (answer == 'Y' || answer == 'y')
+							{
+								continue;
+							}
+							else
+							{
+								break;
+							}
+						}
+						else if (choice2 == 2)
+						{
+							cout << "enter the new age: "; cin >> age;
+							recipientsList[i].Age = age;
+							cout << "Do you want to continue updating data of this recipient? (y/n) "; cin >> answer;
+							if (answer == 'Y' || answer == 'y')
+							{
+								continue;
+							}
+							else
+							{
+								break;
+							}
+						}
+						else if (choice2 == 3)
+						{
+							cout << "enter the new password: "; cin >> pass;
+							recipientsList[i].Password = pass;
+							cout << "Do you want to continue updating data of this recipient? (y/n) "; cin >> answer;
+							if (answer == 'Y' || answer == 'y')
+							{
+								continue;
+							}
+							else
+							{
+								break;
+							}
+						}
+						else
+						{
+							cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
+							cin >> choice2;
+						}
+					}
+
+				}
+			}
+			if (!isFound)
+			{
+				cout << "Incorrect ID, Please try again." << endl;
+				cin >> id;
+			}
+		}
+	}
 }
 void Admin::insertBlood()
 {
