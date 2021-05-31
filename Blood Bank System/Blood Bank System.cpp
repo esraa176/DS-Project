@@ -17,8 +17,8 @@ fstream donorsFile("donors.txt", ios::in | ios::out | ios::app);
 
 vector <Admin> adminsList;
 vector <Recipient> recipientsList;
-queue <int> Donor_Requests;
 vector <Donor> donorsList;
+queue <int> Donor_Requests;
 
 struct Blood
 {
@@ -126,7 +126,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'A';
-				adminsList[i].Admin_page(i, adminsList, donorsList, recipientsList);
+				adminsList[i].Admin_page(i, adminsList, donorsList, recipientsList, Donor_Requests);
 				isFound = true;
 				break;
 			}
@@ -191,7 +191,7 @@ void Registeration_Page()
 		else if (User_choice == 3)
 		{
 			Admin reg;
-			reg.Admin_Register(adminsList, donorsList, recipientsList);
+			reg.Admin_Register(adminsList, donorsList, recipientsList, Donor_Requests);
 			break;
 		}
 		else
