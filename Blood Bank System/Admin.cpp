@@ -4,6 +4,7 @@
 #include <vector>
 #include"Donor.h"
 #include"Recipient.h"
+#include <queue>
 using namespace std;
 
 Admin::Admin()
@@ -21,7 +22,7 @@ Admin::Admin(string name, int age, char gender, string email, string password)
 	Admin_count++;
 }
 
-void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList)
+void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests)
 {
 	cout << "\t\t Enter 1 to display & validate donor's requests." << endl;
 	cout << "\t\t Enter 2 to Insert/Update/Delete the quantity of blood." << endl;
@@ -82,17 +83,17 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 				cin >> choice2;
 				if (choice2 == 1)
 				{
-					insertUser(adminsList, donorsList, recipientsList);
+					insertUser(adminsList, donorsList, recipientsList, Donor_Requests);
 					break;
 				}
 				else if (choice2 == 2)
 				{
-					updateUser(adminsList,donorsList,recipientsList);
+					updateUser(adminsList, donorsList, recipientsList);
 					break;
 				}
 				else if (choice2 == 3)
 				{
-					deleteUser(adminsList,donorsList,recipientsList);
+					deleteUser(adminsList, donorsList, recipientsList);
 					break;
 				}
 				else
@@ -103,7 +104,7 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 			}
 			break;
 		}
-		
+
 	}
 }
 void Admin::validateRequests()
@@ -111,7 +112,7 @@ void Admin::validateRequests()
 
 }
 
-void Admin::Admin_Register(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList)
+void Admin::Admin_Register(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList , queue<int>& Donor_Requests)
 {
 	cout << "Please enter Admin's code: ";
 	string input_code;
@@ -122,79 +123,41 @@ void Admin::Admin_Register(vector <Admin>& adminsList, vector <Donor>& donorsLis
 		cout << "\nInvalid code. You can't be an admin.\n";
 		return;
 	}
-	insertUser(adminsList, donorsList, recipientsList);
+	insertUser(adminsList, donorsList, recipientsList, Donor_Requests);
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
-	Admin_page(adminsList.size() - 1, adminsList, donorsList, recipientsList);
+	Admin_page(adminsList.size() - 1, adminsList, donorsList, recipientsList, Donor_Requests);
 }
 
-void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList)
+void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests)
 {
-	int age;
-	string name, email, pass,blood_type, hospital, doctor;
-	char gender;
-	bool isdisease, other_disease;
-	Date latest_donation_date;
-	cout << "Enter the number of your choice:" << endl;
+	cout << "Enter the number of your choice:\n" << endl;
 	cout << "1-Insert admin." << endl;
 	cout << "2-Insert donor." << endl;
 	cout << "3-Insert recipient." << endl;
 	int choice;
 	cin >> choice;
-	cout << "Please enter name, age and gender (M/F).\n";
-	cin >> name >> age >> gender;
-	cout << "Please enter Email and Password.\n";
-	cin >> email >> pass;
 	while (true)
 	{
 		if (choice == 1)
 		{
-			cout << "Please enter his\her data.\n";
-			cout << "Name: "; cin >> name;
-			cout << "Age: "; cin >> age;
-			cout << "Gender (M\F): "; cin >> gender;
-			cout << "Email: "; cin >> email;
-			cout << "Password: "; cin >> pass;
-			Admin reg(name, age, gender, email, pass);
-			adminsList.push_back(reg);
+			Admin reg;
+			reg.Admin_Register(adminsList, donorsList, recipientsList, Donor_Requests);
 			cout << "Insertion is successfully done." << endl;
 			cout << "_________________________________" << endl;
 			break;
 		}
 		else if (choice == 2)
 		{
-			cout << "Please enter his\her data.\n";
-			cout << "Name: "; cin >> name;
-			cout << "Age: "; cin >> age;
-			cout << "Gender (M\F): "; cin >> gender;
-			cout << "Email: "; cin >> email;
-			cout << "Password: "; cin >> pass;
-			cout << "Blood Type: "; cin >> blood_type;
-			cout << "Does he\she suffers from any of these diseases (blood pressure,disorders, thyroid disease,";
-			cout<<"diabetes, cancer, heart, disorders, hepatitis) ? : "; cin >> isdisease; //??????????????????????????????????????????
-			cout << "Does he\she have any other disease? :  "; cin >> other_disease; //?????????????????????????????????????????????????????
-			cout << "His\Her last donation date:\n";
-			cout << "Day: "; cin >> latest_donation_date.day;
-			cout << "Month: "; cin >> latest_donation_date.month;
-			cout << "Year: "; cin >> latest_donation_date.year;
-			Donor reg(name, age, gender, email, pass, blood_type, isdisease, other_disease, latest_donation_date);
-			donorsList.push_back(reg);
+			Donor reg;
+			reg.Donor_Registeration(donorsList, Donor_Requests);
 			cout << "Insertion is successfully done." << endl;
 			cout << "_________________________________" << endl;
 			break;
 		}
 		else if (choice == 3)
 		{
-			cout << "Please enter his\her data.\n";
-			cout << "Name: "; cin >> name;
-			cout << "Age: "; cin >> age;
-			cout << "Gender (M\F): "; cin >> gender;
-			cout << "Email: "; cin >> email;
-			cout << "Password: "; cin >> pass;
-			cout << "Blood Type: "; cin >> blood_type;
-			cout << "Hospital: "; cin >> hospital;
-			cout << "Doctor: "; cin >> doctor;
-			Recipient reg(name, age, gender, email, pass, blood_type, hospital, doctor);
-			recipientsList.push_back(reg);
+			Recipient reg;
+			reg.Recipient_Registeration_Page(recipientsList);
 			cout << "Insertion is successfully done." << endl;
 			cout << "_________________________________" << endl;
 			break;
@@ -205,7 +168,7 @@ void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, v
 			cin >> choice;
 		}
 	}
-	
+
 }
 void Admin::deleteUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vector <Recipient>&recipientsList)
 {
@@ -288,7 +251,7 @@ void Admin::deleteUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vec
 			cin >> id;
 		}
 	}
-		
+
 }
 void Admin::updateUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vector <Recipient>&recipientsList)
 {
@@ -296,7 +259,7 @@ void Admin::updateUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vec
 	cout << "1-Update data of an admin." << endl;
 	cout << "2-Update data of a donor." << endl;
 	cout << "3-Update data of a recipient." << endl;
-	int choice,choice2;
+	int choice, choice2;
 	char answer;
 	cin >> choice;
 	cout << "Please enter user's ID.\n";
@@ -324,48 +287,27 @@ void Admin::updateUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vec
 						{
 							cout << "enter the new name: "; cin >> name;
 							adminsList[i].Name = name;
-							cout << "Do you want to continue updating data of these admin? (y/n) "; cin >> answer;
-							if (answer == 'Y' || answer == 'y')
-							{
-								continue;
-							}
-							else
-							{
-								break;
-							}
 						}
 						else if (choice2 == 2)
 						{
 							cout << "enter the new age: "; cin >> age;
 							adminsList[i].Age = age;
-							cout << "Do you want to continue updating data of these admin? (y/n) "; cin >> answer;
-							if (answer == 'Y' || answer == 'y')
-							{
-								continue;
-							}
-							else
-							{
-								break;
-							}
 						}
 						else if (choice2 == 3)
 						{
 							cout << "enter the new password: "; cin >> pass;
 							adminsList[i].Password = pass;
-							cout << "Do you want to continue updating data of this admin? (y/n) "; cin >> answer;
-							if (answer == 'Y' || answer == 'y')
-							{
-								continue;
-							}
-							else
-							{
-								break;
-							}
+							
 						}
 						else
 						{
 							cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
-							cin >> choice2;
+							continue;
+						}
+						cout << "Do you want to continue updating data of this admin? (y/n) "; cin >> answer;
+						if (answer == 'N' || answer == 'n')
+						{
+							break;
 						}
 					}
 
@@ -397,48 +339,27 @@ void Admin::updateUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vec
 						{
 							cout << "enter the new name: "; cin >> name;
 							donorsList[i].Name = name;
-							cout << "Do you want to continue updating data of this donor? (y/n) "; cin >> answer;
-							if (answer == 'Y' || answer == 'y')
-							{
-								continue;
-							}
-							else
-							{
-								break;
-							}
 						}
 						else if (choice2 == 2)
 						{
 							cout << "enter the new age: "; cin >> age;
 							donorsList[i].Age = age;
-							cout << "Do you want to continue updating data of this donor? (y/n) "; cin >> answer;
-							if (answer == 'Y' || answer == 'y')
-							{
-								continue;
-							}
-							else
-							{
-								break;
-							}
 						}
 						else if (choice2 == 3)
 						{
 							cout << "enter the new password: "; cin >> pass;
 							donorsList[i].Password = pass;
-							cout << "Do you want to continue updating data of this donor? (y/n) "; cin >> answer;
-							if (answer == 'Y' || answer == 'y')
-							{
-								continue;
-							}
-							else
-							{
-								break;
-							}
 						}
 						else
 						{
 							cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
-							cin >> choice2;
+							continue;
+						}
+
+						cout << "Do you want to continue updating data of this donor? (y/n) "; cin >> answer;
+						if (answer == 'N' || answer == 'n')
+						{
+							break;
 						}
 					}
 
@@ -470,51 +391,28 @@ void Admin::updateUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vec
 						{
 							cout << "enter the new name: "; cin >> name;
 							recipientsList[i].Name = name;
-							cout << "Do you want to continue updating data of this recipient? (y/n) "; cin >> answer;
-							if (answer == 'Y' || answer == 'y')
-							{
-								continue;
-							}
-							else
-							{
-								break;
-							}
 						}
 						else if (choice2 == 2)
 						{
 							cout << "enter the new age: "; cin >> age;
 							recipientsList[i].Age = age;
-							cout << "Do you want to continue updating data of this recipient? (y/n) "; cin >> answer;
-							if (answer == 'Y' || answer == 'y')
-							{
-								continue;
-							}
-							else
-							{
-								break;
-							}
 						}
 						else if (choice2 == 3)
 						{
 							cout << "enter the new password: "; cin >> pass;
 							recipientsList[i].Password = pass;
-							cout << "Do you want to continue updating data of this recipient? (y/n) "; cin >> answer;
-							if (answer == 'Y' || answer == 'y')
-							{
-								continue;
-							}
-							else
-							{
-								break;
-							}
 						}
 						else
 						{
 							cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
-							cin >> choice2;
+							continue;
+						}
+						cout << "Do you want to continue updating data of this recipient? (y/n) "; cin >> answer;
+						if (answer == 'N' || answer == 'n')
+						{
+							break;
 						}
 					}
-
 				}
 			}
 			if (!isFound)
@@ -536,4 +434,42 @@ void Admin::deleteBlood()
 void Admin::updateBlood()
 {
 
+}
+void Admin::displayData(int userIndex, vector <Admin>& adminsList, vector <Donor>& donorList, vector <Recipient>& recipientList, char userType)
+{
+	cout << "All data of user with ID: ";
+	if (userType == 'A')
+	{
+		cout << adminsList[userIndex].ID << endl;
+		cout << "Name: " << adminsList[userIndex].Name << endl;
+		cout<<  "Age: " << adminsList[userIndex].Age << endl;
+		cout << "Gender: " << adminsList[userIndex].Gender << endl;
+		cout << "Email: " << adminsList[userIndex].Email << endl;
+		cout << "Password: " << adminsList[userIndex].Password << endl;
+	}
+	else if (userType == 'D')
+	{
+		cout << donorList[userIndex].ID << endl;
+		cout << "Name: " << donorList[userIndex].Name << endl;
+		cout << "Age: " << donorList[userIndex].Age << endl;
+		cout << "Gender: " << donorList[userIndex].Gender << endl;
+		cout << "Email: " << donorList[userIndex].Email << endl;
+		cout << "Password: " << donorList[userIndex].Password << endl;
+		cout << "Blood Type: " << donorList[userIndex].Blood_type << endl;
+		cout << "If she/he suffers from any disease(blood pressure disorders, thyroid disease, diabetes, cancer, heart disorders, hepatitis): " << donorList[userIndex].isDisease << endl;
+		cout << "If she/he suffers from any other disease or take any medicine: " << donorList[userIndex].Other_Disease << endl;
+		cout << "Latest Donation Date: " << donorList[userIndex].Latest_Donation_Date.day << "/" << donorList[userIndex].Latest_Donation_Date.month << "/" << donorList[userIndex].Latest_Donation_Date.year << endl;
+	}
+	else
+	{
+		cout << recipientList[userIndex].ID << endl;
+		cout << "Name: " << recipientList[userIndex].Name << endl;
+		cout << "Age: " << recipientList[userIndex].Age << endl;
+		cout << "Gender: " << recipientList[userIndex].Gender << endl;
+		cout << "Email: " << recipientList[userIndex].Email << endl;
+		cout << "Password: " << recipientList[userIndex].Password << endl;
+		cout << "Blood Type: " << recipientList[userIndex].Blood_type << endl;
+		cout << "Hospital: " << recipientList[userIndex].Hospital << endl;
+		cout << "Doctor of the Case: " << recipientList[userIndex].DoctorofTheCase << endl;
+	}
 }
