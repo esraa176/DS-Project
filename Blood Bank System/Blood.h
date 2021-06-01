@@ -3,7 +3,7 @@
 class Blood
 {
 public:
-	Date received;
-	Date expiry;
+	tm received;
+	tm expiry;
 };
 
