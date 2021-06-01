@@ -10,9 +10,9 @@ Recipient::Recipient()
 {
 
 }
-Recipient::Recipient(string name, int age, char gender, string mail, string pass, string blood_type, string hospital, string doctor) {
-	ID = Reciepient_count;
-	Reciepient_count++;
+Recipient::Recipient(string name, int age, char gender, string mail, string pass, string blood_type, string hospital, string doctor, int& rID) {
+	ID = rID;
+	rID++;
 	Name = name;
 	Email = mail;
 	Password = pass;
@@ -42,7 +42,7 @@ void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList
 
 
 		else if (choice == 2)
-			Search_for_Blood(dataA,dataB,dataO,dataAB);
+			Search_for_Blood(dataA, dataB, dataO, dataAB);
 
 
 		else if (choice == 3)
@@ -102,7 +102,8 @@ void Recipient::Update_Data(int user_indx, vector <Recipient>& recipientsList)
 			break;
 	}
 }
-void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
+void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB, int& rID)
+{
 	int Age;
 	string Name, Email, Password, Hospital, DoctorofTheCase;
 	char Gender;
@@ -123,7 +124,7 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList,
 	cin >> Hospital;
 	cout << "Enter the name of your doctorcase: ";
 	cin >> DoctorofTheCase;
-	Recipient reg(Name, Age, Gender, Email, Password, Blood_type, Hospital, DoctorofTheCase);
+	Recipient reg(Name, Age, Gender, Email, Password, Blood_type, Hospital, DoctorofTheCase, rID);
 	recipientsList.push_back(reg);
 
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
@@ -132,7 +133,7 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList,
 	while (true) {
 		cin >> recp_2nd_choice;
 		if (recp_2nd_choice == 'Y' || recp_2nd_choice == 'y') {
-			Recipient_page(recipientsList.size() - 1, recipientsList,dataA,dataB,dataO,dataAB);
+			Recipient_page(recipientsList.size() - 1, recipientsList, dataA, dataB, dataO, dataAB);
 			break;
 		}
 		else {
