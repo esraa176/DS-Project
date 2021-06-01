@@ -15,7 +15,7 @@ public:
 	int Reciepient_count = 0;
 
 public:
-	Recipient(string, int, char, string, string, string, string, string);
+	Recipient(string, int, char, string, string, string, string, string, int&);
 	Recipient();
 	void Recipient_page(int, vector <Recipient>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
 	void Update_Data(int, vector <Recipient>&);
@@ -23,5 +23,5 @@ public:
 	void Search_for_Blood(queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
 	void display_all_blood_data();
 	void Request_Blood();
-	void Recipient_Registeration_Page(vector <Recipient>& recipientsList, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB);
+	void Recipient_Registeration_Page(vector <Recipient>& recipientsList, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB, int&);
 };
