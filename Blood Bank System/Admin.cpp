@@ -7,11 +7,12 @@
 #include <queue>
 #include"Blood.h"
 
+
 using namespace std;
 
 Admin::Admin()
 {
-
+	
 }
 Admin::Admin(string name, int age, char gender, string email, string password)//:User(name,age,gender,email,password)
 {
@@ -24,7 +25,7 @@ Admin::Admin(string name, int age, char gender, string email, string password)//
 	Admin_count++;
 }
 
-void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests,  queue<Blood>&dataA, queue<Blood>&dataB, queue<Blood>&dataO, queue<Blood>&dataAB)
+void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB)
 {
 	cout << "\t\t Enter 1 to display & validate donor's requests." << endl;
 	cout << "\t\t Enter 2 to Insert/Update/Delete the quantity of blood." << endl;
@@ -35,7 +36,7 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 	{
 		if (choice == 1)
 		{
-			validateRequests();
+			Display_requests(donorsList, Donor_Requests);
 			break;
 		}
 		else if (choice == 2)
@@ -109,12 +110,9 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 
 	}
 }
-void Admin::validateRequests()
-{
 
-}
 
-void Admin::Admin_Register(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests, queue<Blood>&dataA, queue<Blood>&dataB, queue<Blood>&dataO, queue<Blood>&dataAB)
+void Admin::Admin_Register(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB)
 {
 	cout << "Please enter Admin's code: ";
 	string input_code;
@@ -135,10 +133,10 @@ void Admin::Admin_Register(vector <Admin>& adminsList, vector <Donor>& donorsLis
 	Admin reg(name, age, gender, email, pass);
 	adminsList.push_back(reg);
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
-	Admin_page(adminsList.size() - 1, adminsList, donorsList, recipientsList, Donor_Requests,dataA,dataB,dataO,dataAB);
+	Admin_page(adminsList.size() - 1, adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB);
 }
 
-void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests, queue<Blood>&dataA, queue<Blood>&dataB, queue<Blood>&dataO, queue<Blood>&dataAB)
+void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB)
 {
 	cout << "Enter the number of your choice:\n" << endl;
 	cout << "1-Insert admin." << endl;
@@ -167,7 +165,7 @@ void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, v
 		else if (choice == 3)
 		{
 			Recipient reg;
-			reg.Recipient_Registeration_Page(recipientsList,dataA,dataB,dataO,dataAB);
+			reg.Recipient_Registeration_Page(recipientsList, dataA, dataB, dataO, dataAB);
 			cout << "Insertion is successfully done." << endl;
 			cout << "_________________________________" << endl;
 			break;
@@ -180,7 +178,7 @@ void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, v
 	}
 
 }
-void Admin::deleteUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vector <Recipient>&recipientsList)
+void Admin::deleteUser(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList)
 {
 	cout << "Enter the number of your choice:" << endl;
 	cout << "1-Delete admin." << endl;
@@ -263,7 +261,7 @@ void Admin::deleteUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vec
 	}
 
 }
-void Admin::updateUser(vector <Admin>&adminsList, vector <Donor>&donorsList, vector <Recipient>&recipientsList)
+void Admin::updateUser(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList)
 {
 	cout << "Enter the number of your choice:" << endl;
 	cout << "1-Update data of an admin." << endl;
@@ -483,7 +481,7 @@ void Admin::displayData(int userIndex, vector <Admin>& adminsList, vector <Donor
 		cout << "Doctor of the Case: " << recipientList[userIndex].DoctorofTheCase << endl;
 	}
 }
-void Admin:: bloodDate()
+void Admin::bloodDate()
 {
 	tm newtime;
 	time_t now = time(0);
@@ -493,4 +491,71 @@ void Admin:: bloodDate()
 	int Month = 1 + newtime.tm_mon;
 
 	int year = 1900 + newtime.tm_year;
+}
+void Admin:: validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requests)
+{
+	int indx;
+	char ch;
+	cout << "Do you want to validate the requests?(y/n)\n";
+	cin >> ch;
+	if (ch == 'y' || ch == 'Y')
+	{
+
+		while (!Donor_Requests.empty())
+		{
+			int id = Donor_Requests.front();
+			for (int i = 0; i < donorsList.size(); i++)
+			{
+				if (donorsList[i].ID == id)
+				{
+					indx = i;
+					break;
+				}
+			}
+			if (donorsList[indx].Age >= 17 && donorsList[indx].Age <= 60 && donorsList[indx].isDisease == false && donorsList[indx].Other_Disease == false)
+			{
+				donorsList[indx].Validated_Donor = true;
+			}
+			else
+			{
+				donorsList[indx].Validated_Donor = false;
+			}
+
+			Donor_Requests.pop();
+		}
+	}
+}
+void Admin::Display_requests(vector <Donor>& donorsList, queue <int>& Donor_Requests)
+{ 
+	if (Donor_Requests.size() == 0)
+	{
+		cout << "There is no request available now\n";
+	}
+	else
+	{
+
+		for (int i = 0; i < Donor_Requests.size(); i++)
+		{
+
+			for (int j = 0; j < donorsList.size(); j++)
+			{
+				if (Donor_Requests._Get_container()[i] == donorsList[j].ID)
+				{
+					if (donorsList[j].isDisease == false)
+					{
+						cout << "Donor's ID : " << donorsList[j].ID << "\t" << "The User satisfies Donation rules\n";
+						break;
+					}
+					else
+					{
+						cout << "Donor's ID : " << donorsList[j].ID << "\t" << "The User Doesn't satisfy Donation rules\n";
+						break;
+					}
+				}
+
+			}
+		}
+		validateRequests(donorsList, Donor_Requests);
+	}
+	
 }
