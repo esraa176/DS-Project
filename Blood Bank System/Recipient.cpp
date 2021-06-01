@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include<queue>
+#include"Blood.h"
 using namespace std;
 
 Recipient::Recipient()
@@ -22,7 +24,7 @@ Recipient::Recipient(string name, int age, char gender, string mail, string pass
 
 }
 
-void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList)
+void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB)
 {
 	int choice;
 	while (true) {
@@ -40,7 +42,7 @@ void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList
 
 
 		else if (choice == 2)
-			Search_for_Blood();
+			Search_for_Blood(dataA,dataB,dataO,dataAB);
 
 
 		else if (choice == 3)
@@ -100,7 +102,7 @@ void Recipient::Update_Data(int user_indx, vector <Recipient>& recipientsList)
 			break;
 	}
 }
-void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList) {
+void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
 	int Age;
 	string Name, Email, Password, Hospital, DoctorofTheCase;
 	char Gender;
@@ -130,7 +132,7 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList)
 	while (true) {
 		cin >> recp_2nd_choice;
 		if (recp_2nd_choice == 'Y' || recp_2nd_choice == 'y') {
-			Recipient_page(recipientsList.size() - 1, recipientsList);
+			Recipient_page(recipientsList.size() - 1, recipientsList,dataA,dataB,dataO,dataAB);
 			break;
 		}
 		else {
@@ -143,7 +145,7 @@ void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList
 	// recipientsList.erase(user_indx);
 
 }
-void Recipient::Search_for_Blood() {
+void Recipient::Search_for_Blood(queue<Blood>&  dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
 
 }
 void Recipient::display_all_blood_data() {
