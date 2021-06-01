@@ -123,7 +123,15 @@ void Admin::Admin_Register(vector <Admin>& adminsList, vector <Donor>& donorsLis
 		cout << "\nInvalid code. You can't be an admin.\n";
 		return;
 	}
-	insertUser(adminsList, donorsList, recipientsList, Donor_Requests);
+	int age;
+	string name, email, pass;
+	char gender;
+	cout << "Please enter your name, age and gender (M/F).\n";
+	cin >> name >> age >> gender;
+	cout << "Please enter your Email and Password.\n";
+	cin >> email >> pass;
+	Admin reg(name, age, gender, email, pass);
+	adminsList.push_back(reg);
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
 	Admin_page(adminsList.size() - 1, adminsList, donorsList, recipientsList, Donor_Requests);
 }
