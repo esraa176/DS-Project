@@ -3,12 +3,14 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include<ctime>
 //#include "ArrList.cpp"
 //#include "QueueArr.cpp"
 #include "Admin.h"
 #include "Donor.h"
 #include "Recipient.h"
 #include "Blood.h"
+
 
 using namespace std;
 
@@ -21,6 +23,7 @@ fstream typeB("Blood Type-B.txt", ios::in | ios::out | ios::app);
 fstream typeO("Blood Type-O.txt", ios::in | ios::out | ios::app);
 fstream typeAB("Blood Type-AB.txt", ios::in | ios::out | ios::app);
 
+vector<User> user;
 vector <Admin> adminsList;
 vector <Recipient> recipientsList;
 vector <Donor> donorsList;
@@ -34,11 +37,16 @@ void Login_Page();
 void Registeration_Page();
 void Intialize_Vectors();
 void Update_Files();
+void expiredBlood();
 
 int main()
 {
+	
 	//First thing in the program is to read all previous data from the files into Array Lists.
 	Intialize_Vectors();
+
+	//removing the expired blood from the queue
+	 expiredBlood();
 
 	welcome_page();
 
@@ -49,7 +57,7 @@ int main()
 	return 0;
 }
 
-void welcome_page() 
+void welcome_page()
 {
 	while (true)
 	{
@@ -101,7 +109,8 @@ void Intialize_Vectors()
 	recipientsFile.close();
 
 	Donor d;
-	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease >> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year)
+	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease 
+		>> d.Latest_Donation_Date.tm_mday >> d.Latest_Donation_Date.tm_mon >> d.Latest_Donation_Date.tm_year)
 	{
 		donorsList.push_back(d);
 	}
@@ -115,26 +124,26 @@ void Intialize_Vectors()
 	}
 	requestsFile.close();
 
-	Blood A,B,O,AB;
-	while (typeA >> A.expiry.day >> A.expiry.month >> A.expiry.year >> A.received.day >> A.received.month >> A.received.year)
+	Blood A, B, O, AB;
+	while (typeA >> A.expiry.tm_mday >> A.expiry.tm_mon >> A.expiry.tm_year >> A.received.tm_mday >> A.received.tm_mon >> A.received.tm_year)
 	{
 		dataA.push(A);
 	}
 	typeA.close();
 
-	while (typeB >> B.expiry.day >> B.expiry.month >> B.expiry.year >> B.received.day >> B.received.month >> B.received.year)
+	while (typeB >> B.expiry.tm_mday >> B.expiry.tm_mon >> B.expiry.tm_year >> B.received.tm_mday >> B.received.tm_mon >> B.received.tm_year)
 	{
 		dataB.push(B);
 	}
 	typeB.close();
 
-	while (typeO >> O.expiry.day >> O.expiry.month >> O.expiry.year >> O.received.day >> O.received.month >> O.received.year)
+	while (typeO >> O.expiry.tm_mday >> O.expiry.tm_mon >> O.expiry.tm_year >> O.received.tm_mday >> O.received.tm_mon >> O.received.tm_year)
 	{
 		dataO.push(O);
 	}
 	typeO.close();
 
-	while (typeAB >> AB.expiry.day >> AB.expiry.month >> AB.expiry.year >> AB.received.day >> AB.received.month >> AB.received.year)
+	while (typeAB >> AB.expiry.tm_mday >> AB.expiry.tm_mon >> AB.expiry.tm_year >> AB.received.tm_mday >> AB.received.tm_mon >> AB.received.tm_year)
 	{
 		dataAB.push(AB);
 	}
@@ -161,7 +170,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'A';
-				adminsList[i].Admin_page(i, adminsList, donorsList, recipientsList, Donor_Requests /*,dID*/);
+				adminsList[i].Admin_page(i, adminsList, donorsList, recipientsList, Donor_Requests, dataA ,  dataB,  dataO,  dataAB /*,dID*/);
 				isFound = true;
 				break;
 			}
@@ -172,7 +181,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'R';
-				recipientsList[i].Recipient_page(i, recipientsList /*,rID*/);
+				recipientsList[i].Recipient_page(i, recipientsList, dataA, dataB, dataO, dataAB /*,rID*/);
 				isFound = true;
 				break;
 			}
@@ -217,14 +226,14 @@ void Registeration_Page()
 		{
 			//recipient account creation
 			Recipient reg;
-			reg.Recipient_Registeration_Page(recipientsList /*,rID*/);
+			reg.Recipient_Registeration_Page(recipientsList,dataA,dataB,dataO,dataAB /*,rID*/);
 			welcome_page();
 			break;
 		}
 		else if (User_choice == 3)
 		{
 			Admin reg;
-			reg.Admin_Register(adminsList, donorsList, recipientsList, Donor_Requests /*,aID*/);
+			reg.Admin_Register(adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB,dataO, dataAB /*,aID*/);
 			break;
 		}
 		else
@@ -259,12 +268,12 @@ void Update_Files()
 	{
 		donorsFile << donorsList[i].ID << " " << donorsList[i].Name << " " << donorsList[i].Age << " " << donorsList[i].Gender << " ";
 		donorsFile << donorsList[i].Email << " " << donorsList[i].Password << " " << donorsList[i].Blood_type << " " << donorsList[i].isDisease << " " << donorsList[i].Other_Disease << " ";
-		donorsFile << donorsList[i].Latest_Donation_Date.day << " " << donorsList[i].Latest_Donation_Date.month << " " << donorsList[i].Latest_Donation_Date.year << endl;
+		donorsFile << donorsList[i].Latest_Donation_Date.tm_mday << " " << donorsList[i].Latest_Donation_Date.tm_mon << " " << donorsList[i].Latest_Donation_Date.tm_year << endl;
 	}
 	donorsFile.close();
 
 	requestsFile.open("requests.txt", ofstream::out | ofstream::trunc);
-	for (int i = 0; i < Donor_Requests.size(); i++) 
+	for (int i = 0; i < Donor_Requests.size(); i++)
 	{
 		requestsFile << Donor_Requests._Get_container()[i];
 	}
@@ -273,40 +282,46 @@ void Update_Files()
 	typeA.open("Blood Type-A.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataA.size(); i++)
 	{
-		typeA << dataA._Get_container()[i].expiry.day<<" ";
-		typeA << dataA._Get_container()[i].expiry.month <<" "<< dataA._Get_container()[i].expiry.year<<" ";
-		typeA << dataA._Get_container()[i].received.day << " " << dataA._Get_container()[i].received.month << " ";
-		typeA << dataA._Get_container()[i].received.year << endl;
+		typeA << dataA._Get_container()[i].expiry.tm_mday << " ";
+		typeA << dataA._Get_container()[i].expiry.tm_mon << " " << dataA._Get_container()[i].expiry.tm_year << " ";
+		typeA << dataA._Get_container()[i].received.tm_mday << " " << dataA._Get_container()[i].received.tm_mon << " ";
+		typeA << dataA._Get_container()[i].received.tm_year << endl;
 	}
 	typeA.close();
 
 	typeB.open("Blood Type-B.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataB.size(); i++)
 	{
-		typeB << dataB._Get_container()[i].expiry.day << " ";
-		typeB << dataB._Get_container()[i].expiry.month << " " << dataB._Get_container()[i].expiry.year << " ";
-		typeB << dataB._Get_container()[i].received.day << " " << dataB._Get_container()[i].received.month << " ";
-		typeB << dataB._Get_container()[i].received.year << endl;
+		typeB << dataB._Get_container()[i].expiry.tm_mday << " ";
+		typeB << dataB._Get_container()[i].expiry.tm_mon << " " << dataB._Get_container()[i].expiry.tm_year << " ";
+		typeB << dataB._Get_container()[i].received.tm_mday << " " << dataB._Get_container()[i].received.tm_mon << " ";
+		typeB << dataB._Get_container()[i].received.tm_year << endl;
 	}
 	typeB.close();
 
 	typeO.open("Blood Type-O.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataO.size(); i++)
 	{
-		typeO << " " << dataO._Get_container()[i].expiry.day << " ";
-		typeO << dataO._Get_container()[i].expiry.month << " " << dataO._Get_container()[i].expiry.year << " ";
-		typeO << dataO._Get_container()[i].received.day << " " << dataO._Get_container()[i].received.month << " ";
-		typeO << dataO._Get_container()[i].received.year << endl;
+		typeO << " " << dataO._Get_container()[i].expiry.tm_mday << " ";
+		typeO << dataO._Get_container()[i].expiry.tm_mon << " " << dataO._Get_container()[i].expiry.tm_year << " ";
+		typeO << dataO._Get_container()[i].received.tm_mday << " " << dataO._Get_container()[i].received.tm_mon << " ";
+		typeO << dataO._Get_container()[i].received.tm_year << endl;
 	}
 	typeO.close();
 
 	typeAB.open("Blood Type-AB.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataAB.size(); i++)
 	{
-		typeAB << dataAB._Get_container()[i].expiry.day << " ";
-		typeAB << dataAB._Get_container()[i].expiry.month << " " << dataAB._Get_container()[i].expiry.year << " ";
-		typeAB << dataAB._Get_container()[i].received.day << " " << dataAB._Get_container()[i].received.month << " ";
-		typeAB << dataAB._Get_container()[i].received.year << endl;
+		typeAB << dataAB._Get_container()[i].expiry.tm_mday << " ";
+		typeAB << dataAB._Get_container()[i].expiry.tm_mon << " " << dataAB._Get_container()[i].expiry.tm_year << " ";
+		typeAB << dataAB._Get_container()[i].received.tm_mday << " " << dataAB._Get_container()[i].received.tm_mon << " ";
+		typeAB << dataAB._Get_container()[i].received.tm_year << endl;
 	}
 	typeAB.close();
 }
+void expiredBlood()
+{
+
+}
+
+
