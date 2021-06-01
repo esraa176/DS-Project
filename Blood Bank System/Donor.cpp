@@ -24,10 +24,11 @@ Donor::Donor(string name, int age, char gender, string mail, string password, st
 }
 
 void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& Donor_Requests)
-{
+{ char ch;
 	do
 	{
 		int choice;
+		
 		cout << "Press 1 if you want to make a Donation Request\n";
 		cout << "Press 2 if you want to Update your Data\n";
 		cout << "Press 3 if you want to Delete your Account\n";
@@ -51,8 +52,9 @@ void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& D
 
 		}
 
-
-	} while (true);
+		cout << "Do you want to continue? (y/n)" << endl;
+		cin >> ch;
+	} while ( ch == 'y' || ch=='Y');
 }
 void Donor::Donation_Request(int userIndex, vector <Donor>& donorsList, queue<int>& Donor_Requests)
 {
