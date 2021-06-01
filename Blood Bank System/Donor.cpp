@@ -8,10 +8,10 @@ Donor::Donor()
 {
 
 }
-Donor::Donor(string name, int age, char gender, string mail, string password, string blood_type, bool isdisease, bool other_disease, tm latest_donation_date)
+Donor::Donor(string name, int age, char gender, string mail, string password, string blood_type, bool isdisease, bool other_disease, tm latest_donation_date, int& dID)
 {
-	ID = Donor_count;
-	Donor_count++;
+	ID = dID;
+	dID++;
 	Name = name;
 	Age = age;
 	Gender = gender;
@@ -24,14 +24,16 @@ Donor::Donor(string name, int age, char gender, string mail, string password, st
 }
 
 void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& Donor_Requests)
-{ char ch;
+{
+	char ch;
 	do
 	{
 		int choice;
-		
+
 		cout << "Press 1 if you want to make a Donation Request\n";
 		cout << "Press 2 if you want to Update your Data\n";
 		cout << "Press 3 if you want to Delete your Account\n";
+		cout << "Press 4 if you want to exit this menu\n";
 		cin >> choice;
 		switch (choice) {
 		case 1:
@@ -47,6 +49,9 @@ void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& D
 			cout << "You have successfully Deleted your Account!\n";
 			//call deleteacc
 			break;
+		case 4:
+			return;
+			break;
 		default:
 			cout << "Invalid Choice\n";
 
@@ -54,11 +59,10 @@ void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& D
 
 		cout << "Do you want to continue? (y/n)" << endl;
 		cin >> ch;
-	} while ( ch == 'y' || ch=='Y');
+	} while (ch == 'y' || ch == 'Y');
 }
 void Donor::Donation_Request(int userIndex, vector <Donor>& donorsList, queue<int>& Donor_Requests)
 {
-
 	Donor_Requests.push(donorsList[userIndex].ID);
 }
 void Donor::Update_Data(int userIndex, vector <Donor>& donorsList)
@@ -107,7 +111,7 @@ void Donor::Update_Data(int userIndex, vector <Donor>& donorsList)
 		break;
 	}
 }
-void Donor::Donor_Registeration(vector <Donor>& donorsList, queue<int>& Donor_Requests)
+void Donor::Donor_Registeration(vector <Donor>& donorsList, queue<int>& Donor_Requests, int& dID)
 {
 	char is_Disease, other_disease;
 	cout << "Please enter your Name:" << endl;
@@ -141,7 +145,10 @@ void Donor::Donor_Registeration(vector <Donor>& donorsList, queue<int>& Donor_Re
 		Other_Disease = false;
 	}
 	tm latest_donation_date;
-	Donor reg(Name, Age, Gender, Email, Password, Blood_type, isDisease, Other_Disease, latest_donation_date);
+	latest_donation_date.tm_mon = 0;
+	latest_donation_date.tm_year = 0;
+	latest_donation_date.tm_wday = 0;
+	Donor reg(Name, Age, Gender, Email, Password, Blood_type, isDisease, Other_Disease, latest_donation_date, dID);
 	donorsList.push_back(reg);
 
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
