@@ -22,7 +22,7 @@ public:
 
 public:
 	Donor();
-	Donor(string, int, char, string, string, string, bool, bool, Date);
+	Donor(string, int, char, string, string, string, bool, bool, tm);
 	void Donation_Request(int, vector<Donor>&, queue<int>&);
 	void Update_Data(int, vector<Donor>&);
 	void Delete_Account(int, vector<Donor>&);
