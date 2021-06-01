@@ -11,7 +11,6 @@
 #include "Recipient.h"
 #include "Blood.h"
 
-
 using namespace std;
 
 fstream adminsFile("admins.txt", ios::in | ios::out | ios::app);
@@ -23,14 +22,14 @@ fstream typeB("Blood Type-B.txt", ios::in | ios::out | ios::app);
 fstream typeO("Blood Type-O.txt", ios::in | ios::out | ios::app);
 fstream typeAB("Blood Type-AB.txt", ios::in | ios::out | ios::app);
 
-vector<User> user;
+//vector<User> user;
 vector <Admin> adminsList;
 vector <Recipient> recipientsList;
 vector <Donor> donorsList;
 queue <Blood> dataA, dataB, dataO, dataAB;
 queue <int> Donor_Requests;
 
-int quantityA = 0, quantityB = 0, quantityC = 0, aID, rID, dID;
+int quantityA = 0, quantityB = 0, quantityC = 0, aID = -1, rID = -1, dID = -1;
 
 void welcome_page();
 void Login_Page();
@@ -41,12 +40,11 @@ void expiredBlood();
 
 int main()
 {
-	
 	//First thing in the program is to read all previous data from the files into Array Lists.
 	Intialize_Vectors();
 
 	//removing the expired blood from the queue
-	 expiredBlood();
+	//expiredBlood();
 
 	welcome_page();
 
@@ -61,6 +59,7 @@ void welcome_page()
 {
 	while (true)
 	{
+		//cout << donorsList.size() << endl;
 		cout << "\t\t\t\tWelcome to Blood Bank Management System\t\t\t\t\n";
 		cout << "Please Enter the number of the option you want: \n";
 		cout << "\t\t 1. If you want to sign in." << endl;
@@ -94,27 +93,26 @@ void Intialize_Vectors()
 	while (adminsFile >> admin.ID >> admin.Name >> admin.Age >> admin.Gender >> admin.Email >> admin.Password)
 	{
 		adminsList.push_back(admin);
+		aID = admin.ID;
 	}
 	aID++;
-	aID = admin.ID;
 	adminsFile.close();
 
 	Recipient r;
 	while (recipientsFile >> r.ID >> r.Name >> r.Age >> r.Gender >> r.Email >> r.Password >> r.Blood_type >> r.Hospital >> r.DoctorofTheCase)
 	{
 		recipientsList.push_back(r);
+		rID = r.ID;
 	}
-	rID = r.ID;
 	rID++;
 	recipientsFile.close();
 
 	Donor d;
-	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease 
-		>> d.Latest_Donation_Date.tm_mday >> d.Latest_Donation_Date.tm_mon >> d.Latest_Donation_Date.tm_year)
+	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease >> d.Latest_Donation_Date.tm_wday >> d.Latest_Donation_Date.tm_mon >> d.Latest_Donation_Date.tm_year)
 	{
 		donorsList.push_back(d);
+		dID = d.ID;
 	}
-	dID = d.ID;
 	dID++;
 	donorsFile.close();
 
@@ -170,7 +168,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'A';
-				adminsList[i].Admin_page(i, adminsList, donorsList, recipientsList, Donor_Requests, dataA ,  dataB,  dataO,  dataAB /*,dID*/);
+				adminsList[i].Admin_page(i, adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB , aID, rID, dID);
 				isFound = true;
 				break;
 			}
@@ -181,7 +179,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'R';
-				recipientsList[i].Recipient_page(i, recipientsList, dataA, dataB, dataO, dataAB /*,rID*/);
+				recipientsList[i].Recipient_page(i, recipientsList, dataA, dataB, dataO, dataAB);
 				isFound = true;
 				break;
 			}
@@ -192,7 +190,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'D';
-				donorsList[i].Donor_page(i, donorsList, Donor_Requests /*,dID*/);
+				donorsList[i].Donor_page(i, donorsList, Donor_Requests);
 				isFound = true;
 				break;
 			}
@@ -219,21 +217,21 @@ void Registeration_Page()
 		if (User_choice == 1)
 		{
 			Donor reg;
-			reg.Donor_Registeration(donorsList, Donor_Requests /*,dID*/);
+			reg.Donor_Registeration(donorsList, Donor_Requests, dID);
 			break;
 		}
 		else if (User_choice == 2)
 		{
 			//recipient account creation
 			Recipient reg;
-			reg.Recipient_Registeration_Page(recipientsList,dataA,dataB,dataO,dataAB /*,rID*/);
+			reg.Recipient_Registeration_Page(recipientsList, dataA, dataB, dataO, dataAB , rID);
 			welcome_page();
 			break;
 		}
 		else if (User_choice == 3)
 		{
 			Admin reg;
-			reg.Admin_Register(adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB,dataO, dataAB /*,aID*/);
+			reg.Admin_Register(adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID, rID, dID);
 			break;
 		}
 		else
@@ -323,5 +321,4 @@ void expiredBlood()
 {
 
 }
-
 
