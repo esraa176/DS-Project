@@ -4,17 +4,15 @@
 #include<queue>
 #include <ctime>
 using namespace std;
-/*
-struct Date
+/*struct Date
 {
 	int day = 0, month = 0, year = 0;
-};
-*/
+};*/
 class Donor
 {
 public:
 	string Name, Email, Password, Blood_type;
-	bool isDisease, Other_Disease;
+	bool isDisease, Other_Disease, Validated_Donor = false;
 	int ID, Age;
 	int Donor_count = 0;
 	char Gender;
