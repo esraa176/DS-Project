@@ -3,9 +3,11 @@
 #include"Recipient.h"
 #include <vector>
 #include <string>
+#include"User.h"
+#include"Blood.h"
 using namespace std;
 
-class Admin
+class Admin: public User
 {
 public:
 	int ID, Age;
@@ -16,14 +18,15 @@ public:
 public:
 	Admin(string, int, char, string, string);
 	Admin();
-	void Admin_page(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&);
+	void Admin_page(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>& , queue<Blood>& , queue<Blood>& , queue<Blood>& );
 	void validateRequests();
-	void Admin_Register(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&);
-	void insertUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&);
+	void Admin_Register(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
+	void insertUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
 	void deleteUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
 	void updateUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
 	void insertBlood();
 	void deleteBlood();
 	void updateBlood();
 	void displayData(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, char);
+	void bloodDate();
 };
