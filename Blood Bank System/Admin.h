@@ -7,7 +7,7 @@
 #include"Blood.h"
 using namespace std;
 
-class Admin: public User
+class Admin : public User
 {
 public:
 	int ID, Age;
@@ -18,8 +18,9 @@ public:
 public:
 	Admin(string, int, char, string, string);
 	Admin();
-	void Admin_page(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>& , queue<Blood>& , queue<Blood>& , queue<Blood>& );
-	void validateRequests();
+	void Admin_page(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
+	void validateRequests(vector <Donor>&, queue <int>&);
+	void Display_requests(vector <Donor>& , queue <int>& );
 	void Admin_Register(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
 	void insertUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
 	void deleteUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
