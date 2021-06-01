@@ -4,10 +4,12 @@
 #include<queue>
 #include <ctime>
 using namespace std;
+/*
 struct Date
 {
 	int day = 0, month = 0, year = 0;
 };
+*/
 class Donor
 {
 public:
@@ -16,7 +18,7 @@ public:
 	int ID, Age;
 	int Donor_count = 0;
 	char Gender;
-	Date Latest_Donation_Date;
+	tm Latest_Donation_Date;
 
 public:
 	Donor();
