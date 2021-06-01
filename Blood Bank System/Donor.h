@@ -20,10 +20,10 @@ public:
 
 public:
 	Donor();
-	Donor(string, int, char, string, string, string, bool, bool, tm);
+	Donor(string, int, char, string, string, string, bool, bool, tm, int&);
 	void Donation_Request(int, vector<Donor>&, queue<int>&);
 	void Update_Data(int, vector<Donor>&);
 	void Delete_Account(int, vector<Donor>&);
 	void Donor_page(int, vector<Donor>&, queue<int>&);
-	void Donor_Registeration(vector<Donor>&, queue<int>&);
+	void Donor_Registeration(vector<Donor>&, queue<int>&, int&);
 };
