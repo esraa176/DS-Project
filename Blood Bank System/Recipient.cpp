@@ -45,7 +45,7 @@ void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList
 
 
 		else if (choice == 3)
-			display_all_blood_data();
+			display_all_blood_data(dataA, dataB, dataO, dataAB);
 
 
 
@@ -143,7 +143,7 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList,
 
 
 
-void Recipient::Search_for_Blood(vector <Recipient>& recipientsList, int userIndex, queue<Blood>&  dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
+void Recipient::Search_for_Blood(vector <Recipient>& recipientsList, int userIndex, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
 	string type;
 	char ans;
 	bool found = false;
@@ -211,13 +211,13 @@ void Recipient::Search_for_Blood(vector <Recipient>& recipientsList, int userInd
 		}
 	}
 	else {
-		cout << "Thank you: "<<endl;
+		cout << "Thank you: " << endl;
 	}
 
 
 }
 
-void Recipient::Request_Blood(string av_type, queue<Blood>&  dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
+void Recipient::Request_Blood(string av_type, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
 	if (av_type == "A")
 		dataA.pop();
 	else if (av_type == "B")
@@ -232,12 +232,12 @@ void Recipient::Request_Blood(string av_type, queue<Blood>&  dataA, queue<Blood>
 
 
 void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList) {
-	 recipientsList.erase(next(recipientsList.begin(), user_indx));
+	recipientsList.erase(next(recipientsList.begin(), user_indx));
 
 }
 
- void Recipient::display_all_blood_data(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
-	
+void Recipient::display_all_blood_data(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
+
 	cout << "Blood type is : " << "A" << endl;
 	cout << "Blood quantity is : " << dataA.size() << endl;
 	for (int i = 0; i < dataA.size(); i++)
@@ -250,7 +250,7 @@ void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList
 	for (int i = 0; i < dataB.size(); i++)
 	{
 		cout << dataB._Get_container()[i].expiry.tm_mday << "/" << dataB._Get_container()[i].expiry.tm_mon << "/" << dataB._Get_container()[i].expiry.tm_year << endl;
-		cout << dataB._Get_container()[i].received.tm_mday << "/" << dataB._Get_container()[i].received.tm_mon << "/"<< dataB._Get_container()[i].received.tm_year << endl;
+		cout << dataB._Get_container()[i].received.tm_mday << "/" << dataB._Get_container()[i].received.tm_mon << "/" << dataB._Get_container()[i].received.tm_year << endl;
 	}
 	cout << "Blood type is : " << "AB" << endl;
 	cout << "Blood quantity is : " << dataAB.size() << endl;
@@ -267,5 +267,3 @@ void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList
 		cout << dataO._Get_container()[i].received.tm_mday << "/" << dataO._Get_container()[i].received.tm_mon << "/" << dataO._Get_container()[i].received.tm_year << endl;
 	}
 }
-
-
