@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include<ctime>
+#include <ctime>
 //#include "ArrList.cpp"
 //#include "QueueArr.cpp"
 #include "Admin.h"
@@ -34,14 +34,14 @@ int quantityA = 0, quantityB = 0, quantityC = 0, aID = -1, rID = -1, dID = -1;
 void welcome_page();
 void Login_Page();
 void Registeration_Page();
-void Intialize_Vectors();
+void Intialize_Vectors_Queues();
 void Update_Files();
 void expiredBlood();
 
 int main()
 {
 	//First thing in the program is to read all previous data from the files into Array Lists.
-	Intialize_Vectors();
+	Intialize_Vectors_Queues();
 
 	//removing the expired blood from the queue
 	//expiredBlood();
@@ -86,7 +86,7 @@ void welcome_page()
 	}
 }
 
-void Intialize_Vectors()
+void Intialize_Vectors_Queues()
 {
 
 	Admin admin;
@@ -266,7 +266,7 @@ void Update_Files()
 	{
 		donorsFile << donorsList[i].ID << " " << donorsList[i].Name << " " << donorsList[i].Age << " " << donorsList[i].Gender << " ";
 		donorsFile << donorsList[i].Email << " " << donorsList[i].Password << " " << donorsList[i].Blood_type << " " << donorsList[i].isDisease << " " << donorsList[i].Other_Disease << " ";
-		donorsFile << donorsList[i].Latest_Donation_Date.tm_mday << " " << donorsList[i].Latest_Donation_Date.tm_mon << " " << donorsList[i].Latest_Donation_Date.tm_year << endl;
+		donorsFile << donorsList[i].Latest_Donation_Date.tm_wday << " " << donorsList[i].Latest_Donation_Date.tm_mon << " " << donorsList[i].Latest_Donation_Date.tm_year << endl;
 	}
 	donorsFile.close();
 
