@@ -273,7 +273,7 @@ void Update_Files()
 	requestsFile.open("requests.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < Donor_Requests.size(); i++)
 	{
-		requestsFile << Donor_Requests._Get_container()[i];
+		requestsFile << Donor_Requests._Get_container()[i] << endl;
 	}
 	requestsFile.close();
 
