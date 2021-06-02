@@ -232,28 +232,40 @@ void Recipient::Request_Blood(string av_type, queue<Blood>&  dataA, queue<Blood>
 
 
 void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList) {
-	// recipientsList.erase(user_indx);
+	 recipientsList.erase(next(recipientsList.begin(), user_indx));
 
 }
 
-void Recipient::display_all_blood_data() {
-	/*
+ void Recipient::display_all_blood_data(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
+	
 	cout << "Blood type is : " << "A" << endl;
-	cout << "Blood quantity is : " << A.quantity << endl;
-	cout << "Recieved date of blood is: " << A.recieved.day << "/" << A.recieved.month << "/" << A.recieved.year << endl;
-	cout << "expiry date of blood is: " << A.expiry.day << "/" << A.expiry.month << "/" << A.expiry.year << endl;
+	cout << "Blood quantity is : " << dataA.size() << endl;
+	for (int i = 0; i < dataA.size(); i++)
+	{
+		cout << dataA._Get_container()[i].expiry.tm_mday << "/" << dataA._Get_container()[i].expiry.tm_mon << "/" << dataA._Get_container()[i].expiry.tm_year << endl;
+		cout << dataA._Get_container()[i].received.tm_mday << "/" << dataA._Get_container()[i].received.tm_mon << "/" << dataA._Get_container()[i].received.tm_year << endl;
+	}
 	cout << "Blood type is : " << "B" << endl;
-	cout << "Blood quantity is : " << B.quantity << endl;
-	cout << "Recieved date of blood is: " << B.recieved.day << "/" << B.recieved.month << "/" << B.recieved.year << endl;
-	cout << "expiry date of blood is: " << B.expiry.day << "/" << B.expiry.month << "/" << B.expiry.year << endl;
+	cout << "Blood quantity is : " << dataB.size() << endl;
+	for (int i = 0; i < dataB.size(); i++)
+	{
+		cout << dataB._Get_container()[i].expiry.tm_mday << "/" << dataB._Get_container()[i].expiry.tm_mon << "/" << dataB._Get_container()[i].expiry.tm_year << endl;
+		cout << dataB._Get_container()[i].received.tm_mday << "/" << dataB._Get_container()[i].received.tm_mon << "/"<< dataB._Get_container()[i].received.tm_year << endl;
+	}
 	cout << "Blood type is : " << "AB" << endl;
-	cout << "Blood quantity is : " << AB.quantity << endl;
-	cout << "Recieved date of blood is: " << AB.recieved.day << "/" << AB.recieved.month << "/" << AB.recieved.year << endl;
-	cout << "expiry date of blood is: " << AB.expiry.day << "/" << AB.expiry.month << "/" << AB.expiry.year << endl;
+	cout << "Blood quantity is : " << dataAB.size() << endl;
+	for (int i = 0; i < dataAB.size(); i++)
+	{
+		cout << dataAB._Get_container()[i].expiry.tm_mday << "/" << dataAB._Get_container()[i].expiry.tm_mon << "/" << dataAB._Get_container()[i].expiry.tm_year << endl;
+		cout << dataAB._Get_container()[i].received.tm_mday << "/" << dataAB._Get_container()[i].received.tm_mon << "/" << dataAB._Get_container()[i].received.tm_year << endl;
+	}
 	cout << "Blood type is : " << "O" << endl;
-	cout << "Blood quantity is : " << O.quantity << endl;
-	cout << "Recieved date of blood is: " << O.recieved.day << "/" << O.recieved.month << "/" << O.recieved.year << endl;
-	cout << "expiry date of blood is: " << O.expiry.day << "/" << O.expiry.month << "/" << O.expiry.year << endl;
-	*/
+	cout << "Blood quantity is : " << dataO.size() << endl;
+	for (int i = 0; i < dataO.size(); i++)
+	{
+		cout << dataO._Get_container()[i].expiry.tm_mday << "/" << dataO._Get_container()[i].expiry.tm_mon << "/" << dataO._Get_container()[i].expiry.tm_year << endl;
+		cout << dataO._Get_container()[i].received.tm_mday << "/" << dataO._Get_container()[i].received.tm_mon << "/" << dataO._Get_container()[i].received.tm_year << endl;
+	}
 }
+
 
