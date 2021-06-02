@@ -31,27 +31,25 @@ void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList
 		cout << "                                                             Welcome to Recipient Page: " << endl;
 		cout << "Please choose one of these choices: " << endl;
 		cout << "press 1 if you want to update your data: " << endl;
-		cout << "press 2 if you want to search for the avalibality of blood: " << endl;
+		cout << "press 2 if you want to search for the avalibality of blood and make a request for it: " << endl;
 		cout << "press 3 if you want to display blood data: " << endl;
-		cout << "press 4 if you want to make a request for a blood:  " << endl;
-		cout << "press 5 if you want to delete your account: " << endl;
-		cout << "press 6 if you want to log out: " << endl;
+		cout << "press 4 if you want to delete your account: " << endl;
+		cout << "press 5 if you want to log out: " << endl;
 		cin >> choice;
 		if (choice == 1)
 			Update_Data(userIndex, recipientsList);
 
 
 		else if (choice == 2)
-			Search_for_Blood(dataA, dataB, dataO, dataAB);
+			Search_for_Blood(recipientsList, userIndex, dataA, dataB, dataO, dataAB);
 
 
 		else if (choice == 3)
 			display_all_blood_data();
 
-		else if (choice == 4)
-			Request_Blood();
 
-		else if (choice == 5)
+
+		else if (choice == 4)
 			Delete_Account(userIndex, recipientsList);
 
 		else {
@@ -142,13 +140,102 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList,
 		}
 	}
 }
+
+
+
+void Recipient::Search_for_Blood(vector <Recipient>& recipientsList, int userIndex, queue<Blood>&  dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
+	string type;
+	char ans;
+	bool found = false;
+	string av_type;
+	while (true) {
+		cout << "please enter the blood type you want to search about it's avalibility: ";
+		cin >> type;
+		if (type == "A") {
+			if (dataA.size() > 0) {
+				cout << "it is avaliable with " << dataA.size() << " bags" << endl;
+				found = true;
+				av_type = "A";
+			}
+			else {
+				cout << "sorry blood type A is not avaliable now: " << endl;
+			}
+		}
+		else if (type == "B") {
+			if (dataB.size() > 0) {
+				cout << "it is avaliable with " << dataA.size() << " bags" << endl;
+				found = true;
+				av_type = "B";
+			}
+			else {
+				cout << "sorry blood type B is not avaliable now: " << endl;
+			}
+		}
+		else if (type == "AB") {
+			if (dataB.size() > 0) {
+				cout << "it is avaliable with " << dataAB.size() << " bags" << endl;
+				found = true;
+				av_type = "AB";
+			}
+			else {
+				cout << "sorry blood type AB is not avaliable now: " << endl;
+			}
+		}
+		else if (type == "O") {
+			if (dataB.size() > 0) {
+				cout << "it is avaliable with " << dataO.size() << " bags" << endl;
+				found = true;
+				av_type = "O";
+			}
+			else {
+				cout << "sorry blood type O is not avaliable now: " << endl;
+			}
+		}
+		if (recipientsList.at(userIndex).Blood_type == "AB") {
+			cout << "if do you want to search on another blood type as your blood type can accept from any blood types press Y if you don't want press N " << endl;
+			cin >> ans;
+			if (ans == 'n' || ans == 'N')
+				break;
+
+		}
+		else {
+			break;
+		}
+
+	}
+	if (found == true) {
+		cout << "Do you want to make a request to take this blood type? Y/N :" << endl;
+		cin >> ans;
+		if (ans == 'y' || ans == 'Y') {
+			Request_Blood(av_type, dataA, dataB, dataO, dataAB);
+		}
+	}
+	else {
+		cout << "Thank you: "<<endl;
+	}
+
+
+}
+
+void Recipient::Request_Blood(string av_type, queue<Blood>&  dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
+	if (av_type == "A")
+		dataA.pop();
+	else if (av_type == "B")
+		dataB.pop();
+	else if (av_type == "O")
+		dataO.pop();
+	else {
+		dataAB.pop();
+	}
+	cout << "your request is succeffuly accepted: " << endl;
+}
+
+
 void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList) {
 	// recipientsList.erase(user_indx);
 
 }
-void Recipient::Search_for_Blood(queue<Blood>&  dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
 
-}
 void Recipient::display_all_blood_data() {
 	/*
 	cout << "Blood type is : " << "A" << endl;
@@ -169,6 +256,4 @@ void Recipient::display_all_blood_data() {
 	cout << "expiry date of blood is: " << O.expiry.day << "/" << O.expiry.month << "/" << O.expiry.year << endl;
 	*/
 }
-void Recipient::Request_Blood() {
 
-}
