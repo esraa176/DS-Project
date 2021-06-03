@@ -6,16 +6,18 @@
 #include "Recipient.h"
 #include <queue>
 #include "Blood.h"
-
+#include "Files.h"
 
 using namespace std;
 
+Files fileA;
 Date c_date;
+
 Admin::Admin()
 {
 
 }
-Admin::Admin(string name, int age, char gender, string email, string password, int& aID):User(name,age,gender,email,password)
+Admin::Admin(string name, int age, char gender, string email, string password, int& aID) :User(name, age, gender, email, password)
 {
 	ID = aID;
 	aID++;
@@ -108,11 +110,34 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 		}
 		else if (choice == 4)
 		{
-			searchForUser();
+			do
+			{
+				cout << "Please enter user ID and their type (Admin, Donor or Recipient)\n";
+				int id, userIndex; string userType; char user;
+				cin >> id >> userType;
+				for_each(userType.begin(), userType.end(), [](char & c) {
+					c = ::tolower(c);
+				});
+				if (userType == "admin")
+					user = 'a';
+				else if (userType == "donor")
+					user = 'd';
+				else
+					user = 'r';
+
+				userIndex = searchForUser(id, adminsList, donorsList, recipientsList, user);
+				if (userIndex == -1)
+					cout << "Invalid ID or user type. Try again.\n";
+				else
+				{
+					displayData(userIndex, adminsList, donorsList, recipientsList, user);
+					break;
+				}
+			} while (true);
 		}
 		else if (choice == 5)
 		{
-			displayBloodData(dataA,dataB, dataO, dataAB);
+			displayBloodData(dataA, dataB, dataO, dataAB);
 		}
 		else if (choice == 6)
 		{
@@ -458,44 +483,6 @@ void Admin::updateBlood()
 {
 
 }
-void Admin::displayData(int userIndex, vector <Admin>& adminsList, vector <Donor>& donorList, vector <Recipient>& recipientList, char userType)
-{
-	cout << "All data of user with ID: ";
-	if (userType == 'A')
-	{
-		cout << adminsList[userIndex].ID << endl;
-		cout << "Name: " << adminsList[userIndex].Name << endl;
-		cout << "Age: " << adminsList[userIndex].Age << endl;
-		cout << "Gender: " << adminsList[userIndex].Gender << endl;
-		cout << "Email: " << adminsList[userIndex].Email << endl;
-		cout << "Password: " << adminsList[userIndex].Password << endl;
-	}
-	else if (userType == 'D')
-	{
-		cout << donorList[userIndex].ID << endl;
-		cout << "Name: " << donorList[userIndex].Name << endl;
-		cout << "Age: " << donorList[userIndex].Age << endl;
-		cout << "Gender: " << donorList[userIndex].Gender << endl;
-		cout << "Email: " << donorList[userIndex].Email << endl;
-		cout << "Password: " << donorList[userIndex].Password << endl;
-		cout << "Blood Type: " << donorList[userIndex].Blood_type << endl;
-		cout << "If she/he suffers from any disease(blood pressure disorders, thyroid disease, diabetes, cancer, heart disorders, hepatitis): " << donorList[userIndex].isDisease << endl;
-		cout << "If she/he suffers from any other disease or take any medicine: " << donorList[userIndex].Other_Disease << endl;
-		cout << "Latest Donation Date: " << donorList[userIndex].Latest_Donation_Date.day << "/" << donorList[userIndex].Latest_Donation_Date.month << "/" << donorList[userIndex].Latest_Donation_Date.year << endl;
-	}
-	else
-	{
-		cout << recipientList[userIndex].ID << endl;
-		cout << "Name: " << recipientList[userIndex].Name << endl;
-		cout << "Age: " << recipientList[userIndex].Age << endl;
-		cout << "Gender: " << recipientList[userIndex].Gender << endl;
-		cout << "Email: " << recipientList[userIndex].Email << endl;
-		cout << "Password: " << recipientList[userIndex].Password << endl;
-		cout << "Blood Type: " << recipientList[userIndex].Blood_type << endl;
-		cout << "Hospital: " << recipientList[userIndex].Hospital << endl;
-		cout << "Doctor of the Case: " << recipientList[userIndex].DoctorofTheCase << endl;
-	}
-}
 void Admin::Current_Date()
 {
 	tm newtime;
@@ -632,12 +619,78 @@ void Admin::Display_requests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 	}
 
 }
-void Admin:: searchForUser()
+int Admin::searchForUser(int id, vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, char userType)
 {
-
+	int userIndex = -1;
+	if (tolower(userType) == 'a')
+	{
+		for (int i = 0; i < adminsList.size(); i++)
+			if (adminsList[i].ID == id)
+			{
+				userIndex = i;
+				break;
+			}
+	}
+	else if (tolower(userType) == 'd')
+	{
+		for (int i = 0; i < donorsList.size(); i++)
+			if (donorsList[i].ID == id)
+			{
+				userIndex = i;
+				break;
+			}
+	}
+	else
+	{
+		for (int i = 0; i < recipientsList.size(); i++)
+			if (recipientsList[i].ID == id)
+			{
+				userIndex = i;
+				break;
+			}
+	}
+	return userIndex;
+}
+void Admin::displayData(int userIndex, vector <Admin>& adminsList, vector <Donor>& donorList, vector <Recipient>& recipientList, char userType)
+{
+	cout << "All data of user with ID: ";
+	if (tolower(userType) == 'a')
+	{
+		cout << adminsList[userIndex].ID << endl;
+		cout << "Name: " << adminsList[userIndex].Name << endl;
+		cout << "Age: " << adminsList[userIndex].Age << endl;
+		cout << "Gender: " << adminsList[userIndex].Gender << endl;
+		cout << "Email: " << adminsList[userIndex].Email << endl;
+		cout << "Password: " << adminsList[userIndex].Password << endl;
+	}
+	else if (tolower(userType) == 'd')
+	{
+		cout << donorList[userIndex].ID << endl;
+		cout << "Name: " << donorList[userIndex].Name << endl;
+		cout << "Age: " << donorList[userIndex].Age << endl;
+		cout << "Gender: " << donorList[userIndex].Gender << endl;
+		cout << "Email: " << donorList[userIndex].Email << endl;
+		cout << "Password: " << donorList[userIndex].Password << endl;
+		cout << "Blood Type: " << donorList[userIndex].Blood_type << endl;
+		cout << "If she/he suffers from any disease(blood pressure disorders, thyroid disease, diabetes, cancer, heart disorders, hepatitis): " << donorList[userIndex].isDisease << endl;
+		cout << "If she/he suffers from any other disease or take any medicine: " << donorList[userIndex].Other_Disease << endl;
+		cout << "Latest Donation Date: " << donorList[userIndex].Latest_Donation_Date.day << "/" << donorList[userIndex].Latest_Donation_Date.month << "/" << donorList[userIndex].Latest_Donation_Date.year << endl;
+	}
+	else
+	{
+		cout << recipientList[userIndex].ID << endl;
+		cout << "Name: " << recipientList[userIndex].Name << endl;
+		cout << "Age: " << recipientList[userIndex].Age << endl;
+		cout << "Gender: " << recipientList[userIndex].Gender << endl;
+		cout << "Email: " << recipientList[userIndex].Email << endl;
+		cout << "Password: " << recipientList[userIndex].Password << endl;
+		cout << "Blood Type: " << recipientList[userIndex].Blood_type << endl;
+		cout << "Hospital: " << recipientList[userIndex].Hospital << endl;
+		cout << "Doctor of the Case: " << recipientList[userIndex].DoctorofTheCase << endl;
+	}
 }
 void Admin::displayBloodData(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB)
 {
 	Recipient r;
-	r.display_all_blood_data( dataA, dataB, dataO,  dataAB);
+	r.display_all_blood_data(dataA, dataB, dataO, dataAB);
 }
