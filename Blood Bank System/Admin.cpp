@@ -112,7 +112,7 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 		}
 		else if (choice == 5)
 		{
-			displayBloodData();
+			displayBloodData(dataA,dataB, dataO, dataAB);
 		}
 		else if (choice == 6)
 		{
@@ -636,7 +636,8 @@ void Admin:: searchForUser()
 {
 
 }
-void Admin::displayBloodData()
+void Admin::displayBloodData(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB)
 {
-
+	Recipient r;
+	r.display_all_blood_data( dataA, dataB, dataO,  dataAB);
 }
