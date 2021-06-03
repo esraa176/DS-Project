@@ -4,20 +4,18 @@
 #include <vector>
 #include<queue>
 #include"Blood.h"
+
 using namespace std;
 
 Recipient::Recipient()
 {
 
 }
-Recipient::Recipient(string name, int age, char gender, string mail, string pass, string blood_type, string hospital, string doctor, int& rID) {
+Recipient::Recipient(string name, int age, char gender, string mail, string pass, string blood_type, string hospital, string doctor, int& rID) 
+	:User(name, age, gender, mail, pass)
+{
 	ID = rID;
 	rID++;
-	Name = name;
-	Email = mail;
-	Password = pass;
-	Age = age;
-	Gender = gender;
 	Blood_type = blood_type;
 	Hospital = hospital;
 	DoctorofTheCase = doctor;
