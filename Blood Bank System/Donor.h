@@ -4,26 +4,35 @@
 #include<queue>
 #include <ctime>
 using namespace std;
-/*struct Date
+struct Date
 {
 	int day = 0, month = 0, year = 0;
-};*/
+}c_date;
 class Donor
 {
+//public:
+//	struct Date
+//	{
+//		int day = 0, month = 0, year = 0;
+//	}c_date;
+ 
 public:
+	
 	string Name, Email, Password, Blood_type;
 	bool isDisease, Other_Disease, Validated_Donor = false;
 	int ID, Age;
 	int Donor_count = 0;
 	char Gender;
-	tm Latest_Donation_Date;
+	Date Latest_Donation_Date;
+	Date Nxt_Donation_Date;
 
 public:
 	Donor();
-	Donor(string, int, char, string, string, string, bool, bool, tm, int&);
+	Donor(string, int, char, string, string, string, bool, bool, Date, int&);
 	void Donation_Request(int, vector<Donor>&, queue<int>&);
 	void Update_Data(int, vector<Donor>&);
 	void Delete_Account(int, vector<Donor>&);
 	void Donor_page(int, vector<Donor>&, queue<int>&);
 	void Donor_Registeration(vector<Donor>&, queue<int>&, int&);
+
 };
