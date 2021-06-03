@@ -8,7 +8,16 @@ fstream typeB("Blood Type-B.txt", ios::in | ios::out | ios::app);
 fstream typeO("Blood Type-O.txt", ios::in | ios::out | ios::app);
 fstream typeAB("Blood Type-AB.txt", ios::in | ios::out | ios::app);
 
-void Files::Update_Files(vector <Admin> &adminsList,vector <Recipient> &recipientsList,vector <Donor> &donorsList,queue <Blood> &dataA, queue <Blood> &dataB, queue <Blood> &dataO, queue <Blood>&dataAB,queue <int>& Donor_Requests, int&aID, int& rID, int &dID)
+void Files::Update_Files(vector <Admin> &adminsList, vector <Recipient> &recipientsList, vector <Donor> &donorsList, queue <Blood> &dataA, queue <Blood> &dataB, queue <Blood> &dataO, queue <Blood>&dataAB, queue <int>& Donor_Requests, int&aID, int& rID, int &dID)
+{
+	adminUpdate(adminsList, aID);
+	resipientUpdate(recipientsList, rID);
+	donorUpdate(donorsList, dID);
+	bloodUpdate(dataA, dataB, dataO, dataAB);
+	requestsUpdate(Donor_Requests);
+}
+
+void Files::adminUpdate(vector <Admin>& adminsList, int& aID)
 {
 	adminsFile.open("admins.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < adminsList.size(); i++)
@@ -17,7 +26,9 @@ void Files::Update_Files(vector <Admin> &adminsList,vector <Recipient> &recipien
 		adminsFile << adminsList[i].Gender << " " << adminsList[i].Email << " " << adminsList[i].Password << endl;
 	}
 	adminsFile.close();
-
+}
+void Files::resipientUpdate(vector <Recipient>& recipientsList, int& rID)
+{
 	recipientsFile.open("recipients.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < recipientsList.size(); i++)
 	{
@@ -26,7 +37,9 @@ void Files::Update_Files(vector <Admin> &adminsList,vector <Recipient> &recipien
 		recipientsFile << recipientsList[i].Blood_type << " " << recipientsList[i].Hospital << " " << recipientsList[i].DoctorofTheCase << endl;
 	}
 	recipientsFile.close();
-
+}
+void Files::donorUpdate(vector <Donor>& donorsList, int& dID)
+{
 	donorsFile.open("donors.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < donorsList.size(); i++)
 	{
@@ -35,14 +48,9 @@ void Files::Update_Files(vector <Admin> &adminsList,vector <Recipient> &recipien
 		donorsFile << donorsList[i].Latest_Donation_Date.day << " " << donorsList[i].Latest_Donation_Date.month << " " << donorsList[i].Latest_Donation_Date.year << endl;
 	}
 	donorsFile.close();
-
-	requestsFile.open("requests.txt", ofstream::out | ofstream::trunc);
-	for (int i = 0; i < Donor_Requests.size(); i++)
-	{
-		requestsFile << Donor_Requests._Get_container()[i] << endl;
-	}
-	requestsFile.close();
-
+}
+void Files::bloodUpdate(queue <Blood>& dataA, queue <Blood>& dataB, queue <Blood>& dataO, queue <Blood>& dataAB)
+{
 	typeA.open("Blood Type-A.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataA.size(); i++)
 	{
@@ -83,8 +91,23 @@ void Files::Update_Files(vector <Admin> &adminsList,vector <Recipient> &recipien
 	}
 	typeAB.close();
 }
+void Files::requestsUpdate(queue <int>& Donor_Requests)
+{
+	requestsFile.open("requests.txt", ofstream::out | ofstream::trunc);
+	for (int i = 0; i < Donor_Requests.size(); i++)
+	{
+		requestsFile << Donor_Requests._Get_container()[i] << endl;
+	}
+	requestsFile.close();
+}
 
-void Files::Intialize_Vectors_Queues(vector <Admin> &adminsList, vector <Recipient> &recipientsList, vector <Donor> &donorsList, queue <Blood> &dataA, queue <Blood> &dataB, queue <Blood> &dataO, queue <Blood>&dataAB, queue <int>& Donor_Requests, int&aID , int& rID , int &dID )
+
+
+
+
+
+
+void Files::Intialize_Vectors_Queues(vector <Admin> &adminsList, vector <Recipient> &recipientsList, vector <Donor> &donorsList, queue <Blood> &dataA, queue <Blood> &dataB, queue <Blood> &dataO, queue <Blood>&dataAB, queue <int>& Donor_Requests, int&aID, int& rID, int &dID)
 {
 
 	Admin admin;
