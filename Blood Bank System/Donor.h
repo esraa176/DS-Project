@@ -3,21 +3,22 @@
 #include <vector>
 #include<queue>
 #include <ctime>
+#include"User.h"
 using namespace std;
 struct Date
 {
 	int day = 0, month = 0, year = 0;
 };
-class Donor
+class Donor:public User
 {
-//public:
-//	struct Date
-//	{
-//		int day = 0, month = 0, year = 0;
-//	}c_date;
- 
+	//public:
+	//	struct Date
+	//	{
+	//		int day = 0, month = 0, year = 0;
+	//	}c_date;
+
 public:
-	
+
 	string Name, Email, Password, Blood_type;
 	bool isDisease, Other_Disease, Validated_Donor = false;
 	int ID, Age;
