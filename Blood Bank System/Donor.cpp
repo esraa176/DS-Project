@@ -8,7 +8,7 @@ Donor::Donor()
 {
 
 }
-Donor::Donor(string name, int age, char gender, string mail, string password, string blood_type, bool isdisease, bool other_disease, tm latest_donation_date, int& dID)
+Donor::Donor(string name, int age, char gender, string mail, string password, string blood_type, bool isdisease, bool other_disease, Date latest_donation_date, int& dID)
 {
 	ID = dID;
 	dID++;
@@ -144,10 +144,10 @@ void Donor::Donor_Registeration(vector <Donor>& donorsList, queue<int>& Donor_Re
 	else {
 		Other_Disease = false;
 	}
-	tm latest_donation_date;
-	latest_donation_date.tm_mon = 0;
+	Date latest_donation_date;
+	/**latest_donation_date.tm_mon = 0;
 	latest_donation_date.tm_year = 0;
-	latest_donation_date.tm_wday = 0;
+	latest_donation_date.tm_wday = 0;*///
 	Donor reg(Name, Age, Gender, Email, Password, Blood_type, isDisease, Other_Disease, latest_donation_date, dID);
 	donorsList.push_back(reg);
 
