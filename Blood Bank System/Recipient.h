@@ -3,9 +3,10 @@
 #include <vector>
 #include<queue>
 #include"Blood.h"
+#include"User.h"
 using namespace std;
 
-class Recipient
+class Recipient : public User
 {
 public:
 	int ID, Age;
