@@ -3,13 +3,14 @@
 #include <vector>
 #include<queue>
 #include <ctime>
-#include"User.h"
+#include "User.h"
 using namespace std;
+
 struct Date
 {
 	int day = 0, month = 0, year = 0;
 };
-class Donor:public User
+class Donor :public User
 {
 	//public:
 	//	struct Date
