@@ -3,7 +3,10 @@
 #include <vector>
 #include <queue>
 #include <iostream>
+#include "Files.h"
 using namespace std;
+Files fileD;
+
 Donor::Donor()
 {
 
