@@ -3,8 +3,9 @@
 #include"Recipient.h"
 #include <vector>
 #include <string>
-#include"User.h"
-#include"Blood.h"
+#include "User.h"
+#include "Blood.h"
+
 using namespace std;
 
 class Admin : public User
@@ -31,6 +32,6 @@ public:
 	void Set_DonationDate(vector <Donor>&, int);
 	void Set_Nxt_DonationDate(vector <Donor>&, int);
 	bool comparingDates(vector <Donor>&, int);
-	void searchForUser();
-	void displayBloodData(queue<Blood>& , queue<Blood>& , queue<Blood>& , queue<Blood>& );
+	int searchForUser(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, char);  //Takes id and user type('r'/'o'/'d'), returns user index in the vector.
+	void displayBloodData(queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
 };
