@@ -2,16 +2,18 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include<queue>
-#include"Blood.h"
+#include <queue>
+#include "Blood.h"
+#include "Files.h"
 
 using namespace std;
+Files fileR;
 
 Recipient::Recipient()
 {
 
 }
-Recipient::Recipient(string name, int age, char gender, string mail, string pass, string blood_type, string hospital, string doctor, int& rID) 
+Recipient::Recipient(string name, int age, char gender, string mail, string pass, string blood_type, string hospital, string doctor, int& rID)
 	:User(name, age, gender, mail, pass)
 {
 	ID = rID;
