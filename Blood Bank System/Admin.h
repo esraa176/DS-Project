@@ -32,5 +32,5 @@ public:
 	void Set_Nxt_DonationDate(vector <Donor>&, int);
 	bool comparingDates(vector <Donor>&, int);
 	void searchForUser();
-	void displayBloodData();
+	void displayBloodData(queue<Blood>& , queue<Blood>& , queue<Blood>& , queue<Blood>& );
 };
