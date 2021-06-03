@@ -8,7 +8,7 @@ fstream typeB("Blood Type-B.txt", ios::in | ios::out | ios::app);
 fstream typeO("Blood Type-O.txt", ios::in | ios::out | ios::app);
 fstream typeAB("Blood Type-AB.txt", ios::in | ios::out | ios::app);
 
-void Files::Update_Files()
+void Files::Update_Files(vector <Admin> &adminsList,vector <Recipient> &recipientsList,vector <Donor> &donorsList,queue <Blood> &dataA, queue <Blood> &dataB, queue <Blood> &dataO, queue <Blood>&dataAB,queue <int>& Donor_Requests, int&aID, int& rID, int &dID)
 {
 	adminsFile.open("admins.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < adminsList.size(); i++)
@@ -84,7 +84,7 @@ void Files::Update_Files()
 	typeAB.close();
 }
 
-void Files::Intialize_Vectors_Queues()
+void Files::Intialize_Vectors_Queues(vector <Admin> &adminsList, vector <Recipient> &recipientsList, vector <Donor> &donorsList, queue <Blood> &dataA, queue <Blood> &dataB, queue <Blood> &dataO, queue <Blood>&dataAB, queue <int>& Donor_Requests, int&aID , int& rID , int &dID )
 {
 
 	Admin admin;
