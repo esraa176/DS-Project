@@ -9,14 +9,10 @@ Donor::Donor()
 
 }
 Donor::Donor(string name, int age, char gender, string mail, string password, string blood_type, bool isdisease, bool other_disease, Date latest_donation_date, int& dID)
+	:User(name, age, gender, mail, password)
 {
 	ID = dID;
 	dID++;
-	Name = name;
-	Age = age;
-	Gender = gender;
-	Email = mail;
-	Password = password;
 	Blood_type = blood_type;
 	isDisease = isdisease;
 	Other_Disease = other_disease;
