@@ -1,3 +1,4 @@
+#pragma once
 #include<string>
 #include<iostream>
 
@@ -10,7 +11,7 @@ public:
 	char Gender;
 
 public:
-	User(int, string, int, char, string ,string);
+	User(string, int, char, string, string);
 	User();
 
 	void Update_Data(int);
