@@ -29,6 +29,7 @@ vector <Donor> donorsList;
 queue <Blood> dataA, dataB, dataO, dataAB;
 queue <int> Donor_Requests;
 
+
 int quantityA = 0, quantityB = 0, quantityC = 0, aID = -1, rID = -1, dID = -1;
 
 void welcome_page();
@@ -47,7 +48,6 @@ int main()
 	//expiredBlood();
 
 	welcome_page();
-
 
 	//Last thing in the program is to update all the files with the new data from the Array Lists.
 	Update_Files();
@@ -108,7 +108,7 @@ void Intialize_Vectors_Queues()
 	recipientsFile.close();
 
 	Donor d;
-	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease >> d.Latest_Donation_Date.tm_wday >> d.Latest_Donation_Date.tm_mon >> d.Latest_Donation_Date.tm_year)
+	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease >> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year)
 	{
 		donorsList.push_back(d);
 		dID = d.ID;
@@ -168,7 +168,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'A';
-				adminsList[i].Admin_page(i, adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB , aID, rID, dID);
+				adminsList[i].Admin_page(i, adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID, rID, dID);
 				isFound = true;
 				break;
 			}
@@ -224,7 +224,7 @@ void Registeration_Page()
 		{
 			//recipient account creation
 			Recipient reg;
-			reg.Recipient_Registeration_Page(recipientsList, dataA, dataB, dataO, dataAB , rID);
+			reg.Recipient_Registeration_Page(recipientsList, dataA, dataB, dataO, dataAB, rID);
 			welcome_page();
 			break;
 		}
@@ -266,7 +266,7 @@ void Update_Files()
 	{
 		donorsFile << donorsList[i].ID << " " << donorsList[i].Name << " " << donorsList[i].Age << " " << donorsList[i].Gender << " ";
 		donorsFile << donorsList[i].Email << " " << donorsList[i].Password << " " << donorsList[i].Blood_type << " " << donorsList[i].isDisease << " " << donorsList[i].Other_Disease << " ";
-		donorsFile << donorsList[i].Latest_Donation_Date.tm_wday << " " << donorsList[i].Latest_Donation_Date.tm_mon << " " << donorsList[i].Latest_Donation_Date.tm_year << endl;
+		donorsFile << donorsList[i].Latest_Donation_Date.day << " " << donorsList[i].Latest_Donation_Date.month << " " << donorsList[i].Latest_Donation_Date.year << endl;
 	}
 	donorsFile.close();
 
@@ -321,4 +321,3 @@ void expiredBlood()
 {
 
 }
-
