@@ -15,13 +15,8 @@ Admin::Admin()
 {
 
 }
-Admin::Admin(string name, int age, char gender, string email, string password, int& aID)//:User(name,age,gender,email,password)
+Admin::Admin(string name, int age, char gender, string email, string password, int& aID):User(name,age,gender,email,password)
 {
-	Name = name;
-	Age = age;
-	Gender = gender;
-	Email = email;
-	Password = password;
 	ID = aID;
 	aID++;
 }
@@ -31,7 +26,9 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 	cout << "\t\t Enter 1 to display & validate donor's requests." << endl;
 	cout << "\t\t Enter 2 to Insert/Update/Delete the quantity of blood." << endl;
 	cout << "\t\t Enter 3 to Insert/Update/Delete data of users." << endl;
-	cout << "\t\t Enter 4 to exit this menu." << endl;
+	cout << "\t\t Enter 4 to search for users." << endl;
+	cout << "\t\t Enter 5 to display blood data." << endl;
+	cout << "\t\t Enter 6 to exit this menu." << endl;
 	int choice;
 	while (true)
 	{
@@ -110,6 +107,14 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 			break;
 		}
 		else if (choice == 4)
+		{
+			searchForUser();
+		}
+		else if (choice == 5)
+		{
+			displayBloodData();
+		}
+		else if (choice == 6)
 		{
 			return;
 		}
@@ -502,7 +507,7 @@ void Admin::Current_Date()
 
 	c_date.year = 1900 + newtime.tm_year;
 }
-void Admin::Set_DonationDate(vector <Donor>& donorsList,int userIndx)
+void Admin::Set_DonationDate(vector <Donor>& donorsList, int userIndx)
 {
 
 	donorsList[userIndx].Latest_Donation_Date.day = c_date.day;
@@ -534,11 +539,11 @@ void Admin::Set_Nxt_DonationDate(vector <Donor>& donorsList, int userIndx)
 	{
 		donorsList[userIndx].Nxt_Donation_Date.month += 3;
 	}
-	
+
 }
-bool Admin::comparingDates(vector <Donor>& donorsList,int userIndx)
+bool Admin::comparingDates(vector <Donor>& donorsList, int userIndx)
 {
-	
+
 	int date1 = c_date.day + (c_date.month * 30) + (c_date.year * 30 * 12);
 	int date2 = donorsList[userIndx].Nxt_Donation_Date.day + (donorsList[userIndx].Nxt_Donation_Date.month * 30) + (donorsList[userIndx].Nxt_Donation_Date.year * 30 * 12);
 	if (date2 < date1)
@@ -573,8 +578,8 @@ void Admin::validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 			if (donorsList[indx].Age >= 17 && donorsList[indx].Age <= 60 && donorsList[indx].isDisease == false && donorsList[indx].Other_Disease == false)
 			{
 				Current_Date();
-				bool flag = comparingDates(donorsList,indx);
-				if (flag == 1 || donorsList[indx].Nxt_Donation_Date.year==0) {
+				bool flag = comparingDates(donorsList, indx);
+				if (flag == 1 || donorsList[indx].Nxt_Donation_Date.year == 0) {
 
 					Set_DonationDate(donorsList, indx);
 					donorsList[indx].Validated_Donor = true;
@@ -588,7 +593,7 @@ void Admin::validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 
 			Donor_Requests.pop();
 		}
-		cout <<"All requests are successfully validated!"<<endl;
+		cout << "All requests are successfully validated!" << endl;
 	}
 
 }
@@ -625,5 +630,13 @@ void Admin::Display_requests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 		validateRequests(donorsList, Donor_Requests);
 
 	}
+
+}
+void Admin:: searchForUser()
+{
+
+}
+void Admin::displayBloodData()
+{
 
 }
