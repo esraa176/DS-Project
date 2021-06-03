@@ -3,22 +3,20 @@
 #include"Recipient.h"
 #include <vector>
 #include <string>
-//#include"User.h"
+#include"User.h"
 #include"Blood.h"
 using namespace std;
 
-class Admin //: public User
-{ 
+class Admin : public User
+{
 public:
-	int ID, Age;
-	string Name, Email, Password, code = "Blood Bank";
-	char Gender;
+	string code = "Blood Bank";
 	int Admin_count = 0;
 
 public:
 	Admin(string, int, char, string, string, int&);
 	Admin();
-	void Admin_page(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int& );
+	void Admin_page(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int&);
 	void validateRequests(vector <Donor>&, queue <int>&);
 	void Display_requests(vector <Donor>&, queue <int>&);
 	void Admin_Register(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int&);
@@ -32,6 +30,7 @@ public:
 	void Current_Date();
 	void Set_DonationDate(vector <Donor>&, int);
 	void Set_Nxt_DonationDate(vector <Donor>&, int);
-	bool comparingDates(vector <Donor>& , int);
-
+	bool comparingDates(vector <Donor>&, int);
+	void searchForUser();
+	void displayBloodData();
 };
