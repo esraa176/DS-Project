@@ -10,7 +10,7 @@
 #include "Donor.h"
 #include "Recipient.h"
 #include "Blood.h"
-#include"Files.h"
+#include "Files.h"
 
 using namespace std;
 
@@ -34,7 +34,7 @@ void expiredBlood();
 int main()
 {
 	//First thing in the program is to read all previous data from the files into Array Lists.
-	file.Intialize_Vectors_Queues(adminsList, recipientsList,donorsList, dataA, dataB, dataO,dataAB, Donor_Requests, aID , rID, dID );
+	file.Intialize_Vectors_Queues(adminsList, recipientsList, donorsList, dataA, dataB, dataO, dataAB, Donor_Requests, aID, rID, dID);
 
 	//removing the expired blood from the queue
 	//expiredBlood();
@@ -42,7 +42,7 @@ int main()
 	welcome_page();
 
 	//Last thing in the program is to update all the files with the new data from the Array Lists.
-	file.Update_Files(adminsList, recipientsList, donorsList, dataA, dataB, dataO, dataAB, Donor_Requests, aID, rID,dID);
+	file.Update_Files(adminsList, recipientsList, donorsList, dataA, dataB, dataO, dataAB, Donor_Requests, aID, rID, dID);
 
 	return 0;
 }
