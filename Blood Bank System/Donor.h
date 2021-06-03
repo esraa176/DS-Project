@@ -7,7 +7,7 @@ using namespace std;
 struct Date
 {
 	int day = 0, month = 0, year = 0;
-}c_date;
+};
 class Donor
 {
 //public:
