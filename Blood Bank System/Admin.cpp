@@ -10,6 +10,7 @@
 
 using namespace std;
 
+
 Admin::Admin()
 {
 
@@ -145,7 +146,7 @@ void Admin::Admin_Register(vector <Admin>& adminsList, vector <Donor>& donorsLis
 	Admin_page(adminsList.size() - 1, adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID, rID, dID);
 }
 
-void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB, int& aID, int&rID, int&dID)
+void Admin::insertUser(vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB, int& aID, int& rID, int& dID)
 {
 	cout << "Enter the number of your choice:\n" << endl;
 	cout << "1-Insert admin." << endl;
@@ -475,7 +476,7 @@ void Admin::displayData(int userIndex, vector <Admin>& adminsList, vector <Donor
 		cout << "Blood Type: " << donorList[userIndex].Blood_type << endl;
 		cout << "If she/he suffers from any disease(blood pressure disorders, thyroid disease, diabetes, cancer, heart disorders, hepatitis): " << donorList[userIndex].isDisease << endl;
 		cout << "If she/he suffers from any other disease or take any medicine: " << donorList[userIndex].Other_Disease << endl;
-		cout << "Latest Donation Date: " << donorList[userIndex].Latest_Donation_Date.tm_mday << "/" << donorList[userIndex].Latest_Donation_Date.tm_mon << "/" << donorList[userIndex].Latest_Donation_Date.tm_year << endl;
+		cout << "Latest Donation Date: " << donorList[userIndex].Latest_Donation_Date.day << "/" << donorList[userIndex].Latest_Donation_Date.month << "/" << donorList[userIndex].Latest_Donation_Date.year << endl;
 	}
 	else
 	{
@@ -490,16 +491,64 @@ void Admin::displayData(int userIndex, vector <Admin>& adminsList, vector <Donor
 		cout << "Doctor of the Case: " << recipientList[userIndex].DoctorofTheCase << endl;
 	}
 }
-void Admin::bloodDate()
+void Admin::Current_Date()
 {
 	tm newtime;
 	time_t now = time(0);
 	localtime_s(&newtime, &now);
-	int day = newtime.tm_mday;
+	c_date.day = newtime.tm_mday;
 
-	int Month = 1 + newtime.tm_mon;
+	c_date.month = 1 + newtime.tm_mon;
 
-	int year = 1900 + newtime.tm_year;
+	c_date.year = 1900 + newtime.tm_year;
+}
+void Admin::Set_DonationDate(vector <Donor>& donorsList,int userIndx)
+{
+
+	donorsList[userIndx].Latest_Donation_Date.day = c_date.day;
+
+	donorsList[userIndx].Latest_Donation_Date.month = c_date.month;
+
+	donorsList[userIndx].Latest_Donation_Date.year = c_date.year;
+}
+void Admin::Set_Nxt_DonationDate(vector <Donor>& donorsList, int userIndx)
+{
+	if (donorsList[userIndx].Nxt_Donation_Date.month == 12)
+	{
+		donorsList[userIndx].Nxt_Donation_Date.month = 3;
+		++donorsList[userIndx].Nxt_Donation_Date.year;
+
+	}
+	else if (donorsList[userIndx].Nxt_Donation_Date.month == 11)
+	{
+
+		donorsList[userIndx].Nxt_Donation_Date.month = 2;
+		++donorsList[userIndx].Nxt_Donation_Date.year;
+	}
+	else if (donorsList[userIndx].Nxt_Donation_Date.month == 10)
+	{
+		donorsList[userIndx].Nxt_Donation_Date.month = 1;
+		++donorsList[userIndx].Nxt_Donation_Date.year;
+	}
+	else
+	{
+		donorsList[userIndx].Nxt_Donation_Date.month += 3;
+	}
+	
+}
+bool Admin::comparingDates(vector <Donor>& donorsList,int userIndx)
+{
+	
+	int date1 = c_date.day + (c_date.month * 30) + (c_date.year * 30 * 12);
+	int date2 = donorsList[userIndx].Nxt_Donation_Date.day + (donorsList[userIndx].Nxt_Donation_Date.month * 30) + (donorsList[userIndx].Nxt_Donation_Date.year * 30 * 12);
+	if (date2 < date1)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
 }
 void Admin::validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requests)
 {
@@ -523,7 +572,14 @@ void Admin::validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 			}
 			if (donorsList[indx].Age >= 17 && donorsList[indx].Age <= 60 && donorsList[indx].isDisease == false && donorsList[indx].Other_Disease == false)
 			{
-				donorsList[indx].Validated_Donor = true;
+				Current_Date();
+				bool flag = comparingDates(donorsList,indx);
+				if (flag == 1 || donorsList[indx].Nxt_Donation_Date.year==0) {
+
+					Set_DonationDate(donorsList, indx);
+					donorsList[indx].Validated_Donor = true;
+				}
+
 			}
 			else
 			{
@@ -532,7 +588,9 @@ void Admin::validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 
 			Donor_Requests.pop();
 		}
+		cout <<"All requests are successfully validated!"<<endl;
 	}
+
 }
 void Admin::Display_requests(vector <Donor>& donorsList, queue <int>& Donor_Requests)
 {
@@ -565,6 +623,7 @@ void Admin::Display_requests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 			}
 		}
 		validateRequests(donorsList, Donor_Requests);
+
 	}
 
 }
