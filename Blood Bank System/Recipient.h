@@ -9,11 +9,8 @@ using namespace std;
 class Recipient : public User
 {
 public:
-	int ID, Age;
-	string Name, Email, Password, Hospital, DoctorofTheCase;
-	char Gender;
+	string  Hospital, DoctorofTheCase;
 	string Blood_type;  //A, B, O, AB
-	int Reciepient_count = 0;
 
 public:
 	Recipient(string, int, char, string, string, string, string, string, int&);
