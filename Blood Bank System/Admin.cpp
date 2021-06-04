@@ -25,129 +25,135 @@ Admin::Admin(string name, int age, char gender, string email, string password, i
 
 void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>& donorsList, vector <Recipient>& recipientsList, queue<int>& Donor_Requests, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB, int& aID, int& rID, int& dID)
 {
-	cout << "\t\t Enter 1 to display & validate donor's requests." << endl;
-	cout << "\t\t Enter 2 to Insert/Update/Delete the quantity of blood." << endl;
-	cout << "\t\t Enter 3 to Insert/Update/Delete data of users." << endl;
-	cout << "\t\t Enter 4 to search for users." << endl;
-	cout << "\t\t Enter 5 to display blood data." << endl;
-	cout << "\t\t Enter 6 to exit this menu." << endl;
-	int choice;
 	while (true)
 	{
-		cin >> choice;
-		if (choice == 1)
-		{
-			Display_requests(donorsList, Donor_Requests);
-			break;
-		}
-		else if (choice == 2)
-		{
-			while (true)
+		cout << "\t\t Enter 1 to display & validate donor's requests." << endl;
+		cout << "\t\t Enter 2 to Insert/Update/Delete the quantity of blood." << endl;
+		cout << "\t\t Enter 3 to Insert/Update/Delete data of users." << endl;
+		cout << "\t\t Enter 4 to search for users." << endl;
+		cout << "\t\t Enter 5 to display blood data." << endl;
+		cout << "\t\t Enter 6 to log out." << endl;
+		int choice;
+		
+		
+			cin >> choice;
+			if (choice == 1)
 			{
-				cout << "Enter the number of your choice:" << endl;
-				cout << "1-Insert" << endl;
-				cout << "2-Update" << endl;
-				cout << "3-Delete" << endl;
-				int choice2;
-				cin >> choice2;
-				if (choice2 == 1)
-				{
-					insertBlood();
-					break;
-				}
-				else if (choice2 == 2)
-				{
-					updateBlood();
-					break;
-				}
-				else if (choice2 == 3)
-				{
-					deleteBlood();
-					break;
-				}
-				else
-				{
-					cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
-					cin >> choice2;
-				}
+				Display_requests(donorsList, Donor_Requests);
+				continue;
 			}
-			break;
-
-		}
-
-		else if (choice == 3)
-		{
-			while (true)
+			else if (choice == 2)
 			{
-				cout << "Enter the number of your choice:" << endl;
-				cout << "1-Insert" << endl;
-				cout << "2-Update" << endl;
-				cout << "3-Delete" << endl;
-				int choice2;
-				cin >> choice2;
-				if (choice2 == 1)
+				while (true)
 				{
-					insertUser(adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID, rID, dID);
-					break;
-				}
-				else if (choice2 == 2)
-				{
-					updateUser(adminsList, donorsList, recipientsList);
-					break;
-				}
-				else if (choice2 == 3)
-				{
-					deleteUser(adminsList, donorsList, recipientsList);
-					break;
-				}
-				else
-				{
-					cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
+					cout << "Enter the number of your choice:" << endl;
+					cout << "1-Insert" << endl;
+					cout << "2-Update" << endl;
+					cout << "3-Delete" << endl;
+					int choice2;
 					cin >> choice2;
+					if (choice2 == 1)
+					{
+						insertBlood(dataA, dataB, dataO, dataAB);
+						break;
+					}
+					else if (choice2 == 2)
+					{
+						updateBlood();
+						break;
+					}
+					else if (choice2 == 3)
+					{
+						deleteBlood();
+						break;
+					}
+					else
+					{
+						cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
+						cin >> choice2;
+					}
 				}
+				continue;
+
 			}
-			break;
-		}
-		else if (choice == 4)
-		{
-			do
+
+			else if (choice == 3)
 			{
-				cout << "Please enter user ID and their type (Admin, Donor or Recipient)\n";
-				int id, userIndex; string userType; char user;
-				cin >> id >> userType;
-				for_each(userType.begin(), userType.end(), [](char & c) {
-					c = ::tolower(c);
-				});
-				if (userType == "admin")
-					user = 'a';
-				else if (userType == "donor")
-					user = 'd';
-				else
-					user = 'r';
-
-				userIndex = searchForUser(id, adminsList, donorsList, recipientsList, user);
-				if (userIndex == -1)
-					cout << "Invalid ID or user type. Try again.\n";
-				else
+				while (true)
 				{
-					displayData(userIndex, adminsList, donorsList, recipientsList, user);
-					break;
+					cout << "Enter the number of your choice:" << endl;
+					cout << "1-Insert" << endl;
+					cout << "2-Update" << endl;
+					cout << "3-Delete" << endl;
+					int choice2;
+					cin >> choice2;
+					if (choice2 == 1)
+					{
+						insertUser(adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID, rID, dID);
+						break;
+					}
+					else if (choice2 == 2)
+					{
+						updateUser(adminsList, donorsList, recipientsList);
+						break;
+					}
+					else if (choice2 == 3)
+					{
+						deleteUser(adminsList, donorsList, recipientsList);
+						break;
+					}
+					else
+					{
+						cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
+						cin >> choice2;
+					}
 				}
-			} while (true);
-		}
-		else if (choice == 5)
-		{
-			displayBloodData(dataA, dataB, dataO, dataAB);
-		}
-		else if (choice == 6)
-		{
-			return;
-		}
-		else
-		{
-			cout << "Invalid Choice, Please Enter a number(1, 2, 3 or 4)\n";
-		}
+				continue;
+			}
+			else if (choice == 4)
+			{
+				do
+				{
+					cout << "Please enter user ID and their type (Admin, Donor or Recipient)\n";
+					int id, userIndex; string userType; char user;
+					cin >> id >> userType;
+					for_each(userType.begin(), userType.end(), [](char & c) {
+						c = ::tolower(c);
+					});
+					if (userType == "admin")
+						user = 'a';
+					else if (userType == "donor")
+						user = 'd';
+					else
+						user = 'r';
 
+					userIndex = searchForUser(id, adminsList, donorsList, recipientsList, user);
+					if (userIndex == -1)
+						cout << "Invalid ID or user type. Try again.\n";
+					else
+					{
+						displayData(userIndex, adminsList, donorsList, recipientsList, user);
+						break;
+					}
+				} while (true);
+
+				continue;
+			}
+			else if (choice == 5)
+			{
+				displayBloodData(dataA, dataB, dataO, dataAB);
+				continue;
+			}
+			else if (choice == 6)
+			{
+				break;
+			}
+			else
+			{
+				cout << "Invalid Choice, Please Enter a number(1, 2, 3 or 4)\n";
+			}
+
+		
 	}
 }
 
@@ -471,9 +477,50 @@ void Admin::updateUser(vector <Admin>& adminsList, vector <Donor>& donorsList, v
 		}
 	}
 }
-void Admin::insertBlood()
+void Admin::insertBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB)
 {
-
+	int choice;
+	cout << "Enter the number of the type of blood you want to insert:" << endl;
+	cout << "1-A" << endl;
+	cout << "2-B" << endl;
+	cout << "3-AB" << endl;
+	cout << "4-O" << endl;
+    cin >> choice;
+	int numOfBags,index;
+	cout << "Enter the number of bags you want to insert: "; cin >> numOfBags;
+	Blood blood;
+	
+	if(choice==1)
+	{
+		for (int i = 0; i < numOfBags; i++)
+		{
+			dataA.push(blood);
+		}
+	}
+	if (choice == 2)
+	{
+		for (int i = 0; i < numOfBags; i++)
+		{
+			dataB.push(blood);
+		}
+	}
+	if (choice == 3)
+	{
+		for (int i = 0; i < numOfBags; i++)
+		{
+			dataAB.push(blood);
+		}
+	}
+	if (choice == 4)
+	{
+		for (int i = 0; i < numOfBags; i++)
+		{
+			dataO.push(blood);
+		}
+	}
+	fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
+	cout << "Insertion is successfully done." << endl;
+	cout << "_________________________________" << endl;
 }
 void Admin::deleteBlood()
 {
