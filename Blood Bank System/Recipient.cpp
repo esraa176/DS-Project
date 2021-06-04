@@ -238,32 +238,43 @@ void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList
 
 void Recipient::display_all_blood_data(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB) {
 
-	cout << "Blood type is : " << "A" << endl;
-	cout << "Blood quantity is : " << dataA.size() << endl;
+	cout << "Blood type A : " << endl;
+	cout << "Blood quantity is : " << dataA.size() << " bags (1 Liter\\bag)" << endl << endl;
 	for (int i = 0; i < dataA.size(); i++)
 	{
-		cout << dataA._Get_container()[i].expiry.tm_mday << "/" << dataA._Get_container()[i].expiry.tm_mon << "/" << dataA._Get_container()[i].expiry.tm_year << endl;
-		cout << dataA._Get_container()[i].received.tm_mday << "/" << dataA._Get_container()[i].received.tm_mon << "/" << dataA._Get_container()[i].received.tm_year << endl;
+		cout << "\t\tBag number " << i + 1 << ": " << endl;
+		cout <<"\t\tReceived date: " << dataA._Get_container()[i].received.tm_mday << "/" << dataA._Get_container()[i].received.tm_mon << "/" << dataA._Get_container()[i].received.tm_year << endl;
+		cout << "\t\tExpiry date: " << dataA._Get_container()[i].expiry.tm_mday << "/" << dataA._Get_container()[i].expiry.tm_mon << "/" << dataA._Get_container()[i].expiry.tm_year << endl;
+		cout << "\t\t----------------" << endl;
 	}
-	cout << "Blood type is : " << "B" << endl;
-	cout << "Blood quantity is : " << dataB.size() << endl;
+	cout<<"---------------------------------------------------------------" << endl;
+	cout << "Blood type B : " << endl;
+	cout << "Blood quantity is : " << dataB.size() << " bags (1 Liter\\bag) " << endl<<endl;
 	for (int i = 0; i < dataB.size(); i++)
 	{
-		cout << dataB._Get_container()[i].expiry.tm_mday << "/" << dataB._Get_container()[i].expiry.tm_mon << "/" << dataB._Get_container()[i].expiry.tm_year << endl;
-		cout << dataB._Get_container()[i].received.tm_mday << "/" << dataB._Get_container()[i].received.tm_mon << "/" << dataB._Get_container()[i].received.tm_year << endl;
+		cout << "\t\tBag number " << i + 1 << ": " << endl;
+		cout << "\t\tReceived date: " << dataB._Get_container()[i].received.tm_mday << "/" << dataB._Get_container()[i].received.tm_mon << "/" << dataB._Get_container()[i].received.tm_year << endl;
+		cout << "\t\tExpiry date: " << dataB._Get_container()[i].expiry.tm_mday << "/" << dataB._Get_container()[i].expiry.tm_mon << "/" << dataB._Get_container()[i].expiry.tm_year << endl;
+		cout << "\t\t----------------" << endl;
 	}
-	cout << "Blood type is : " << "AB" << endl;
-	cout << "Blood quantity is : " << dataAB.size() << endl;
+	cout << "---------------------------------------------------------------" << endl;
+	cout << "Blood type AB : " << endl;
+	cout << "Blood quantity is : " << dataAB.size() << " bags (1 Liter\\bag)" << endl<<endl;
 	for (int i = 0; i < dataAB.size(); i++)
 	{
-		cout << dataAB._Get_container()[i].expiry.tm_mday << "/" << dataAB._Get_container()[i].expiry.tm_mon << "/" << dataAB._Get_container()[i].expiry.tm_year << endl;
-		cout << dataAB._Get_container()[i].received.tm_mday << "/" << dataAB._Get_container()[i].received.tm_mon << "/" << dataAB._Get_container()[i].received.tm_year << endl;
+		cout << "\t\tBag number " << i + 1 << ": " << endl;
+		cout << "\t\tReceived date: " << dataAB._Get_container()[i].received.tm_mday << "/" << dataAB._Get_container()[i].received.tm_mon << "/" << dataAB._Get_container()[i].received.tm_year << endl;
+		cout << "\t\tExpiry date: " << dataAB._Get_container()[i].expiry.tm_mday << "/" << dataAB._Get_container()[i].expiry.tm_mon << "/" << dataAB._Get_container()[i].expiry.tm_year << endl;
+		cout << "\t\t----------------" << endl;
 	}
-	cout << "Blood type is : " << "O" << endl;
-	cout << "Blood quantity is : " << dataO.size() << endl;
+	cout << "---------------------------------------------------------------" << endl;
+	cout << "Blood type O : "  << endl;
+	cout << "Blood quantity is : " << dataO.size() << " bags (1 Liter\\bag)" << endl<<endl;
 	for (int i = 0; i < dataO.size(); i++)
 	{
-		cout << dataO._Get_container()[i].expiry.tm_mday << "/" << dataO._Get_container()[i].expiry.tm_mon << "/" << dataO._Get_container()[i].expiry.tm_year << endl;
-		cout << dataO._Get_container()[i].received.tm_mday << "/" << dataO._Get_container()[i].received.tm_mon << "/" << dataO._Get_container()[i].received.tm_year << endl;
+		cout << "Bag number " << i + 1 << ": " << endl;
+		cout << "Received date: " << dataO._Get_container()[i].received.tm_mday << "/" << dataO._Get_container()[i].received.tm_mon << "/" << dataO._Get_container()[i].received.tm_year << endl;
+		cout << "Expiry date: " << dataO._Get_container()[i].expiry.tm_mday << "/" << dataO._Get_container()[i].expiry.tm_mon << "/" << dataO._Get_container()[i].expiry.tm_year << endl;
+		cout << "\t\t----------------" << endl;
 	}
 }
