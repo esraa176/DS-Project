@@ -54,10 +54,11 @@ void Files::bloodUpdate(queue <Blood>& dataA, queue <Blood>& dataB, queue <Blood
 	typeA.open("Blood Type-A.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataA.size(); i++)
 	{
-		typeA << dataA._Get_container()[i].expiry.tm_mday << " ";
-		typeA << dataA._Get_container()[i].expiry.tm_mon << " " << dataA._Get_container()[i].expiry.tm_year << " ";
+		
 		typeA << dataA._Get_container()[i].received.tm_mday << " " << dataA._Get_container()[i].received.tm_mon << " ";
-		typeA << dataA._Get_container()[i].received.tm_year << endl;
+		typeA << dataA._Get_container()[i].received.tm_year << " ";
+		typeA << dataA._Get_container()[i].expiry.tm_mday << " ";
+		typeA << dataA._Get_container()[i].expiry.tm_mon << " " << dataA._Get_container()[i].expiry.tm_year << endl;
 	}
 	typeA.close();
 
