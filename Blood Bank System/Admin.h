@@ -12,7 +12,6 @@ class Admin : public User
 {
 public:
 	string code = "Blood Bank";
-	int Admin_count = 0;
 
 public:
 	Admin(string, int, char, string, string, int&);
@@ -24,7 +23,7 @@ public:
 	void insertUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int&);
 	void deleteUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
 	void updateUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
-	void insertBlood();
+	void insertBlood(queue<Blood>& , queue<Blood>& , queue<Blood>& , queue<Blood>& );
 	void deleteBlood();
 	void updateBlood();
 	void displayData(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, char);
