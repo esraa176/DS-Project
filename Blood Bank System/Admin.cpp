@@ -522,9 +522,75 @@ void Admin::insertBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 	cout << "Insertion is successfully done." << endl;
 	cout << "_________________________________" << endl;
 }
-void Admin::deleteBlood()
+void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB)
 {
+	tm newtime;
+	time_t now = time(0);
+	localtime_s(&newtime, &now);
+	c_date.day = newtime.tm_mday;
 
+	c_date.month = 1 + newtime.tm_mon;
+
+	c_date.year = 1900 + newtime.tm_year;
+
+	for (int i = 0; i < dataA.size(); i++) {
+		Blood a = dataA.front();
+		dataA.pop();
+		if (a.expiry.tm_year >= c_date.year) 
+		{
+			if (a.expiry.tm_mon >= c_date.month)
+			{
+				if (a.expiry.tm_mday > c_date.day)
+				{
+					dataA.push(a);
+				}
+			}
+		}
+	}
+	for (int i = 0; i < dataB.size(); i++) {
+		Blood b = dataB.front();
+		dataB.pop();
+		if (b.expiry.tm_year >= c_date.year)
+		{
+			if (b.expiry.tm_mon >= c_date.month)
+			{
+				if (b.expiry.tm_mday > c_date.day)
+				{
+					dataB.push(b);
+				}
+			}
+		}
+	}
+	
+	for (int i = 0; i < dataO.size(); i++) {
+		Blood o = dataO.front();
+		dataO.pop();
+		if (o.expiry.tm_year >= c_date.year)
+		{
+			if (o.expiry.tm_mon >= c_date.month)
+			{
+				if (o.expiry.tm_mday > c_date.day)
+				{
+					dataO.push(o);
+				}
+			}
+		}
+	}
+	for (int i = 0; i < dataAB.size(); i++) {
+		Blood ab = dataAB.front();
+		dataAB.pop();
+		if (ab.expiry.tm_year >= c_date.year)
+		{
+			if (ab.expiry.tm_mon >= c_date.month)
+			{
+				if (ab.expiry.tm_mday > c_date.day)
+				{
+					dataAB.push(ab);
+				}
+			}
+		}
+	}
+	fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 }
 void Admin::updateBlood()
 {
