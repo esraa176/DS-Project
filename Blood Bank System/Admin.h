@@ -24,7 +24,7 @@ public:
 	void deleteUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
 	void updateUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
 	void insertBlood(queue<Blood>& , queue<Blood>& , queue<Blood>& , queue<Blood>& );
-	void deleteBlood();
+	void deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB);
 	void updateBlood();
 	void displayData(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, char);
 	void Current_Date();
