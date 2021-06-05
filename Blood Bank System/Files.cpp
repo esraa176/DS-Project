@@ -65,30 +65,33 @@ void Files::bloodUpdate(queue <Blood>& dataA, queue <Blood>& dataB, queue <Blood
 	typeB.open("Blood Type-B.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataB.size(); i++)
 	{
-		typeB << dataB._Get_container()[i].expiry.tm_mday << " ";
-		typeB << dataB._Get_container()[i].expiry.tm_mon << " " << dataB._Get_container()[i].expiry.tm_year << " ";
 		typeB << dataB._Get_container()[i].received.tm_mday << " " << dataB._Get_container()[i].received.tm_mon << " ";
-		typeB << dataB._Get_container()[i].received.tm_year << endl;
+		typeB << dataB._Get_container()[i].received.tm_year << " ";
+		typeB << dataB._Get_container()[i].expiry.tm_mday << " ";
+		typeB << dataB._Get_container()[i].expiry.tm_mon << " " << dataB._Get_container()[i].expiry.tm_year << endl;
+		
 	}
 	typeB.close();
 
 	typeO.open("Blood Type-O.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataO.size(); i++)
 	{
-		typeO << " " << dataO._Get_container()[i].expiry.tm_mday << " ";
-		typeO << dataO._Get_container()[i].expiry.tm_mon << " " << dataO._Get_container()[i].expiry.tm_year << " ";
 		typeO << dataO._Get_container()[i].received.tm_mday << " " << dataO._Get_container()[i].received.tm_mon << " ";
-		typeO << dataO._Get_container()[i].received.tm_year << endl;
+		typeO << dataO._Get_container()[i].received.tm_year << " ";
+		typeO << " " << dataO._Get_container()[i].expiry.tm_mday << " ";
+		typeO << dataO._Get_container()[i].expiry.tm_mon << " " << dataO._Get_container()[i].expiry.tm_year << endl;
+		
 	}
 	typeO.close();
 
 	typeAB.open("Blood Type-AB.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataAB.size(); i++)
 	{
-		typeAB << dataAB._Get_container()[i].expiry.tm_mday << " ";
-		typeAB << dataAB._Get_container()[i].expiry.tm_mon << " " << dataAB._Get_container()[i].expiry.tm_year << " ";
 		typeAB << dataAB._Get_container()[i].received.tm_mday << " " << dataAB._Get_container()[i].received.tm_mon << " ";
-		typeAB << dataAB._Get_container()[i].received.tm_year << endl;
+		typeAB << dataAB._Get_container()[i].received.tm_year << " ";
+		typeAB << dataAB._Get_container()[i].expiry.tm_mday << " ";
+		typeAB << dataAB._Get_container()[i].expiry.tm_mon << " " << dataAB._Get_container()[i].expiry.tm_year << endl;
+		
 	}
 	typeAB.close();
 }
@@ -145,25 +148,25 @@ void Files::Intialize_Vectors_Queues(vector <Admin> &adminsList, vector <Recipie
 	requestsFile.close();
 
 	Blood A, B, O, AB;
-	while (typeA >> A.expiry.tm_mday >> A.expiry.tm_mon >> A.expiry.tm_year >> A.received.tm_mday >> A.received.tm_mon >> A.received.tm_year)
+	while (typeA >> A.received.tm_mday >> A.received.tm_mon >> A.received.tm_year >> A.expiry.tm_mday >> A.expiry.tm_mon >> A.expiry.tm_year)
 	{
 		dataA.push(A);
 	}
 	typeA.close();
 
-	while (typeB >> B.expiry.tm_mday >> B.expiry.tm_mon >> B.expiry.tm_year >> B.received.tm_mday >> B.received.tm_mon >> B.received.tm_year)
+	while (typeB >> B.received.tm_mday >> B.received.tm_mon >> B.received.tm_year >> B.expiry.tm_mday >> B.expiry.tm_mon >> B.expiry.tm_year )
 	{
 		dataB.push(B);
 	}
 	typeB.close();
 
-	while (typeO >> O.expiry.tm_mday >> O.expiry.tm_mon >> O.expiry.tm_year >> O.received.tm_mday >> O.received.tm_mon >> O.received.tm_year)
+	while (typeO  >> O.received.tm_mday >> O.received.tm_mon >> O.received.tm_year >> O.expiry.tm_mday >> O.expiry.tm_mon >> O.expiry.tm_year)
 	{
 		dataO.push(O);
 	}
 	typeO.close();
 
-	while (typeAB >> AB.expiry.tm_mday >> AB.expiry.tm_mon >> AB.expiry.tm_year >> AB.received.tm_mday >> AB.received.tm_mon >> AB.received.tm_year)
+	while (typeAB >> AB.received.tm_mday >> AB.received.tm_mon >> AB.received.tm_year >> AB.expiry.tm_mday >> AB.expiry.tm_mon >> AB.expiry.tm_year)
 	{
 		dataAB.push(AB);
 	}
