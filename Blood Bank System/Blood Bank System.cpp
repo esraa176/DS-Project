@@ -37,7 +37,7 @@ int main()
 	file.Intialize_Vectors_Queues(adminsList, recipientsList, donorsList, dataA, dataB, dataO, dataAB, Donor_Requests, aID, rID, dID);
 
 	//removing the expired blood from the queue
-	//expiredBlood();
+	expiredBlood();
 
 	welcome_page();
 
@@ -177,5 +177,171 @@ void Registeration_Page()
 
 void expiredBlood()
 {
+	tm newtime;
+	time_t now = time(0);
+	localtime_s(&newtime, &now);
+	tm current_time;
+	current_time.tm_mday = newtime.tm_mday;
 
+	current_time.tm_mon = 1 + newtime.tm_mon;
+
+	current_time.tm_year = 1900 + newtime.tm_year;
+
+	 //pop type A expired blood
+	for (int i = 0; i < dataA.size(); i++)
+	{
+		if (dataA._Get_container()[i].expiry.tm_mon == 12)
+		{
+			if (current_time.tm_mon == 1)
+			{
+				if (current_time.tm_mday > dataA._Get_container()[i].expiry.tm_mday)
+				{
+					dataA.pop();
+				}
+			}
+			else if (current_time.tm_mon > 1 && current_time.tm_mon != 12)
+			{
+				dataA.pop();
+			}
+		}
+		else if (current_time.tm_mon > dataA._Get_container()[i].expiry.tm_mon)
+		{
+			dataA.pop();
+		}
+		else if (current_time.tm_mon == dataA._Get_container()[i].expiry.tm_mon)
+		{
+			if (current_time.tm_mday >= dataA._Get_container()[i].expiry.tm_mday)
+			{
+				dataA.pop();
+			}
+		}
+		else if (current_time.tm_year > dataA._Get_container()[i].expiry.tm_year)
+		{
+			dataA.pop();
+		}
+		else
+		{
+			break;
+		}
+
+	}
+
+	 //pop type B expired blood
+	for (int i = 0; i < dataB.size(); i++)
+	{
+		if (dataB._Get_container()[i].expiry.tm_mon == 12)
+		{
+			if (current_time.tm_mon == 1)
+			{
+				if (current_time.tm_mday > dataB._Get_container()[i].expiry.tm_mday)
+				{
+					dataB.pop();
+				}
+			}
+			else if (current_time.tm_mon > 1 && current_time.tm_mon != 12)
+			{
+				dataB.pop();
+			}
+		}
+		else if (current_time.tm_mon > dataB._Get_container()[i].expiry.tm_mon)
+		{
+			dataB.pop();
+		}
+		else if (current_time.tm_mon == dataB._Get_container()[i].expiry.tm_mon)
+		{
+			if (current_time.tm_mday >= dataB._Get_container()[i].expiry.tm_mday)
+			{
+				dataB.pop();
+			}
+		}
+		else if (current_time.tm_year > dataB._Get_container()[i].expiry.tm_year)
+		{
+			dataB.pop();
+		}
+		else
+		{
+			break;
+		}
+
+	}
+
+	 //pop type AB expired blood
+	for (int i = 0; i < dataAB.size(); i++)
+	{
+		if (dataAB._Get_container()[i].expiry.tm_mon == 12)
+		{
+			if (current_time.tm_mon == 1)
+			{
+				if (current_time.tm_mday > dataAB._Get_container()[i].expiry.tm_mday)
+				{
+					dataAB.pop();
+				}
+			}
+			else if (current_time.tm_mon > 1 && current_time.tm_mon != 12)
+			{
+				dataAB.pop();
+			}
+		}
+		else if (current_time.tm_mon > dataAB._Get_container()[i].expiry.tm_mon)
+		{
+			dataAB.pop();
+		}
+		else if (current_time.tm_mon == dataAB._Get_container()[i].expiry.tm_mon)
+		{
+			if (current_time.tm_mday >= dataAB._Get_container()[i].expiry.tm_mday)
+			{
+				dataAB.pop();
+			}
+		}
+		else if (current_time.tm_year > dataAB._Get_container()[i].expiry.tm_year)
+		{
+			dataAB.pop();
+		}
+		else
+		{
+			break;
+		}
+
+	}
+
+	 //pop type O expired blood
+	for (int i = 0; i < dataO.size(); i++)
+	{
+		if (dataO._Get_container()[i].expiry.tm_mon == 12)
+		{
+			if (current_time.tm_mon == 1)
+			{
+				if (current_time.tm_mday > dataO._Get_container()[i].expiry.tm_mday)
+				{
+					dataO.pop();
+				}
+			}
+			else if (current_time.tm_mon > 1 && current_time.tm_mon != 12)
+			{
+				dataO.pop();
+			}
+		}
+		else if (current_time.tm_mon > dataO._Get_container()[i].expiry.tm_mon)
+		{
+			dataO.pop();
+		}
+		else if (current_time.tm_mon == dataO._Get_container()[i].expiry.tm_mon)
+		{
+			if (current_time.tm_mday >= dataO._Get_container()[i].expiry.tm_mday)
+			{
+				dataO.pop();
+			}
+		}
+		else if (current_time.tm_year > dataO._Get_container()[i].expiry.tm_year)
+		{
+			dataA.pop();
+		}
+		else
+		{
+			break;
+		}
+
+	}
+
+	file.bloodUpdate(dataA,dataB,dataAB,dataO);
 }
