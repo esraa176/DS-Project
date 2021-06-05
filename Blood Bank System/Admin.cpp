@@ -64,7 +64,7 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 					}
 					else if (choice2 == 3)
 					{
-						deleteBlood();
+						deleteBlood(dataA, dataB, dataO, dataAB);
 						break;
 					}
 					else
