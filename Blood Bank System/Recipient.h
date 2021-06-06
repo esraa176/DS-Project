@@ -15,11 +15,11 @@ public:
 public:
 	Recipient(string, int, char, string, string, string, string, string, int&);
 	Recipient();
-	void Recipient_page(int, vector <Recipient>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
-	void Update_Data(int, vector <Recipient>&);
-	void Delete_Account(int, vector <Recipient>&);
-	void Search_for_Blood(vector <Recipient>&, int, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
+	void Recipient_page(int, vector <Recipient>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&,int&);
+	void Update_Data(int, vector <Recipient>&,int& );
+	void Delete_Account(int, vector <Recipient>&, int&);
+	void Search_for_Blood(vector <Recipient>&, int, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&,int&);
 	void display_all_blood_data(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB);
-	void Request_Blood(string, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
+	void Request_Blood(int,vector <Recipient>&, string, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&);
 	void Recipient_Registeration_Page(vector <Recipient>& recipientsList, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB, int&);
 };
