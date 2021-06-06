@@ -532,10 +532,11 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 	c_date.month = 1 + newtime.tm_mon;
 
 	c_date.year = 1900 + newtime.tm_year;
-
+	
 	for (int i = 0; i < dataA.size(); i++) {
 		Blood a = dataA.front();
 		dataA.pop();
+		bool expired = true;
 		if (a.expiry.tm_year >= c_date.year) 
 		{
 			if (a.expiry.tm_mon >= c_date.month)
@@ -543,13 +544,20 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 				if (a.expiry.tm_mday > c_date.day)
 				{
 					dataA.push(a);
+					expired = false;
 				}
 			}
+		}
+		if (expired)
+		{
+			cout << a.expiry.tm_mday << "/" << a.expiry.tm_mon << "/" << a.expiry.tm_year << endl;
+
 		}
 	}
 	for (int i = 0; i < dataB.size(); i++) {
 		Blood b = dataB.front();
 		dataB.pop();
+		bool expired = true;
 		if (b.expiry.tm_year >= c_date.year)
 		{
 			if (b.expiry.tm_mon >= c_date.month)
@@ -557,14 +565,21 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 				if (b.expiry.tm_mday > c_date.day)
 				{
 					dataB.push(b);
+					expired = false;
 				}
 			}
+		}
+		if (expired)
+		{
+			cout << b.expiry.tm_mday << "/" << b.expiry.tm_mon << "/" << b.expiry.tm_year << endl;
+
 		}
 	}
 	
 	for (int i = 0; i < dataO.size(); i++) {
 		Blood o = dataO.front();
 		dataO.pop();
+		bool expired = true;
 		if (o.expiry.tm_year >= c_date.year)
 		{
 			if (o.expiry.tm_mon >= c_date.month)
@@ -572,13 +587,20 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 				if (o.expiry.tm_mday > c_date.day)
 				{
 					dataO.push(o);
+					expired = false;
 				}
 			}
+		}
+		if (expired)
+		{
+			cout << o.expiry.tm_mday << "/" << o.expiry.tm_mon << "/" << o.expiry.tm_year << endl;
+
 		}
 	}
 	for (int i = 0; i < dataAB.size(); i++) {
 		Blood ab = dataAB.front();
 		dataAB.pop();
+		bool expired = true;
 		if (ab.expiry.tm_year >= c_date.year)
 		{
 			if (ab.expiry.tm_mon >= c_date.month)
@@ -586,8 +608,14 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 				if (ab.expiry.tm_mday > c_date.day)
 				{
 					dataAB.push(ab);
+					expired = false;
 				}
 			}
+		}
+		if (expired)
+		{
+			cout << ab.expiry.tm_mday << "/" << ab.expiry.tm_mon << "/" << ab.expiry.tm_year << endl;
+
 		}
 	}
 	fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
