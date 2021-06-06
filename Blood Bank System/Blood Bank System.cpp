@@ -111,7 +111,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'R';
-				recipientsList[i].Recipient_page(i, recipientsList, dataA, dataB, dataO, dataAB);
+				recipientsList[i].Recipient_page(i, recipientsList, dataA, dataB, dataO, dataAB,rID);
 				isFound = true;
 				break;
 			}
@@ -187,7 +187,7 @@ void expiredBlood()
 
 	current_date.tm_year = 1900 + newtime.tm_year;
 
-	 //pop type A expired blood
+	//pop type A expired blood
 	for (int i = 0; i < dataA.size(); i++)
 	{
 		if (dataA._Get_container()[i].expiry.tm_mon == 12)
@@ -226,7 +226,7 @@ void expiredBlood()
 
 	}
 
-	 //pop type B expired blood
+	//pop type B expired blood
 	for (int i = 0; i < dataB.size(); i++)
 	{
 		if (dataB._Get_container()[i].expiry.tm_mon == 12)
@@ -265,7 +265,7 @@ void expiredBlood()
 
 	}
 
-	 //pop type AB expired blood
+	//pop type AB expired blood
 	for (int i = 0; i < dataAB.size(); i++)
 	{
 		if (dataAB._Get_container()[i].expiry.tm_mon == 12)
@@ -304,7 +304,7 @@ void expiredBlood()
 
 	}
 
-	 //pop type O expired blood
+	//pop type O expired blood
 	for (int i = 0; i < dataO.size(); i++)
 	{
 		if (dataO._Get_container()[i].expiry.tm_mon == 12)
@@ -343,5 +343,5 @@ void expiredBlood()
 
 	}
 
-	file.bloodUpdate(dataA,dataB,dataAB,dataO);
+	file.bloodUpdate(dataA, dataB, dataAB, dataO);
 }
