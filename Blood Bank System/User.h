@@ -13,7 +13,4 @@ public:
 public:
 	User(string, int, char, string, string);
 	User();
-
-	void Update_Data(int);
-	void Delete_Account();
 };
