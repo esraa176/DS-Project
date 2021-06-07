@@ -96,7 +96,7 @@ void Donor::Update_Data(int userIndex, vector <Donor>& donorsList, int dID)
 			donorsList[userIndex].isDisease = false;
 		}
 
-		cout << "Do you suffer from any other dieases? (y/n)" << endl;
+		cout << "Do you suffer from any other diseases or take any medicine? (y/n)" << endl;
 		cin >> ch;
 		if (ch == 'y' || ch == 'Y') {
 			donorsList[userIndex].Other_Disease = true;
@@ -141,7 +141,7 @@ void Donor::Donor_Registeration(vector <Donor>& donorsList, queue<int>& Donor_Re
 		isDisease = false;
 	}
 
-	cout << "Do you suffer from any other dieases? (y/n)" << endl;
+	cout << "Do you suffer from any other dieases or take any medicine? (y/n)" << endl;
 	cin >> other_disease;
 	if (other_disease == 'y' || other_disease == 'Y') {
 		Other_Disease = true;
