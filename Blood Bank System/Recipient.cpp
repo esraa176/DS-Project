@@ -24,7 +24,7 @@ Recipient::Recipient(string name, int age, char gender, string mail, string pass
 
 }
 
-void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB,int& rID)
+void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB, int& rID)
 {
 	int choice;
 	while (true) {
@@ -37,11 +37,11 @@ void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList
 		cout << "press 5 if you want to log out: " << endl;
 		cin >> choice;
 		if (choice == 1)
-			Update_Data(userIndex, recipientsList,rID);
+			Update_Data(userIndex, recipientsList, rID);
 
 
 		else if (choice == 2)
-			Search_for_Blood(recipientsList, userIndex, dataA, dataB, dataO, dataAB,rID);
+			Search_for_Blood(recipientsList, userIndex, dataA, dataB, dataO, dataAB, rID);
 
 
 		else if (choice == 3)
@@ -50,7 +50,7 @@ void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList
 
 
 		else if (choice == 4)
-			Delete_Account(userIndex, recipientsList,rID);
+			Delete_Account(userIndex, recipientsList, rID);
 
 		else {
 			cout << "thaaannk you: ";
@@ -61,7 +61,7 @@ void Recipient::Recipient_page(int userIndex, vector <Recipient>& recipientsList
 
 
 }
-void Recipient::Update_Data(int user_indx, vector <Recipient>& recipientsList,int& rID)
+void Recipient::Update_Data(int user_indx, vector <Recipient>& recipientsList, int& rID)
 {
 	char answer;
 	int choice;
@@ -127,14 +127,14 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList,
 	cin >> DoctorofTheCase;
 	Recipient reg(Name, Age, Gender, Email, Password, Blood_type, Hospital, DoctorofTheCase, rID);
 	recipientsList.push_back(reg);
-	fileR.resipientUpdate(recipientsList , rID);
+	fileR.resipientUpdate(recipientsList, rID);
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
 	char recp_2nd_choice;
 	cout << "Do you want to make any progress? ";
 	while (true) {
 		cin >> recp_2nd_choice;
 		if (recp_2nd_choice == 'Y' || recp_2nd_choice == 'y') {
-			Recipient_page(recipientsList.size() - 1, recipientsList, dataA, dataB, dataO, dataAB,rID);
+			Recipient_page(recipientsList.size() - 1, recipientsList, dataA, dataB, dataO, dataAB, rID);
 			break;
 		}
 		else {
@@ -146,7 +146,7 @@ void Recipient::Recipient_Registeration_Page(vector <Recipient>& recipientsList,
 
 
 
-void Recipient::Search_for_Blood(vector <Recipient>& recipientsList, int userIndex, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB,int&rID) {
+void Recipient::Search_for_Blood(vector <Recipient>& recipientsList, int userIndex, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB, int&rID) {
 	string type;
 	char ans;
 	bool found = false;
@@ -210,7 +210,7 @@ void Recipient::Search_for_Blood(vector <Recipient>& recipientsList, int userInd
 		cout << "Do you want to make a request to take this blood type? Y/N :" << endl;
 		cin >> ans;
 		if (ans == 'y' || ans == 'Y') {
-			Request_Blood(userIndex,recipientsList,av_type, dataA, dataB, dataO, dataAB,rID);
+			Request_Blood(userIndex, recipientsList, av_type, dataA, dataB, dataO, dataAB, rID);
 		}
 	}
 	else {
@@ -220,9 +220,10 @@ void Recipient::Search_for_Blood(vector <Recipient>& recipientsList, int userInd
 
 }
 
-void Recipient::Request_Blood(int userIndex,vector <Recipient>& recipientsList,string av_type, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB,int& rID) {
+void Recipient::Request_Blood(int userIndex, vector <Recipient>& recipientsList, string av_type, queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB, int& rID) {
 	string hosp;
 	char ans;
+	cin >> ans;
 	if (av_type == "A") {
 		dataA.pop();
 		fileR.resipientUpdate(recipientsList, rID);
@@ -239,20 +240,20 @@ void Recipient::Request_Blood(int userIndex,vector <Recipient>& recipientsList,s
 		dataAB.pop();
 		fileR.resipientUpdate(recipientsList, rID);
 	}
-	cout << "Do you want the blood to be delivered to your current hospital or another hospital? "<<endl;
+	cout << "Do you want the blood to be delivered to your current hospital or another hospital? " << endl;
 	if (ans == 'y' || ans == 'Y') {
-		cout << "please enter the name of the hospital: "<<endl;
+		cout << "please enter the name of the hospital: " << endl;
 		cin >> hosp;
-		cout << "successfully your blood will be delivered to " + hosp<<endl;
+		cout << "successfully your blood will be delivered to " + hosp << endl;
 	}
 	else {
-		cout << "successfully your blood will be delivered to " + recipientsList.at(userIndex).Hospital<<endl;
+		cout << "successfully your blood will be delivered to " + recipientsList.at(userIndex).Hospital << endl;
 	}
 	cout << "your request is successfully accepted: " << endl;
 }
 
 
-void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList,int&rID) {
+void Recipient::Delete_Account(int user_indx, vector <Recipient>& recipientsList, int&rID) {
 	recipientsList.erase(next(recipientsList.begin(), user_indx));
 	fileR.resipientUpdate(recipientsList, rID);
 
