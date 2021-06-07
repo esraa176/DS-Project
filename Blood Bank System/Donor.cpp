@@ -22,7 +22,7 @@ Donor::Donor(string name, int age, char gender, string mail, string password, st
 	Latest_Donation_Date = latest_donation_date;
 }
 
-void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& Donor_Requests)
+void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& Donor_Requests, int dID)
 {
 	char ch;
 	do
@@ -40,11 +40,11 @@ void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& D
 			//call donation req
 			break;
 		case 2:
-			Update_Data(userIndex, donorsList);
+			Update_Data(userIndex, donorsList,dID);
 			//call up data
 			break;
 		case 3:
-			Delete_Account(userIndex, donorsList);
+			Delete_Account(userIndex, donorsList,dID);
 			cout << "You have successfully Deleted your Account!\n";
 			//call deleteacc
 			break;
@@ -63,8 +63,10 @@ void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& D
 void Donor::Donation_Request(int userIndex, vector <Donor>& donorsList, queue<int>& Donor_Requests)
 {
 	Donor_Requests.push(donorsList[userIndex].ID);
+	cout << "You Successfully Made a Donation Request!\n";
+	fileD.requestsUpdate(Donor_Requests);
 }
-void Donor::Update_Data(int userIndex, vector <Donor>& donorsList)
+void Donor::Update_Data(int userIndex, vector <Donor>& donorsList,int dID)
 {
 	int choice, New_age;
 	string pass;
@@ -109,6 +111,7 @@ void Donor::Update_Data(int userIndex, vector <Donor>& donorsList)
 		cout << "Invalid Choice\n";
 		break;
 	}
+	fileD.donorUpdate(donorsList, dID);
 }
 void Donor::Donor_Registeration(vector <Donor>& donorsList, queue<int>& Donor_Requests, int& dID)
 {
@@ -144,15 +147,14 @@ void Donor::Donor_Registeration(vector <Donor>& donorsList, queue<int>& Donor_Re
 		Other_Disease = false;
 	}
 	Date latest_donation_date;
-	/**latest_donation_date.tm_mon = 0;
-	latest_donation_date.tm_year = 0;
-	latest_donation_date.tm_wday = 0;*///
 	Donor reg(Name, Age, Gender, Email, Password, Blood_type, isDisease, Other_Disease, latest_donation_date, dID);
 	donorsList.push_back(reg);
-
+	fileD.donorUpdate(donorsList, dID);
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
-	Donor_page(donorsList.size() - 1, donorsList, Donor_Requests);
+	Donor_page(donorsList.size() - 1, donorsList, Donor_Requests,dID);
 }
-void Donor::Delete_Account(int userIndex, vector<Donor>& donorsList) {
+
+void Donor::Delete_Account(int userIndex, vector<Donor>& donorsList, int dID) {
 	donorsList.erase(next(donorsList.begin(), userIndex));
+	fileD.donorUpdate(donorsList, dID);
 }
