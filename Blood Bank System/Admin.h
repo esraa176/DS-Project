@@ -1,6 +1,6 @@
 #pragma once
 #include "Donor.h"
-#include"Recipient.h"
+#include "Recipient.h"
 #include <vector>
 #include <string>
 #include "User.h"
@@ -17,15 +17,14 @@ public:
 	Admin(string, int, char, string, string, int&);
 	Admin();
 	void Admin_page(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int&);
-	void validateRequests(vector <Donor>&, queue <int>&,int&);
-	void Display_requests(vector <Donor>&, queue <int>&,int&);
-	void Admin_Register(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int&);
+	void validateRequests(vector <Donor>&, queue <int>&, int&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
+	void Display_requests(vector <Donor>&, queue <int>&, int&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
+	void Admin_Register(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&);
 	void insertUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int&);
 	void deleteUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
 	void updateUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
 	void insertBlood(queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
-	void deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB);
-	void updateBlood();
+	void deleteBlood(queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
 	void displayData(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, char);
 	void Current_Date();
 	void Set_DonationDate(vector <Donor>&, int);
