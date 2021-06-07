@@ -534,7 +534,8 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 
 	c_date.year = 1900 + newtime.tm_year;
 
-	for (int i = 0; i < dataA.size(); i++) {
+	int sizeA = dataA.size();
+	for (int i = 0; i < sizeA; i++) {
 		Blood a = dataA.front();
 		dataA.pop();
 		fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
@@ -542,11 +543,12 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 		int dateNow = c_date.day + (c_date.month * 30) + (c_date.year * 30 * 12);
 		int ExpiredDate = a.expiry.tm_mday + (a.expiry.tm_mon * 30) + (a.expiry.tm_year * 30 * 12);
 		if (ExpiredDate > dateNow) {
-			dataB.push(a);
+			dataA.push(a);
 			fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 	}
-	for (int i = 0; i < dataB.size(); i++) {
+	int sizeB = dataB.size();
+	for (int i = 0; i < sizeB; i++) {
 		Blood b = dataB.front();
 		dataB.pop();
 		fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
@@ -558,8 +560,8 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 			fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 	}
-
-	for (int i = 0; i < dataO.size(); i++) {
+	int sizeO = dataO.size();
+	for (int i = 0; i < sizeO; i++) {
 		Blood o = dataO.front();
 		dataO.pop();
 		fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
@@ -567,11 +569,12 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 		int dateNow = c_date.day + (c_date.month * 30) + (c_date.year * 30 * 12);
 		int ExpiredDate = o.expiry.tm_mday + (o.expiry.tm_mon * 30) + (o.expiry.tm_year * 30 * 12);
 		if (ExpiredDate > dateNow) {
-			dataB.push(o);
+			dataO.push(o);
 			fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 	}
-	for (int i = 0; i < dataAB.size(); i++) {
+	int sizeAB = dataAB.size();
+	for (int i = 0; i < sizeAB; i++) {
 		Blood ab = dataAB.front();
 		dataAB.pop();
 		fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
@@ -579,10 +582,11 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 		int dateNow = c_date.day + (c_date.month * 30) + (c_date.year * 30 * 12);
 		int ExpiredDate = ab.expiry.tm_mday + (ab.expiry.tm_mon * 30) + (ab.expiry.tm_year * 30 * 12);
 		if (ExpiredDate > dateNow) {
-			dataB.push(ab);
+			dataAB.push(ab);
 			fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 	}
+}
 }
 void Admin::updateBlood()
 {
