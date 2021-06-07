@@ -40,11 +40,11 @@ void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& D
 			//call donation req
 			break;
 		case 2:
-			Update_Data(userIndex, donorsList,dID);
+			Update_Data(userIndex, donorsList, dID);
 			//call up data
 			break;
 		case 3:
-			Delete_Account(userIndex, donorsList,dID);
+			Delete_Account(userIndex, donorsList, dID);
 			cout << "You have successfully Deleted your Account!\n";
 			//call deleteacc
 			break;
@@ -55,9 +55,12 @@ void Donor::Donor_page(int userIndex, vector <Donor>& donorsList, queue <int>& D
 			cout << "Invalid Choice\n";
 
 		}
-
-		cout << "Do you want to continue? (y/n)" << endl;
-		cin >> ch;
+		if (choice != 3) {
+			cout << "Do you want to continue? (y/n)" << endl;
+			cin >> ch;
+		}
+		else
+			break;
 	} while (ch == 'y' || ch == 'Y');
 }
 void Donor::Donation_Request(int userIndex, vector <Donor>& donorsList, queue<int>& Donor_Requests)
@@ -66,7 +69,7 @@ void Donor::Donation_Request(int userIndex, vector <Donor>& donorsList, queue<in
 	cout << "You Successfully Made a Donation Request!\n";
 	fileD.requestsUpdate(Donor_Requests);
 }
-void Donor::Update_Data(int userIndex, vector <Donor>& donorsList,int dID)
+void Donor::Update_Data(int userIndex, vector <Donor>& donorsList, int dID)
 {
 	int choice, New_age;
 	string pass;
@@ -151,7 +154,7 @@ void Donor::Donor_Registeration(vector <Donor>& donorsList, queue<int>& Donor_Re
 	donorsList.push_back(reg);
 	fileD.donorUpdate(donorsList, dID);
 	cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
-	Donor_page(donorsList.size() - 1, donorsList, Donor_Requests,dID);
+	Donor_page(donorsList.size() - 1, donorsList, Donor_Requests, dID);
 }
 
 void Donor::Delete_Account(int userIndex, vector<Donor>& donorsList, int dID) {
