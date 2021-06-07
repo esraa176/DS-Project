@@ -17,13 +17,13 @@ public:
 	Admin(string, int, char, string, string, int&);
 	Admin();
 	void Admin_page(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int&);
-	void validateRequests(vector <Donor>&, queue <int>&);
-	void Display_requests(vector <Donor>&, queue <int>&);
+	void validateRequests(vector <Donor>&, queue <int>&,int&);
+	void Display_requests(vector <Donor>&, queue <int>&,int&);
 	void Admin_Register(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int&);
 	void insertUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&, queue<int>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&, int&, int&, int&);
 	void deleteUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
 	void updateUser(vector <Admin>&, vector <Donor>&, vector <Recipient>&);
-	void insertBlood(queue<Blood>& , queue<Blood>& , queue<Blood>& , queue<Blood>& );
+	void insertBlood(queue<Blood>&, queue<Blood>&, queue<Blood>&, queue<Blood>&);
 	void deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& dataO, queue<Blood>& dataAB);
 	void updateBlood();
 	void displayData(int, vector <Admin>&, vector <Donor>&, vector <Recipient>&, char);
