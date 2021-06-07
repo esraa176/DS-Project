@@ -8,16 +8,16 @@ fstream typeB("Blood Type-B.txt", ios::in | ios::out | ios::app);
 fstream typeO("Blood Type-O.txt", ios::in | ios::out | ios::app);
 fstream typeAB("Blood Type-AB.txt", ios::in | ios::out | ios::app);
 
-void Files::Update_Files(vector <Admin> &adminsList, vector <Recipient> &recipientsList, vector <Donor> &donorsList, queue <Blood> &dataA, queue <Blood> &dataB, queue <Blood> &dataO, queue <Blood>&dataAB, queue <int>& Donor_Requests, int&aID, int& rID, int &dID)
+void Files::Update_Files(vector <Admin> &adminsList, vector <Recipient> &recipientsList, vector <Donor> &donorsList, queue <Blood> &dataA, queue <Blood> &dataB, queue <Blood> &dataO, queue <Blood>&dataAB, queue <int>& Donor_Requests)
 {
-	adminUpdate(adminsList, aID);
-	resipientUpdate(recipientsList, rID);
-	donorUpdate(donorsList, dID);
+	adminUpdate(adminsList);
+	recipientUpdate(recipientsList);
+	donorUpdate(donorsList);
 	bloodUpdate(dataA, dataB, dataO, dataAB);
 	requestsUpdate(Donor_Requests);
 }
 
-void Files::adminUpdate(vector <Admin>& adminsList, int& aID)
+void Files::adminUpdate(vector <Admin>& adminsList)
 {
 	adminsFile.open("admins.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < adminsList.size(); i++)
@@ -27,7 +27,7 @@ void Files::adminUpdate(vector <Admin>& adminsList, int& aID)
 	}
 	adminsFile.close();
 }
-void Files::resipientUpdate(vector <Recipient>& recipientsList, int& rID)
+void Files::recipientUpdate(vector <Recipient>& recipientsList)
 {
 	recipientsFile.open("recipients.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < recipientsList.size(); i++)
@@ -38,15 +38,15 @@ void Files::resipientUpdate(vector <Recipient>& recipientsList, int& rID)
 	}
 	recipientsFile.close();
 }
-void Files::donorUpdate(vector <Donor>& donorsList, int& dID)
+void Files::donorUpdate(vector <Donor>& donorsList)
 {
 	donorsFile.open("donors.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < donorsList.size(); i++)
 	{
 		donorsFile << donorsList[i].ID << " " << donorsList[i].Name << " " << donorsList[i].Age << " " << donorsList[i].Gender << " ";
 		donorsFile << donorsList[i].Email << " " << donorsList[i].Password << " " << donorsList[i].Blood_type << " " << donorsList[i].isDisease << " " << donorsList[i].Other_Disease << " ";
-		donorsFile << donorsList[i].Latest_Donation_Date.day << " " << donorsList[i].Latest_Donation_Date.month << " " << donorsList[i].Latest_Donation_Date.year<<" " ;
-		donorsFile << donorsList[i].Nxt_Donation_Date.day << " " << donorsList[i].Nxt_Donation_Date.month << " " << donorsList[i].Nxt_Donation_Date.year<< endl;
+		donorsFile << donorsList[i].Latest_Donation_Date.day << " " << donorsList[i].Latest_Donation_Date.month << " " << donorsList[i].Latest_Donation_Date.year << " ";
+		donorsFile << donorsList[i].Nxt_Donation_Date.day << " " << donorsList[i].Nxt_Donation_Date.month << " " << donorsList[i].Nxt_Donation_Date.year << endl;
 	}
 	donorsFile.close();
 }
@@ -134,7 +134,7 @@ void Files::Intialize_Vectors_Queues(vector <Admin> &adminsList, vector <Recipie
 	recipientsFile.close();
 
 	Donor d;
-	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease >> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year>> d.Nxt_Donation_Date.day>>d.Nxt_Donation_Date.month>>d.Nxt_Donation_Date.year)
+	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease >> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year >> d.Nxt_Donation_Date.day >> d.Nxt_Donation_Date.month >> d.Nxt_Donation_Date.year)
 	{
 		donorsList.push_back(d);
 		dID = d.ID;
