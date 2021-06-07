@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include<queue>
+#include <queue>
 #include <ctime>
 #include "User.h"
 using namespace std;
@@ -23,9 +23,9 @@ public:
 	Donor();
 	Donor(string, int, char, string, string, string, bool, bool, Date, int&);
 	void Donation_Request(int, vector<Donor>&, queue<int>&);
-	void Update_Data(int, vector<Donor>&,int);
-	void Delete_Account(int, vector<Donor>&, int);
-	void Donor_page(int, vector<Donor>&, queue<int>&, int dID);
+	void Update_Data(int, vector<Donor>&);
+	void Delete_Account(int, vector<Donor>&);
+	void Donor_page(int, vector<Donor>&, queue<int>&, int& dID);
 	void Donor_Registeration(vector<Donor>&, queue<int>&, int&);
 
 };
