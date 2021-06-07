@@ -334,7 +334,7 @@ void expiredBlood()
 		}
 		else if (current_date.tm_year > dataO._Get_container()[i].expiry.tm_year)
 		{
-			dataA.pop();
+			dataO.pop();
 		}
 		else
 		{
@@ -343,5 +343,5 @@ void expiredBlood()
 
 	}
 
-	file.bloodUpdate(dataA, dataB, dataAB, dataO);
+	file.bloodUpdate(dataA, dataB, dataO, dataAB);
 }
