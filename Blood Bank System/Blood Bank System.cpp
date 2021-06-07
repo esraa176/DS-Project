@@ -4,8 +4,6 @@
 #include <vector>
 #include <queue>
 #include <ctime>
-//#include "ArrList.cpp"
-//#include "QueueArr.cpp"
 #include "Admin.h"
 #include "Donor.h"
 #include "Recipient.h"
@@ -14,16 +12,14 @@
 
 using namespace std;
 
-
 Files file;
-//vector<User> user;
 vector <Admin> adminsList;
 vector <Recipient> recipientsList;
 vector <Donor> donorsList;
 queue <Blood> dataA, dataB, dataO, dataAB;
 queue <int> Donor_Requests;
 
-
+Date cdate;
 int quantityA = 0, quantityB = 0, quantityC = 0, aID = -1, rID = -1, dID = -1;
 
 void welcome_page();
@@ -42,7 +38,7 @@ int main()
 	welcome_page();
 
 	//Last thing in the program is to update all the files with the new data from the Array Lists.
-	file.Update_Files(adminsList, recipientsList, donorsList, dataA, dataB, dataO, dataAB, Donor_Requests, aID, rID, dID);
+	file.Update_Files(adminsList, recipientsList, donorsList, dataA, dataB, dataO, dataAB, Donor_Requests);
 
 	return 0;
 }
@@ -150,6 +146,8 @@ void Registeration_Page()
 		{
 			Donor reg;
 			reg.Donor_Registeration(donorsList, Donor_Requests, dID);
+			cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
+			reg.Donor_page(donorsList.size() - 1, donorsList, Donor_Requests, dID);
 			break;
 		}
 		else if (User_choice == 2)
@@ -157,13 +155,26 @@ void Registeration_Page()
 			//recipient account creation
 			Recipient reg;
 			reg.Recipient_Registeration_Page(recipientsList, dataA, dataB, dataO, dataAB, rID);
-			welcome_page();
+			cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
+			char recp_2nd_choice;
+			cout << "Do you want to make any progress? ";
+			cin >> recp_2nd_choice;
+			if (recp_2nd_choice == 'Y' || recp_2nd_choice == 'y')
+			{
+				reg.Recipient_page(recipientsList.size() - 1, recipientsList, dataA, dataB, dataO, dataAB, rID);
+			}
+			else 
+			{
+				cout << "Thank you for choosing our system!";
+			}
 			break;
 		}
 		else if (User_choice == 3)
 		{
 			Admin reg;
-			reg.Admin_Register(adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID, rID, dID);
+			reg.Admin_Register(adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID);
+			cout << "\t\t\t\t REGISTERATION SUCCESSFUL! \n\t\t Welcome to Our Blood Bank Management System!\n";
+			reg.Admin_page(adminsList.size() - 1, adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID, rID, dID);
 			break;
 		}
 		else
@@ -180,168 +191,77 @@ void expiredBlood()
 	tm newtime;
 	time_t now = time(0);
 	localtime_s(&newtime, &now);
-	tm current_date;
-	current_date.tm_mday = newtime.tm_mday;
+	cdate.day = newtime.tm_mday;
 
-	current_date.tm_mon = 1 + newtime.tm_mon;
+	cdate.month = 1 + newtime.tm_mon;
 
-	current_date.tm_year = 1900 + newtime.tm_year;
+	cdate.year = 1900 + newtime.tm_year;
 
-	//pop type A expired blood
-	for (int i = 0; i < dataA.size(); i++)
+	int sizeA = dataA.size();
+	for (int i = 0; i < sizeA; i++)
 	{
-		if (dataA._Get_container()[i].expiry.tm_mon == 12)
-		{
-			if (current_date.tm_mon == 1)
-			{
-				if (current_date.tm_mday > dataA._Get_container()[i].expiry.tm_mday)
-				{
-					dataA.pop();
-				}
-			}
-			else if (current_date.tm_mon > 1 && current_date.tm_mon != 12)
-			{
-				dataA.pop();
-			}
-		}
-		else if (current_date.tm_mon > dataA._Get_container()[i].expiry.tm_mon)
+		Blood a = dataA.front();
+		bool expired = true;
+		int dateNow = cdate.day + (cdate.month * 30) + (cdate.year * 30 * 12);
+		int ExpiredDate = a.expiry.tm_mday + (a.expiry.tm_mon * 30) + (a.expiry.tm_year * 30 * 12);
+		if (ExpiredDate < dateNow)
 		{
 			dataA.pop();
-		}
-		else if (current_date.tm_mon == dataA._Get_container()[i].expiry.tm_mon)
-		{
-			if (current_date.tm_mday >= dataA._Get_container()[i].expiry.tm_mday)
-			{
-				dataA.pop();
-			}
-		}
-		else if (current_date.tm_year > dataA._Get_container()[i].expiry.tm_year)
-		{
-			dataA.pop();
+			file.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 		else
 		{
 			break;
 		}
-
 	}
-
-	//pop type B expired blood
-	for (int i = 0; i < dataB.size(); i++)
+	int sizeB = dataB.size();
+	for (int i = 0; i < sizeB; i++)
 	{
-		if (dataB._Get_container()[i].expiry.tm_mon == 12)
-		{
-			if (current_date.tm_mon == 1)
-			{
-				if (current_date.tm_mday > dataB._Get_container()[i].expiry.tm_mday)
-				{
-					dataB.pop();
-				}
-			}
-			else if (current_date.tm_mon > 1 && current_date.tm_mon != 12)
-			{
-				dataB.pop();
-			}
-		}
-		else if (current_date.tm_mon > dataB._Get_container()[i].expiry.tm_mon)
+		Blood b = dataB.front();
+		bool expired = true;
+		int dateNow = cdate.day + (cdate.month * 30) + (cdate.year * 30 * 12);
+		int ExpiredDate = b.expiry.tm_mday + (b.expiry.tm_mon * 30) + (b.expiry.tm_year * 30 * 12);
+		if (ExpiredDate < dateNow)
 		{
 			dataB.pop();
-		}
-		else if (current_date.tm_mon == dataB._Get_container()[i].expiry.tm_mon)
-		{
-			if (current_date.tm_mday >= dataB._Get_container()[i].expiry.tm_mday)
-			{
-				dataB.pop();
-			}
-		}
-		else if (current_date.tm_year > dataB._Get_container()[i].expiry.tm_year)
-		{
-			dataB.pop();
+			file.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 		else
 		{
 			break;
 		}
-
 	}
-
-	//pop type AB expired blood
-	for (int i = 0; i < dataAB.size(); i++)
+	int sizeO = dataO.size();
+	for (int i = 0; i < sizeO; i++)
 	{
-		if (dataAB._Get_container()[i].expiry.tm_mon == 12)
-		{
-			if (current_date.tm_mon == 1)
-			{
-				if (current_date.tm_mday > dataAB._Get_container()[i].expiry.tm_mday)
-				{
-					dataAB.pop();
-				}
-			}
-			else if (current_date.tm_mon > 1 && current_date.tm_mon != 12)
-			{
-				dataAB.pop();
-			}
+		Blood o = dataO.front();
+		bool expired = true;
+		int dateNow = cdate.day + (cdate.month * 30) + (cdate.year * 30 * 12);
+		int ExpiredDate = o.expiry.tm_mday + (o.expiry.tm_mon * 30) + (o.expiry.tm_year * 30 * 12);
+		if (ExpiredDate < dateNow) {
+			dataO.pop();
+			file.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
-		else if (current_date.tm_mon > dataAB._Get_container()[i].expiry.tm_mon)
+		else
+		{
+			break;
+		}
+	}
+	int sizeAB = dataAB.size();
+	for (int i = 0; i < sizeAB; i++)
+	{
+		Blood ab = dataAB.front();
+		bool expired = true;
+		int dateNow = cdate.day + (cdate.month * 30) + (cdate.year * 30 * 12);
+		int ExpiredDate = ab.expiry.tm_mday + (ab.expiry.tm_mon * 30) + (ab.expiry.tm_year * 30 * 12);
+		if (ExpiredDate < dateNow)
 		{
 			dataAB.pop();
-		}
-		else if (current_date.tm_mon == dataAB._Get_container()[i].expiry.tm_mon)
-		{
-			if (current_date.tm_mday >= dataAB._Get_container()[i].expiry.tm_mday)
-			{
-				dataAB.pop();
-			}
-		}
-		else if (current_date.tm_year > dataAB._Get_container()[i].expiry.tm_year)
-		{
-			dataAB.pop();
+			file.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 		else
 		{
 			break;
 		}
-
 	}
-
-	//pop type O expired blood
-	for (int i = 0; i < dataO.size(); i++)
-	{
-		if (dataO._Get_container()[i].expiry.tm_mon == 12)
-		{
-			if (current_date.tm_mon == 1)
-			{
-				if (current_date.tm_mday > dataO._Get_container()[i].expiry.tm_mday)
-				{
-					dataO.pop();
-				}
-			}
-			else if (current_date.tm_mon > 1 && current_date.tm_mon != 12)
-			{
-				dataO.pop();
-			}
-		}
-		else if (current_date.tm_mon > dataO._Get_container()[i].expiry.tm_mon)
-		{
-			dataO.pop();
-		}
-		else if (current_date.tm_mon == dataO._Get_container()[i].expiry.tm_mon)
-		{
-			if (current_date.tm_mday >= dataO._Get_container()[i].expiry.tm_mday)
-			{
-				dataO.pop();
-			}
-		}
-		else if (current_date.tm_year > dataO._Get_container()[i].expiry.tm_year)
-		{
-			dataO.pop();
-		}
-		else
-		{
-			break;
-		}
-
-	}
-
-	file.bloodUpdate(dataA, dataB, dataO, dataAB);
 }
