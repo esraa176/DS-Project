@@ -11,6 +11,7 @@
 using namespace std;
 
 Files fileA;
+Files fileRD;
 Date c_date;
 
 Admin::Admin()
@@ -34,126 +35,126 @@ void Admin::Admin_page(int userIndex, vector <Admin>& adminsList, vector <Donor>
 		cout << "\t\t Enter 5 to display blood data." << endl;
 		cout << "\t\t Enter 6 to log out." << endl;
 		int choice;
-		
-		
-			cin >> choice;
-			if (choice == 1)
+
+
+		cin >> choice;
+		if (choice == 1)
+		{
+			Display_requests(donorsList, Donor_Requests,dID);
+			continue;
+		}
+		else if (choice == 2)
+		{
+			while (true)
 			{
-				Display_requests(donorsList, Donor_Requests);
-				continue;
-			}
-			else if (choice == 2)
-			{
-				while (true)
+				cout << "Enter the number of your choice:" << endl;
+				cout << "1-Insert" << endl;
+				cout << "2-Update" << endl;
+				cout << "3-Delete" << endl;
+				int choice2;
+				cin >> choice2;
+				if (choice2 == 1)
 				{
-					cout << "Enter the number of your choice:" << endl;
-					cout << "1-Insert" << endl;
-					cout << "2-Update" << endl;
-					cout << "3-Delete" << endl;
-					int choice2;
-					cin >> choice2;
-					if (choice2 == 1)
-					{
-						insertBlood(dataA, dataB, dataO, dataAB);
-						break;
-					}
-					else if (choice2 == 2)
-					{
-						updateBlood();
-						break;
-					}
-					else if (choice2 == 3)
-					{
-						deleteBlood(dataA, dataB, dataO, dataAB);
-						break;
-					}
-					else
-					{
-						cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
-						cin >> choice2;
-					}
+					insertBlood(dataA, dataB, dataO, dataAB);
+					break;
 				}
-				continue;
-
-			}
-
-			else if (choice == 3)
-			{
-				while (true)
+				else if (choice2 == 2)
 				{
-					cout << "Enter the number of your choice:" << endl;
-					cout << "1-Insert" << endl;
-					cout << "2-Update" << endl;
-					cout << "3-Delete" << endl;
-					int choice2;
-					cin >> choice2;
-					if (choice2 == 1)
-					{
-						insertUser(adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID, rID, dID);
-						break;
-					}
-					else if (choice2 == 2)
-					{
-						updateUser(adminsList, donorsList, recipientsList);
-						break;
-					}
-					else if (choice2 == 3)
-					{
-						deleteUser(adminsList, donorsList, recipientsList);
-						break;
-					}
-					else
-					{
-						cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
-						cin >> choice2;
-					}
+					updateBlood();
+					break;
 				}
-				continue;
-			}
-			else if (choice == 4)
-			{
-				do
+				else if (choice2 == 3)
 				{
-					cout << "Please enter user ID and their type (Admin, Donor or Recipient)\n";
-					int id, userIndex; string userType; char user;
-					cin >> id >> userType;
-					for_each(userType.begin(), userType.end(), [](char & c) {
-						c = ::tolower(c);
-					});
-					if (userType == "admin")
-						user = 'a';
-					else if (userType == "donor")
-						user = 'd';
-					else
-						user = 'r';
+					deleteBlood(dataA, dataB, dataO, dataAB);
+					break;
+				}
+				else
+				{
+					cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
+					cin >> choice2;
+				}
+			}
+			continue;
 
-					userIndex = searchForUser(id, adminsList, donorsList, recipientsList, user);
-					if (userIndex == -1)
-						cout << "Invalid ID or user type. Try again.\n";
-					else
-					{
-						displayData(userIndex, adminsList, donorsList, recipientsList, user);
-						break;
-					}
-				} while (true);
+		}
 
-				continue;
-			}
-			else if (choice == 5)
+		else if (choice == 3)
+		{
+			while (true)
 			{
-				displayBloodData(dataA, dataB, dataO, dataAB);
-				continue;
+				cout << "Enter the number of your choice:" << endl;
+				cout << "1-Insert" << endl;
+				cout << "2-Update" << endl;
+				cout << "3-Delete" << endl;
+				int choice2;
+				cin >> choice2;
+				if (choice2 == 1)
+				{
+					insertUser(adminsList, donorsList, recipientsList, Donor_Requests, dataA, dataB, dataO, dataAB, aID, rID, dID);
+					break;
+				}
+				else if (choice2 == 2)
+				{
+					updateUser(adminsList, donorsList, recipientsList);
+					break;
+				}
+				else if (choice2 == 3)
+				{
+					deleteUser(adminsList, donorsList, recipientsList);
+					break;
+				}
+				else
+				{
+					cout << "Invalid Choice, Please Enter a number(1, 2 or 3)\n";
+					cin >> choice2;
+				}
 			}
-			else if (choice == 6)
+			continue;
+		}
+		else if (choice == 4)
+		{
+			do
 			{
-				break;
-			}
-			else
-			{
-				cout << "Invalid Choice, Please Enter a number(1, 2, 3 or 4)\n";
-			}
+				cout << "Please enter user ID and their type (Admin, Donor or Recipient)\n";
+				int id, userIndex; string userType; char user;
+				cin >> id >> userType;
+				for_each(userType.begin(), userType.end(), [](char & c) {
+					c = ::tolower(c);
+				});
+				if (userType == "admin")
+					user = 'a';
+				else if (userType == "donor")
+					user = 'd';
+				else
+					user = 'r';
 
-		
+				userIndex = searchForUser(id, adminsList, donorsList, recipientsList, user);
+				if (userIndex == -1)
+					cout << "Invalid ID or user type. Try again.\n";
+				else
+				{
+					displayData(userIndex, adminsList, donorsList, recipientsList, user);
+					break;
+				}
+			} while (true);
+
+			continue;
+		}
+		else if (choice == 5)
+		{
+			displayBloodData(dataA, dataB, dataO, dataAB);
+			continue;
+		}
+		else if (choice == 6)
+		{
+			break;
+		}
+		else
+		{
+			cout << "Invalid Choice, Please Enter a number(1, 2, 3 or 4)\n";
+		}
+
+
 	}
 }
 
@@ -485,12 +486,12 @@ void Admin::insertBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 	cout << "2-B" << endl;
 	cout << "3-AB" << endl;
 	cout << "4-O" << endl;
-    cin >> choice;
-	int numOfBags,index;
+	cin >> choice;
+	int numOfBags, index;
 	cout << "Enter the number of bags you want to insert: "; cin >> numOfBags;
 	Blood blood;
-	
-	if(choice==1)
+
+	if (choice == 1)
 	{
 		for (int i = 0; i < numOfBags; i++)
 		{
@@ -532,12 +533,12 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 	c_date.month = 1 + newtime.tm_mon;
 
 	c_date.year = 1900 + newtime.tm_year;
-	
+
 	for (int i = 0; i < dataA.size(); i++) {
 		Blood a = dataA.front();
 		dataA.pop();
 		bool expired = true;
-		if (a.expiry.tm_year >= c_date.year) 
+		if (a.expiry.tm_year >= c_date.year)
 		{
 			if (a.expiry.tm_mon >= c_date.month)
 			{
@@ -575,7 +576,7 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 
 		}
 	}
-	
+
 	for (int i = 0; i < dataO.size(); i++) {
 		Blood o = dataO.front();
 		dataO.pop();
@@ -649,25 +650,26 @@ void Admin::Set_Nxt_DonationDate(vector <Donor>& donorsList, int userIndx)
 	if (donorsList[userIndx].Nxt_Donation_Date.month == 12)
 	{
 		donorsList[userIndx].Nxt_Donation_Date.month = 3;
-		++donorsList[userIndx].Nxt_Donation_Date.year;
+		donorsList[userIndx].Nxt_Donation_Date.year = donorsList[userIndx].Latest_Donation_Date.year++;
 
 	}
 	else if (donorsList[userIndx].Nxt_Donation_Date.month == 11)
 	{
 
 		donorsList[userIndx].Nxt_Donation_Date.month = 2;
-		++donorsList[userIndx].Nxt_Donation_Date.year;
+		donorsList[userIndx].Nxt_Donation_Date.year = donorsList[userIndx].Latest_Donation_Date.year++;
 	}
 	else if (donorsList[userIndx].Nxt_Donation_Date.month == 10)
 	{
 		donorsList[userIndx].Nxt_Donation_Date.month = 1;
-		++donorsList[userIndx].Nxt_Donation_Date.year;
+		donorsList[userIndx].Nxt_Donation_Date.year=donorsList[userIndx].Latest_Donation_Date.year++;
 	}
 	else
 	{
-		donorsList[userIndx].Nxt_Donation_Date.month += 3;
+		donorsList[userIndx].Nxt_Donation_Date.month = donorsList[userIndx].Latest_Donation_Date.month + 3;
+		donorsList[userIndx].Nxt_Donation_Date.year = donorsList[userIndx].Latest_Donation_Date.year;
 	}
-
+	donorsList[userIndx].Nxt_Donation_Date.day = donorsList[userIndx].Latest_Donation_Date.day;
 }
 bool Admin::comparingDates(vector <Donor>& donorsList, int userIndx)
 {
@@ -676,14 +678,14 @@ bool Admin::comparingDates(vector <Donor>& donorsList, int userIndx)
 	int date2 = donorsList[userIndx].Nxt_Donation_Date.day + (donorsList[userIndx].Nxt_Donation_Date.month * 30) + (donorsList[userIndx].Nxt_Donation_Date.year * 30 * 12);
 	if (date2 < date1)
 	{
-		return 0;
+		return 1;
 	}
 	else
 	{
-		return 1;
+		return 0;
 	}
 }
-void Admin::validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requests)
+void Admin::validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requests,int& dID)
 {
 	int indx;
 	char ch;
@@ -703,13 +705,14 @@ void Admin::validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 					break;
 				}
 			}
-			if (donorsList[indx].Age >= 17 && donorsList[indx].Age <= 60 && donorsList[indx].isDisease == false && donorsList[indx].Other_Disease == false)
+			if (donorsList[indx].Age >= 17 && donorsList[indx].Age <= 60 && donorsList[indx].isDisease == false)
 			{
 				Current_Date();
 				bool flag = comparingDates(donorsList, indx);
-				if (flag == 1 || donorsList[indx].Nxt_Donation_Date.year == 0) {
+				if (flag == 1) {
 
 					Set_DonationDate(donorsList, indx);
+					Set_Nxt_DonationDate(donorsList, indx);
 					donorsList[indx].Validated_Donor = true;
 				}
 
@@ -718,14 +721,15 @@ void Admin::validateRequests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 			{
 				donorsList[indx].Validated_Donor = false;
 			}
-
+			fileRD.donorUpdate(donorsList, dID);
 			Donor_Requests.pop();
+			fileRD.requestsUpdate(Donor_Requests);
 		}
 		cout << "All requests are successfully validated!" << endl;
 	}
 
 }
-void Admin::Display_requests(vector <Donor>& donorsList, queue <int>& Donor_Requests)
+void Admin::Display_requests(vector <Donor>& donorsList, queue <int>& Donor_Requests,int& dID)
 {
 	if (Donor_Requests.size() == 0)
 	{
@@ -741,21 +745,34 @@ void Admin::Display_requests(vector <Donor>& donorsList, queue <int>& Donor_Requ
 			{
 				if (Donor_Requests._Get_container()[i] == donorsList[j].ID)
 				{
-					if (donorsList[j].isDisease == false)
+					if (donorsList[j].isDisease == false && (donorsList[j].Age >= 17 && donorsList[j].Age <= 60))
 					{
-						cout << "Donor's ID : " << donorsList[j].ID << "\t" << "The User satisfies Donation rules\n";
+						Current_Date();
+						bool flag = comparingDates(donorsList, j);
+						if (flag == 1) {
+							cout << "Donor's ID : " << donorsList[j].ID << "\t" << "The User satisfies Donation rules \n";
+							break;
+						}
+						else {
+							cout << "Donor's ID : " << donorsList[j].ID << "\t" << "The User Doesn't satisfy Donation Date rules \n";
+							break;
+						}
+					}
+					else if(donorsList[j].isDisease == true)
+					{
+						cout << "Donor's ID : " << donorsList[j].ID << "\t" << "The User Doesn't satisfy Disease rules\n";
 						break;
 					}
-					else
-					{
-						cout << "Donor's ID : " << donorsList[j].ID << "\t" << "The User Doesn't satisfy Donation rules\n";
+					else if (donorsList[j].Age < 17 || donorsList[j].Age > 60) {
+						cout << "Donor's ID : " << donorsList[j].ID << "\t" << "The User Doesn't satisfy Age rules\n";
 						break;
 					}
+	
 				}
 
 			}
 		}
-		validateRequests(donorsList, Donor_Requests);
+		validateRequests(donorsList, Donor_Requests,dID);
 
 	}
 
