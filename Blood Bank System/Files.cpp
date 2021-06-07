@@ -45,7 +45,8 @@ void Files::donorUpdate(vector <Donor>& donorsList, int& dID)
 	{
 		donorsFile << donorsList[i].ID << " " << donorsList[i].Name << " " << donorsList[i].Age << " " << donorsList[i].Gender << " ";
 		donorsFile << donorsList[i].Email << " " << donorsList[i].Password << " " << donorsList[i].Blood_type << " " << donorsList[i].isDisease << " " << donorsList[i].Other_Disease << " ";
-		donorsFile << donorsList[i].Latest_Donation_Date.day << " " << donorsList[i].Latest_Donation_Date.month << " " << donorsList[i].Latest_Donation_Date.year << endl;
+		donorsFile << donorsList[i].Latest_Donation_Date.day << " " << donorsList[i].Latest_Donation_Date.month << " " << donorsList[i].Latest_Donation_Date.year<<" " ;
+		donorsFile << donorsList[i].Nxt_Donation_Date.day << " " << donorsList[i].Nxt_Donation_Date.month << " " << donorsList[i].Nxt_Donation_Date.year<< endl;
 	}
 	donorsFile.close();
 }
@@ -54,7 +55,7 @@ void Files::bloodUpdate(queue <Blood>& dataA, queue <Blood>& dataB, queue <Blood
 	typeA.open("Blood Type-A.txt", ofstream::out | ofstream::trunc);
 	for (int i = 0; i < dataA.size(); i++)
 	{
-		
+
 		typeA << dataA._Get_container()[i].received.tm_mday << " " << dataA._Get_container()[i].received.tm_mon << " ";
 		typeA << dataA._Get_container()[i].received.tm_year << " ";
 		typeA << dataA._Get_container()[i].expiry.tm_mday << " ";
@@ -69,7 +70,7 @@ void Files::bloodUpdate(queue <Blood>& dataA, queue <Blood>& dataB, queue <Blood
 		typeB << dataB._Get_container()[i].received.tm_year << " ";
 		typeB << dataB._Get_container()[i].expiry.tm_mday << " ";
 		typeB << dataB._Get_container()[i].expiry.tm_mon << " " << dataB._Get_container()[i].expiry.tm_year << endl;
-		
+
 	}
 	typeB.close();
 
@@ -80,7 +81,7 @@ void Files::bloodUpdate(queue <Blood>& dataA, queue <Blood>& dataB, queue <Blood
 		typeO << dataO._Get_container()[i].received.tm_year << " ";
 		typeO << " " << dataO._Get_container()[i].expiry.tm_mday << " ";
 		typeO << dataO._Get_container()[i].expiry.tm_mon << " " << dataO._Get_container()[i].expiry.tm_year << endl;
-		
+
 	}
 	typeO.close();
 
@@ -91,7 +92,7 @@ void Files::bloodUpdate(queue <Blood>& dataA, queue <Blood>& dataB, queue <Blood
 		typeAB << dataAB._Get_container()[i].received.tm_year << " ";
 		typeAB << dataAB._Get_container()[i].expiry.tm_mday << " ";
 		typeAB << dataAB._Get_container()[i].expiry.tm_mon << " " << dataAB._Get_container()[i].expiry.tm_year << endl;
-		
+
 	}
 	typeAB.close();
 }
@@ -133,7 +134,7 @@ void Files::Intialize_Vectors_Queues(vector <Admin> &adminsList, vector <Recipie
 	recipientsFile.close();
 
 	Donor d;
-	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease >> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year)
+	while (donorsFile >> d.ID >> d.Name >> d.Age >> d.Gender >> d.Email >> d.Password >> d.Blood_type >> d.isDisease >> d.Other_Disease >> d.Latest_Donation_Date.day >> d.Latest_Donation_Date.month >> d.Latest_Donation_Date.year>> d.Nxt_Donation_Date.day>>d.Nxt_Donation_Date.month>>d.Nxt_Donation_Date.year)
 	{
 		donorsList.push_back(d);
 		dID = d.ID;
@@ -154,13 +155,13 @@ void Files::Intialize_Vectors_Queues(vector <Admin> &adminsList, vector <Recipie
 	}
 	typeA.close();
 
-	while (typeB >> B.received.tm_mday >> B.received.tm_mon >> B.received.tm_year >> B.expiry.tm_mday >> B.expiry.tm_mon >> B.expiry.tm_year )
+	while (typeB >> B.received.tm_mday >> B.received.tm_mon >> B.received.tm_year >> B.expiry.tm_mday >> B.expiry.tm_mon >> B.expiry.tm_year)
 	{
 		dataB.push(B);
 	}
 	typeB.close();
 
-	while (typeO  >> O.received.tm_mday >> O.received.tm_mon >> O.received.tm_year >> O.expiry.tm_mday >> O.expiry.tm_mon >> O.expiry.tm_year)
+	while (typeO >> O.received.tm_mday >> O.received.tm_mon >> O.received.tm_year >> O.expiry.tm_mday >> O.expiry.tm_mon >> O.expiry.tm_year)
 	{
 		dataO.push(O);
 	}
