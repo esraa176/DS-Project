@@ -111,7 +111,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'R';
-				recipientsList[i].Recipient_page(i, recipientsList, dataA, dataB, dataO, dataAB,rID);
+				recipientsList[i].Recipient_page(i, recipientsList, dataA, dataB, dataO, dataAB, rID);
 				isFound = true;
 				break;
 			}
@@ -122,7 +122,7 @@ void Login_Page()
 			{
 				IndexofUser = i;
 				user_type = 'D';
-				donorsList[i].Donor_page(i, donorsList, Donor_Requests);
+				donorsList[i].Donor_page(i, donorsList, Donor_Requests, dID);
 				isFound = true;
 				break;
 			}
