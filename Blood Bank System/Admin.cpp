@@ -537,89 +537,52 @@ void Admin::deleteBlood(queue<Blood>& dataA, queue<Blood>& dataB, queue<Blood>& 
 	for (int i = 0; i < dataA.size(); i++) {
 		Blood a = dataA.front();
 		dataA.pop();
+		fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		bool expired = true;
-		if (a.expiry.tm_year >= c_date.year)
-		{
-			if (a.expiry.tm_mon >= c_date.month)
-			{
-				if (a.expiry.tm_mday > c_date.day)
-				{
-					dataA.push(a);
-					expired = false;
-				}
-			}
-		}
-		if (expired)
-		{
-			cout << a.expiry.tm_mday << "/" << a.expiry.tm_mon << "/" << a.expiry.tm_year << endl;
-
+		int dateNow = c_date.day + (c_date.month * 30) + (c_date.year * 30 * 12);
+		int ExpiredDate = a.expiry.tm_mday + (a.expiry.tm_mon * 30) + (a.expiry.tm_year * 30 * 12);
+		if (ExpiredDate > dateNow) {
+			dataB.push(a);
+			fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 	}
 	for (int i = 0; i < dataB.size(); i++) {
 		Blood b = dataB.front();
 		dataB.pop();
+		fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		bool expired = true;
-		if (b.expiry.tm_year >= c_date.year)
-		{
-			if (b.expiry.tm_mon >= c_date.month)
-			{
-				if (b.expiry.tm_mday > c_date.day)
-				{
-					dataB.push(b);
-					expired = false;
-				}
-			}
-		}
-		if (expired)
-		{
-			cout << b.expiry.tm_mday << "/" << b.expiry.tm_mon << "/" << b.expiry.tm_year << endl;
-
+		int dateNow = c_date.day + (c_date.month * 30) + (c_date.year * 30 * 12);
+		int ExpiredDate = b.expiry.tm_mday + (b.expiry.tm_mon * 30) + (b.expiry.tm_year * 30 * 12);
+		if(ExpiredDate > dateNow){
+			dataB.push(b);
+			fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 	}
 
 	for (int i = 0; i < dataO.size(); i++) {
 		Blood o = dataO.front();
 		dataO.pop();
+		fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		bool expired = true;
-		if (o.expiry.tm_year >= c_date.year)
-		{
-			if (o.expiry.tm_mon >= c_date.month)
-			{
-				if (o.expiry.tm_mday > c_date.day)
-				{
-					dataO.push(o);
-					expired = false;
-				}
-			}
-		}
-		if (expired)
-		{
-			cout << o.expiry.tm_mday << "/" << o.expiry.tm_mon << "/" << o.expiry.tm_year << endl;
-
+		int dateNow = c_date.day + (c_date.month * 30) + (c_date.year * 30 * 12);
+		int ExpiredDate = o.expiry.tm_mday + (o.expiry.tm_mon * 30) + (o.expiry.tm_year * 30 * 12);
+		if (ExpiredDate > dateNow) {
+			dataB.push(o);
+			fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 	}
 	for (int i = 0; i < dataAB.size(); i++) {
 		Blood ab = dataAB.front();
 		dataAB.pop();
+		fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		bool expired = true;
-		if (ab.expiry.tm_year >= c_date.year)
-		{
-			if (ab.expiry.tm_mon >= c_date.month)
-			{
-				if (ab.expiry.tm_mday > c_date.day)
-				{
-					dataAB.push(ab);
-					expired = false;
-				}
-			}
-		}
-		if (expired)
-		{
-			cout << ab.expiry.tm_mday << "/" << ab.expiry.tm_mon << "/" << ab.expiry.tm_year << endl;
-
+		int dateNow = c_date.day + (c_date.month * 30) + (c_date.year * 30 * 12);
+		int ExpiredDate = ab.expiry.tm_mday + (ab.expiry.tm_mon * 30) + (ab.expiry.tm_year * 30 * 12);
+		if (ExpiredDate > dateNow) {
+			dataB.push(ab);
+			fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 		}
 	}
-	fileA.bloodUpdate(dataA, dataB, dataO, dataAB);
 }
 void Admin::updateBlood()
 {
